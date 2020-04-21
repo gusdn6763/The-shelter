@@ -18,7 +18,6 @@ public class PlayerManager : MovingObject
     public override void Awake()
     {
         base.Awake();
-        playerOrEnemyBulletCheck = true;
     }
 
     public void Update()
@@ -40,14 +39,13 @@ public class PlayerManager : MovingObject
                 //ShowTarget();
                 //순찰 및 추적을 정지
                 //TODO:
-                    weapon.isFire = true;
-                    if (!weapon.isReload && weapon.isFire)
+                    fireCtrl.isFire = true;
+                    if (!fireCtrl.isReload && fireCtrl.isFire)
                     {
-                        if (Time.time >= weapon.nextFire)        //현재 시간이 다음 발사 시간보다 큰지를 확인
+                        if (Time.time >= fireCtrl.nextFire)        //현재 시간이 다음 발사 시간보다 큰지를 확인
                         {
-                            weapon.Fire(playerOrEnemyBulletCheck, transform,add_Damage);
                             animator.SetTrigger("Attack_Rifle");
-                            weapon.nextFire = Time.time + weapon.fireRate + Random.Range(0.0f, 0.3f); //다음 발사 시간 계산
+                            fireCtrl.nextFire = Time.time + fireCtrl.fireRate + Random.Range(0.0f, 0.3f); //다음 발사 시간 계산
                         }
                     }
                 break;

@@ -21,13 +21,8 @@ public class ObjectPoolManager : MonoBehaviour
 
         for (int i = 0; i < weapons.Length; i++)
         {
-            weapons[i] = Instantiate(weapons[i]).GetComponent<Weapon>();
-            weapons[i].InstanceBullet();
-            weapons[i].transform.SetParent(transform);
+            weapons[i] = transform.GetChild(i).GetComponent<Weapon>();
+            weapons[i].InstanceBullet(10);
         }
     }
-
-
-
-
 }
