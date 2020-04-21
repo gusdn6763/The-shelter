@@ -13,11 +13,12 @@ public class PlayerManager : MovingObject
         DIE
     }
 
-    public CharacterStatus playerStatus;                /// joystick 스크립트로 변경
+    public CharacterStatus playerStatus;                
 
     public override void Awake()
     {
         base.Awake();
+        playerOrEnemyBulletCheck = true;
     }
 
     public void Update()
@@ -27,7 +28,7 @@ public class PlayerManager : MovingObject
             case CharacterStatus.NONE:
                 break;
             case CharacterStatus.IDLE:
-                    attack_Delay_Tmp = attack_Delay;
+                    //방안에 몹이 있을시
                     playerStatus = CharacterStatus.ATTACK;
                 animator.SetBool("Move", false);
                 break;
@@ -36,14 +37,19 @@ public class PlayerManager : MovingObject
                 animator.SetBool("Move", true);
                 break;
             case CharacterStatus.ATTACK:
-                ShowTarget();
-                if (attack_Delay >= 0)
-                    attack_Delay_Tmp -= Time.deltaTime;
-                else
-                {
-                    attack_Delay_Tmp = attack_Delay;
-                    animator.SetTrigger("Attack_Rifle");
-                }
+                //ShowTarget();
+                //순찰 및 추적을 정지
+                //TODO:
+                    weapon.isFire = true;
+                    if (!weapon.isReload && weapon.isFire)
+                    {
+                        if (Time.time >= weapon.nextFire)        //현재 시간이 다음 발사 시간보다 큰지를 확인
+                        {
+                            weapon.Fire(playerOrEnemyBulletCheck, transform,add_Damage);
+                            animator.SetTrigger("Attack_Rifle");
+                            weapon.nextFire = Time.time + weapon.fireRate + Random.Range(0.0f, 0.3f); //다음 발사 시간 계산
+                        }
+                    }
                 break;
             case CharacterStatus.DIE:
                 break;

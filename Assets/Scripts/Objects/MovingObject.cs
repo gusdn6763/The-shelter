@@ -2,30 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Animator), typeof(CapsuleCollider2D))]
+[RequireComponent(typeof(Animator), typeof(CapsuleCollider2D),typeof(Weapon))]
 public class MovingObject : MonoBehaviour
 {
+    protected Weapon weapon;                   //총 발사를 제어하는 Weapon 클래스를 저장할 변수
+
     protected Animator animator;
 
     protected CapsuleCollider2D dmgCheck;
 
     public GameObject target;
 
+    protected bool playerOrEnemyBulletCheck;    //총알이 플레이어것인지 몹인지 체크
     public float FullHp;
     public float currentHp;
     public float speed;
-    public float attack_Delay;
-    public float attack_Delay_Tmp;
-    public float add_Damage;
+    public float add_Damage;                        //총알의 추가 데미지
 
     public virtual void Awake()
     {
         animator = GetComponent<Animator>();
         dmgCheck = GetComponent<CapsuleCollider2D>();
+        weapon = GetComponent<Weapon>();
 
         FullHp = 100;
         speed = 10f;
-        attack_Delay = 1f;
         add_Damage = 10f;
     }
 
