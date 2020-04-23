@@ -14,7 +14,6 @@ public class MapManager : MonoBehaviour
     {
         map.mapInfo.mapColumns = Random.Range(col - 6, col);
         map.mapInfo.mapRow = row;
-
     }
     public void CreateStage()
     {
@@ -23,7 +22,8 @@ public class MapManager : MonoBehaviour
         {
             SettingMap();
             //map.mapInfo.mapTileArray = new MapInfo.e_mapTileType[map.mapInfo.mapRow, map.mapInfo.mapColumns];
-            Map tmp = Instantiate(map, new Vector3(-3.5f, (float)(2 * (columns) - map.mapInfo.mapColumns / 2), 0),Quaternion.identity);
+            Map tmp = Instantiate(map, new Vector3(-0.5f * map.mapInfo.mapRow, (float)(columns), 0),Quaternion.identity);
+            Debug.Log(map.mapInfo.mapColumns);
             columns += map.mapInfo.mapColumns;
             tmp.transform.SetParent(this.transform);
             maps[i] = tmp;

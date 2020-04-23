@@ -245,13 +245,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapInfo:
     ground:
-    - {fileID: 7928367377102795995, guid: cef5fc30d486e4143ada0c9ac6f2bd46, type: 3}
+    - {fileID: 4083215096118165663, guid: 0e0d7cdea96186a4987cd7df50cf671b, type: 3}
     walls:
-    - {fileID: 3046496293499077721, guid: fd822065b0fc5d946a97e61bbc0e3a52, type: 3}
+    - {fileID: 7681677697356486280, guid: 3f6361927be733344ad28da9ed276cb7, type: 3}
     exit:
-    - {fileID: 5168389117819577352, guid: 9a15bb47b1d196e4989618e8499e8db8, type: 3}
+    - {fileID: 7808986034994180053, guid: cd12e1a2dc0f8f1439388ea7519adc3c, type: 3}
     obj_null:
-    - {fileID: 1047882357648258916, guid: 3a677bf7aabf17343914c58fbda5b62d, type: 3}
+    - {fileID: 8034212793865497729, guid: 9782f6a9c8d34d24a9b6498a6ecdede0, type: 3}
     avaliableCount: 0
     mapRow: 0
     mapColumns: 0

@@ -103,25 +103,25 @@ public class Map : MonoBehaviour
                 {
                     tmp = Instantiate(mapInfo.exit[Random.Range(0, mapInfo.exit.Length)]);
                     tmp.transform.SetParent(exitParentObject);
-                    tmp.transform.localPosition = new Vector3(2 * i, 2 * j, 0f);
+                    tmp.transform.localPosition = new Vector3(i, j, 0f);
                 }
                 else if (mapInfo.mapTileArray[i, j] == MapInfo.e_mapTileType.WALL)
                 {
                     tmp = Instantiate(mapInfo.walls[Random.Range(0, mapInfo.walls.Length)]);
                     tmp.transform.SetParent(background);
-                    tmp.transform.localPosition = new Vector3(2 * i, 2 * j, 0f);
+                    tmp.transform.localPosition = new Vector3(i, j, 0f);
                 }
                 else if (mapInfo.mapTileArray[i, j] == MapInfo.e_mapTileType.NULL)
                 {
                     tmp = Instantiate(mapInfo.walls[Random.Range(0, mapInfo.obj_null.Length)]);
                     tmp.transform.SetParent(background);
-                    tmp.transform.localPosition = new Vector3(2 * i, 2 * j, 0f);
+                    tmp.transform.localPosition = new Vector3(i, j, 0f);
                 }
                 else //if (mapInfo.maptile[i, j] == e_mapTileType.GROUND)
                 {
                     tmp = Instantiate(mapInfo.ground[Random.Range(0, mapInfo.ground.Length)]);
                     tmp.transform.SetParent(background);
-                    tmp.transform.localPosition = new Vector3(2 * i, 2 * j, 0f);
+                    tmp.transform.localPosition = new Vector3(i, j, 0f);
                 }
             }
         }
@@ -143,7 +143,7 @@ public class Map : MonoBehaviour
                     {
                         temp = Instantiate(pool[pool_index]);
                         temp.transform.SetParent(background);
-                        temp.transform.localPosition = new Vector3(Random.Range((float)2 * i, (float)2 * i + 2), Random.Range((float)2 * j, (float)2 * j + 2), 0f);
+                        temp.transform.localPosition = new Vector3(Random.Range((float)i, (float)i + 1), Random.Range((float)j, (float)j + 1), 0f);
                     }
                     pool_index++;
                 }
@@ -166,7 +166,7 @@ public class Map : MonoBehaviour
                     {
                         temp = Instantiate(pool[pool_index]);
                         temp.transform.SetParent(background);
-                        temp.transform.localPosition = new Vector3(Random.Range((float)2 * i, (float)2 * i + 2), Random.Range((float)2 * j, (float)2 * j + 2), 0f);
+                        temp.transform.localPosition = new Vector3(Random.Range((float)i, (float)i + 1), Random.Range((float)j, (float)j + 1), 0f);
                     }
                     pool_index++;
                 }
