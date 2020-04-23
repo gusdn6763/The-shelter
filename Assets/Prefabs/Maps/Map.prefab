@@ -247,7 +247,10 @@ MonoBehaviour:
     ground:
     - {fileID: 4083215096118165663, guid: 0e0d7cdea96186a4987cd7df50cf671b, type: 3}
     walls:
-    - {fileID: 7681677697356486280, guid: 3f6361927be733344ad28da9ed276cb7, type: 3}
+    - {fileID: 791293159813236092, guid: a2cb571ee09d74c43b5c4b4b1677e7de, type: 3}
+    - {fileID: 2650236088360004851, guid: c51314ae8e7071d4a98d703567da6f75, type: 3}
+    - {fileID: 4389544262565210871, guid: bb1d5302203cd5a4cb830d35f74d334a, type: 3}
+    - {fileID: 475980260203996956, guid: 70e90c506b312384abc435b27254f57e, type: 3}
     exit:
     - {fileID: 7808986034994180053, guid: cd12e1a2dc0f8f1439388ea7519adc3c, type: 3}
     obj_null:

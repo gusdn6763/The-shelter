@@ -10,11 +10,9 @@ public class MapInfo // 맵, 타일에 관련된 클래스
         EXIT, // 입구 혹은 출구
         GROUND, // 그 외 땅
         WALL, // 벽
-        NULL,
     }
     public enum e_mapObjectType
     {
-        NULL,
         OBJECT,
         ENEMY,
         PLAYER,
@@ -22,7 +20,6 @@ public class MapInfo // 맵, 타일에 관련된 클래스
     public GameObject[] ground;
     public GameObject[] walls;
     public GameObject[] exit;
-    public GameObject[] obj_null;
     public int avaliableCount; // 최대 놓을 수 있는 인스턴스 수(몹, 장애물, 플레이어)
     public int mapRow;
     public int mapColumns;
@@ -34,7 +31,6 @@ public class MobInfo // 몹 정보
 {
     public int mobCount;
     public GameObject[] mobs;
-    //public Mob[] mobs;
 }
 [System.Serializable]
 public class ObjectInfo // 장애물 정보
@@ -75,12 +71,10 @@ public class Map : MonoBehaviour
             {
                 if (i == 0 || i == mapInfo.mapRow - 1 || j == mapInfo.mapColumns - 1 && i != exit)
                 {
-                    mapInfo.mapObjArray[i,j] = MapInfo.e_mapObjectType.NULL;
                     mapInfo.mapTileArray[i, j] = MapInfo.e_mapTileType.WALL;
                 }
                 else if (j == mapInfo.mapColumns - 1 && i == exit)
                 {
-                    mapInfo.mapObjArray[i,j] = MapInfo.e_mapObjectType.NULL;
                     mapInfo.mapTileArray[i, j] = MapInfo.e_mapTileType.EXIT;
                 }
                 else
@@ -108,12 +102,6 @@ public class Map : MonoBehaviour
                 else if (mapInfo.mapTileArray[i, j] == MapInfo.e_mapTileType.WALL)
                 {
                     tmp = Instantiate(mapInfo.walls[Random.Range(0, mapInfo.walls.Length)]);
-                    tmp.transform.SetParent(background);
-                    tmp.transform.localPosition = new Vector3(i, j, 0f);
-                }
-                else if (mapInfo.mapTileArray[i, j] == MapInfo.e_mapTileType.NULL)
-                {
-                    tmp = Instantiate(mapInfo.walls[Random.Range(0, mapInfo.obj_null.Length)]);
                     tmp.transform.SetParent(background);
                     tmp.transform.localPosition = new Vector3(i, j, 0f);
                 }
