@@ -6,6 +6,9 @@ TagManager:
   tags:
   - BULLET
   - Enemy
+  - EtcObject
+  - ItemManager
+  - Item
   layers:
   - Default
   - TransparentFX
