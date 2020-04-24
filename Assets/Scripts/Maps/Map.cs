@@ -30,8 +30,15 @@ public class MapInfo // 맵, 타일에 관련된 클래스
 [System.Serializable]
 public class MobInfo // 몹 정보
 {
-    public GameObject[] mobs;
-    public int mobCount;
+    public Mob mob;
+    [Tooltip("어떤 위치부터 나올지(세로 기준만 끝부터)")]
+    [Range(0, 10)]
+    public int mobSpawnPos;
+    [Tooltip("어떤 스테이지부터 나올지")]
+    [Range(0, 5)]
+    public int mobSpawnStage;
+    [Range(0, 10)]
+    public int mobMaxCount;
 }
 [System.Serializable]
 public class ObjectInfo // 장애물 정보
@@ -53,7 +60,7 @@ public class Map : MonoBehaviour
     private BoxCollider2D boxCollider2D;
 
     public MapInfo mapInfo;
-    public MobInfo mobInfo;
+    public MobInfo[] mobInfo;
     public ObjectInfo objectInfo;
     public PlayerInfo playerInfo;
 
@@ -61,6 +68,8 @@ public class Map : MonoBehaviour
     private Transform mobsParentObject;
     private Transform objParentObject;
     private Transform exitParentObject;
+
+    public bool[,] spawnCheck;
 
     void Awake()
     {
@@ -148,35 +157,29 @@ public class Map : MonoBehaviour
     }
     private void CreateMob()
     {
-        GameObject[] pool = PoolingObj(mobInfo.mobs, mobInfo.mobCount);
         GameObject temp;
         int pool_index = 0;
 
-        for (int i = 0; i < mapInfo.mapRow; i++)
+        for (int i = 0; i < mobInfo.Length; i++)
         {
-            for (int j = 0; j < mapInfo.mapColumns; j++)
+            for (int j = 0; j < mapInfo.mapRow; j++)
             {
-                if (mapInfo.mapObjArray[i, j] == MapInfo.e_mapObjectType.ENEMY)
+                for (int k = 0; k < mapInfo.mapColumns; k++)
                 {
-                    if (pool_index < mobInfo.mobCount)
+                    if (mapInfo.mapObjArray[k, k] == MapInfo.e_mapObjectType.ENEMY)
                     {
-                        temp = Instantiate(pool[pool_index]);
-                        temp.transform.SetParent(background);
-                        temp.transform.localPosition = new Vector3(Random.Range((float)i, (float)i + 1), Random.Range((float)j, (float)j + 1), 0f);
+                        if (pool_index < mobInfo[k].mobMaxCount)
+                        {
+                            temp = mobInfo[i].mob.gameObject;
+                            temp.transform.SetParent(background);
+                            temp.transform.localPosition = new Vector3(Random.Range((float)k, (float)k + 1), Random.Range((float)k, (float)k + 1), 0f);
+                            spawnCheck
+                        }
+                        pool_index++;
                     }
-                    pool_index++;
                 }
             }
         }
-    }
-    private T[] PoolingObj<T>(T[] pool, int count)
-    {
-        T[] list = new T[count];
-        for (int i = 0; i < count; i++)
-        {
-            list[i] = pool[Random.Range(0, pool.Length)];
-        }
-        return list;
     }
     private void CreateObject()
     {
@@ -201,5 +204,13 @@ public class Map : MonoBehaviour
             }
         }
     }
+    private T[] PoolingObj<T>(T[] pool, int count)
+    {
+        T[] list = new T[count];
+        for (int i = 0; i < count; i++)
+        {
+            list[i] = pool[Random.Range(0, pool.Length)];
+        }
+        return list;
+    }
 }
-   

@@ -7,28 +7,13 @@ public class MapManager : MonoBehaviour
     public static MapManager instance;
 
     public Map[] maps;
-    public int maps_count;
-    private int col = 10;
-    private int row = 7;
     public Map map;
 
-    private void SettingMap()
-    {
-        map.mapInfo.mapColumns = Random.Range(col , col + Random.Range(0,6));
-        map.mapInfo.mapRow = row;
-    }
-    public void CreateStage()
-    {
-        float columns = 0;
-        for (int i = 0; i < maps_count; i++)
-        {
-            SettingMap();
-            Map tmp = Instantiate(map, new Vector3(-0.5f * map.mapInfo.mapRow, (float)(columns), 0),Quaternion.identity);
-            columns += map.mapInfo.mapColumns;
-            tmp.transform.SetParent(this.transform);
-            maps[i] = tmp;
-        }
-    }
+    private int col = 10;
+    private int row = 7;
+    public int maps_count;
+    public int map_random_add;
+
     public void Awake()
     {
         if (instance != null)
@@ -45,5 +30,20 @@ public class MapManager : MonoBehaviour
     void Start()
     {
         CreateStage();
+    }
+
+    public void CreateStage()
+    {
+        float columns = 0;
+
+        map.mapInfo.mapRow = row;
+        for (int i = 0; i < maps_count; i++)
+        {
+            map.mapInfo.mapColumns = Random.Range(col, col + Random.Range(0, map_random_add));
+            Map tmp = Instantiate(map, new Vector3(-3.5f, (float)(columns), 0), Quaternion.identity);
+            columns += map.mapInfo.mapColumns;
+            tmp.transform.SetParent(this.transform);
+            maps[i] = tmp;
+        }
     }
 }
