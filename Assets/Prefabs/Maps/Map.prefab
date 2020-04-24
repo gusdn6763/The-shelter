@@ -253,15 +253,12 @@ MonoBehaviour:
     - {fileID: 475980260203996956, guid: 70e90c506b312384abc435b27254f57e, type: 3}
     exit:
     - {fileID: 7808986034994180053, guid: cd12e1a2dc0f8f1439388ea7519adc3c, type: 3}
-    obj_null:
-    - {fileID: 8034212793865497729, guid: 9782f6a9c8d34d24a9b6498a6ecdede0, type: 3}
     avaliableCount: 0
     mapRow: 7
     mapColumns: 10
   mobInfo:
-    mobCount: 1
-    mobs:
-    - {fileID: 8770001672081017981, guid: 0e3552383f840c44c887fb973f989681, type: 3}
+    mobCount: 0
+    mobs: []
   objectInfo:
     objCount: 0
     objects: []

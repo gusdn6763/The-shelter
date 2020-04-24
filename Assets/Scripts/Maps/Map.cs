@@ -55,6 +55,8 @@ public class Map : MonoBehaviour
     private Transform exitParentObject;
     private T[] PoolingObj<T>(T[] pool, int count)
     {
+        if (count == 0)
+            return (null);
         T[] list = new T[count];
         for (int i = 0; i < count; i++)
         {

@@ -22,6 +22,7 @@ public class MapManager : MonoBehaviour
         {
             SettingMap();
             Map tmp = Instantiate(map, new Vector3(-0.5f * map.mapInfo.mapRow, (float)(columns), 0),Quaternion.identity);
+            tmp.transform.localPosition = new Vector3(-0.5f * map.mapInfo.mapRow, (float)(columns), 0);
             columns += map.mapInfo.mapColumns;
             tmp.transform.SetParent(this.transform);
             maps[i] = tmp;
