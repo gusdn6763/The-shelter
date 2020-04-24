@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class MapManager : MonoBehaviour
 {
-    private Map[] maps;
+    public static MapManager instance;
+
+    public Map[] maps;
     public int maps_count;
     private int col = 10;
     private int row = 7;
@@ -29,6 +31,14 @@ public class MapManager : MonoBehaviour
     }
     public void Awake()
     {
+        if (instance != null)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
         maps = new Map[maps_count];
     }
 

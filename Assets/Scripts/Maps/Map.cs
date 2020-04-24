@@ -4,7 +4,10 @@ using UnityEngine;
 
 [System.Serializable]
 public class MapInfo // 맵, 타일에 관련된 클래스
-{   
+{
+    public GameObject[] ground;
+    public GameObject[] walls;
+    public GameObject[] exit;
     public enum e_mapTileType
     {
         EXIT, // 입구 혹은 출구
@@ -17,20 +20,18 @@ public class MapInfo // 맵, 타일에 관련된 클래스
         ENEMY,
         PLAYER,
     }
-    public GameObject[] ground;
-    public GameObject[] walls;
-    public GameObject[] exit;
-    public int avaliableCount; // 최대 놓을 수 있는 인스턴스 수(몹, 장애물, 플레이어)
-    public int mapRow;
-    public int mapColumns;
+
     public e_mapTileType[,] mapTileArray; // 맵 타일 배열
     public e_mapObjectType[,] mapObjArray; // 오브젝트 타일 배열
+
+    public int mapRow;
+    public int mapColumns;
 }
 [System.Serializable]
 public class MobInfo // 몹 정보
 {
-    public int mobCount;
     public GameObject[] mobs;
+    public int mobCount;
 }
 [System.Serializable]
 public class ObjectInfo // 장애물 정보
@@ -39,32 +40,53 @@ public class ObjectInfo // 장애물 정보
     public GameObject[] objects;
 }
 [System.Serializable]
+
 public class PlayerInfo // 플레이어 정보
 {
     public GameObject player;
+    public Transform startPoint;
 }
+[System.Serializable]
+
 public class Map : MonoBehaviour
 {
+    private BoxCollider2D boxCollider2D;
+
     public MapInfo mapInfo;
     public MobInfo mobInfo;
     public ObjectInfo objectInfo;
     public PlayerInfo playerInfo;
+
     private Transform background;
     private Transform mobsParentObject;
     private Transform objParentObject;
     private Transform exitParentObject;
-    private T[] PoolingObj<T>(T[] pool, int count)
+
+    void Awake()
     {
-        T[] list = new T[count];
-        for (int i = 0; i < count; i++)
-        {
-            list[i] = pool[Random.Range(0, pool.Length)];
-        }
-        return list;
+        boxCollider2D = GetComponent<BoxCollider2D>();
+
+        mapInfo.mapTileArray = new MapInfo.e_mapTileType[mapInfo.mapRow, mapInfo.mapColumns];
+        mapInfo.mapObjArray = new MapInfo.e_mapObjectType[mapInfo.mapRow, mapInfo.mapColumns];
+
+        background = transform.GetChild(0);
+        mobsParentObject = transform.GetChild(1);
+        objParentObject = transform.GetChild(2);
+        exitParentObject = transform.GetChild(3);
+        transform.SetParent(this.transform);
     }
+    void Start()
+    {
+        CreateMapTile();
+        CreateColl();
+        CreateMap();
+        CreateMob();
+        CreateObject();
+    }
+
     private void CreateMapTile()
     {
-        int exit = Random.Range(1, mapInfo.mapRow - 1);
+        int exit = mapInfo.mapRow;
         for (int i = 0; i < mapInfo.mapRow; i++)
         {
             for (int j = 0; j < mapInfo.mapColumns; j++)
@@ -79,11 +101,20 @@ public class Map : MonoBehaviour
                 }
                 else
                 {
-                    mapInfo.mapObjArray[i,j] = MapInfo.e_mapObjectType.ENEMY;
+                    mapInfo.mapObjArray[i, j] = MapInfo.e_mapObjectType.ENEMY;
                     mapInfo.mapTileArray[i, j] = MapInfo.e_mapTileType.GROUND;
                 }
             }
         }
+    }
+    public void CreateColl()
+    {
+        boxCollider2D.size = new Vector2(mapInfo.mapRow, mapInfo.mapColumns);
+        boxCollider2D.offset = new Vector2((((float)mapInfo.mapRow - 1) / 2), (((float)mapInfo.mapColumns - 1) / 2 - 5));
+        boxCollider2D.isTrigger = true;
+
+        //endCheck.offset = new Vector2((((float)mapInfo.mapRow - 1) / 2), boardColumns - 0.5f);
+        //endCheck.size = new Vector2(mapInfo.mapRow, 1);
     }
     private void CreateMap()
     {
@@ -120,10 +151,10 @@ public class Map : MonoBehaviour
         GameObject[] pool = PoolingObj(mobInfo.mobs, mobInfo.mobCount);
         GameObject temp;
         int pool_index = 0;
-    
+
         for (int i = 0; i < mapInfo.mapRow; i++)
         {
-            for (int j = 0; j< mapInfo.mapColumns; j++)
+            for (int j = 0; j < mapInfo.mapColumns; j++)
             {
                 if (mapInfo.mapObjArray[i, j] == MapInfo.e_mapObjectType.ENEMY)
                 {
@@ -138,6 +169,15 @@ public class Map : MonoBehaviour
             }
         }
     }
+    private T[] PoolingObj<T>(T[] pool, int count)
+    {
+        T[] list = new T[count];
+        for (int i = 0; i < count; i++)
+        {
+            list[i] = pool[Random.Range(0, pool.Length)];
+        }
+        return list;
+    }
     private void CreateObject()
     {
         GameObject[] pool = PoolingObj(objectInfo.objects, objectInfo.objCount);
@@ -146,7 +186,7 @@ public class Map : MonoBehaviour
 
         for (int i = 0; i < mapInfo.mapRow; i++)
         {
-            for (int j = 0; j< mapInfo.mapColumns; j++)
+            for (int j = 0; j < mapInfo.mapColumns; j++)
             {
                 if (mapInfo.mapObjArray[i, j] == MapInfo.e_mapObjectType.OBJECT)
                 {
@@ -161,25 +201,5 @@ public class Map : MonoBehaviour
             }
         }
     }
-
-    void Awake()
-    {
-        mapInfo.mapTileArray = new MapInfo.e_mapTileType[mapInfo.mapRow, mapInfo.mapColumns];
-        mapInfo.mapObjArray = new MapInfo.e_mapObjectType[mapInfo.mapRow, mapInfo.mapColumns];
-
-        background = transform.GetChild(0);
-        mobsParentObject = transform.GetChild(1);
-        objParentObject = transform.GetChild(2);
-        exitParentObject = transform.GetChild(3);
-        transform.SetParent(this.transform);
-
-        CreateMapTile();
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        CreateMap();
-        CreateMob();
-        CreateObject();
-    }
 }
+   

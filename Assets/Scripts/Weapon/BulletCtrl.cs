@@ -39,7 +39,6 @@ public class BulletCtrl : MonoBehaviour
             transform.Translate(-transform.up * speed * Time.deltaTime, Space.World);
             yield return null;
         }
-        Debug.Log("사라짐");
         gameObject.SetActive(false);
     }
 

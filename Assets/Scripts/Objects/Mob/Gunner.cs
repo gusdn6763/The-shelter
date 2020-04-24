@@ -1,19 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using PolyNav;
 public class Gunner : Mob
 {
+    private PolyNavAgent _agent;
+    private PolyNavAgent agent
+    {
+        get { return _agent != null ? _agent : _agent = GetComponent<PolyNavAgent>(); }
+    }
+
     public override void Start()
     {
         base.Start();
+        startMob();
     }
+
     public override IEnumerator StartStatus()
     {
         while (!isDie)
         {
             if (enemyStatus == CharacterStatus.DIE) yield break;
-
             if (FindPlayer())
             {
                 if(CollEtcObject())
@@ -34,7 +41,14 @@ public class Gunner : Mob
             }
             else
             {
-                enemyStatus = CharacterStatus.MOVE;
+                if (CollEtcObject())
+                {
+                    enemyStatus = CharacterStatus.FAR_TRACE;
+                }
+                else
+                {
+                    enemyStatus = CharacterStatus.MOVE;
+                }
             }
             yield return null;
         }
@@ -57,8 +71,12 @@ public class Gunner : Mob
                     animator.SetBool("Move", true);
                     break;
                 case CharacterStatus.TRACE:
-                    //transform.rotation = Quaternion.Euler(0, 0, trans.rotation.z+Time.deltaTime);
-
+                    animator.SetBool("Move", true);
+                    agent.SetDestination(target.transform.position);
+                    break;
+                case CharacterStatus.FAR_TRACE:
+                    animator.SetBool("Move", true);
+                    agent.SetDestination(target.transform.position);
                     break;
                 case CharacterStatus.ATTACK:
                     animator.SetBool("Move", false);

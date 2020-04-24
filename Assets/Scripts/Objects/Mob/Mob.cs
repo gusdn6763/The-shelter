@@ -11,16 +11,14 @@ public class Mob : MovingObject
     [Range(-180f, 180f)]
     [SerializeField] private float m_viewRotateZ = 0f; // 시야각의 회전값
 
-    [SerializeField] private LayerMask m_viewTargetMask = 1<<10;       // 인식 가능한 타켓의 마스크
-    [SerializeField] private LayerMask m_viewObstacleMask = 1<<11;     // 인식 방해물의 마스크 
+    public LayerMask m_viewTargetMask;       // 인식 가능한 타켓의 마스크
+    public LayerMask m_viewObstacleMask;     // 인식 방해물의 마스크 
 
     private List<Collider2D> hitedTargetContainer = new List<Collider2D>(); // 인식한 물체들을 보관할 컨테이너
 
     private float m_horizontalViewHalfAngle = 0f; // 시야각의 절반 값
 
-
-    //Room 스크립트가 몹들의 갯수를 셈
-    public Action<Mob> Count;
+    public Action<Mob> Count;       //방에서 죽으면 몹의 갯수를 빼줄 딜리게이트
 
     protected RaycastHit2D raycastHit;
     protected Ray2D currentRayPos = new Ray2D();        //현재 적이 보고있는 방향
@@ -38,41 +36,54 @@ public class Mob : MovingObject
         IDLE,
         MOVE,
         TRACE,
+        FAR_TRACE,
         EVE,
         ATTACK,
         DIE
     }
 
     public CharacterStatus enemyStatus;
+
+    public override void Awake()
+    {
+        base.Awake();
+        
+    }
+    public virtual void Start()
+    {
+        target = GameManager.instance.player.gameObject;
+        m_horizontalViewHalfAngle = m_horizontalViewAngle * 0.5f;
+    }
     protected void OnDrawGizmos()
     {
         if (start)
         {
+            target = GameObject.FindGameObjectWithTag("Player");
             currentRayPos.origin = transform.position;
             currentRayPos.direction = -transform.up;
-            float distance = Vector3.Distance(target.transform.position, transform.position);
-
-            RaycastHit2D rayHitedTarget = Physics2D.Raycast(currentRayPos.origin, currentRayPos.direction, distance, 1 << 10);
-
-            Debug.DrawLine(currentRayPos.origin, rayHitedTarget.point, Color.black);
-
+            playerRay.origin = target.transform.position;
+            playerRay.direction = target.transform.position;
+            
+            Debug.DrawLine(currentRayPos.origin, playerRay.origin, Color.black);
 
             m_horizontalViewHalfAngle = m_horizontalViewAngle * 0.5f;
 
-            Vector3 originPos = transform.position;
+            Gizmos.DrawWireSphere(currentRayPos.origin, weaponDistance);
 
-            Gizmos.DrawWireSphere(originPos, weaponDistance);
-
-            Vector3 horizontalRightDir = AngleToDirZ(m_horizontalViewHalfAngle + m_viewRotateZ);
             Vector3 horizontalLeftDir = AngleToDirZ(-m_horizontalViewHalfAngle + m_viewRotateZ);
+            Vector3 horizontalRightDir = AngleToDirZ(m_horizontalViewHalfAngle + m_viewRotateZ);
             Vector3 lookDir = AngleToDirZ(m_viewRotateZ);
 
-            Debug.DrawRay(originPos, horizontalLeftDir * weaponDistance, Color.cyan);
-            Debug.DrawRay(originPos, lookDir * weaponDistance, Color.green);
-            Debug.DrawRay(originPos, horizontalRightDir * weaponDistance, Color.cyan);
+            Debug.DrawRay(currentRayPos.origin, horizontalLeftDir * weaponDistance, Color.cyan);
+            Debug.DrawRay(currentRayPos.origin, lookDir * weaponDistance, Color.green);
+            Debug.DrawRay(currentRayPos.origin, horizontalRightDir * weaponDistance, Color.cyan);
 
             FindViewTargets();
         }
+    }
+    public void TracePlayer()
+    {
+
     }
 
     public Collider2D[] FindViewTargets()
@@ -96,12 +107,12 @@ public class Mob : MovingObject
                 RaycastHit2D rayHitedTarget = Physics2D.Raycast(originPos, dir, weaponDistance, m_viewObstacleMask);
                 if (rayHitedTarget)
                 {
-                        Debug.DrawLine(originPos, rayHitedTarget.point, Color.yellow);
+                    Debug.DrawLine(originPos, rayHitedTarget.point, Color.yellow);
                 }
                 else
                 {
                     hitedTargetContainer.Add(hitedTarget);
-                        Debug.DrawLine(originPos, targetPos, Color.red);
+                    Debug.DrawLine(originPos, targetPos, Color.red);
                 }
             }
         }
@@ -117,27 +128,10 @@ public class Mob : MovingObject
         return new Vector3(Mathf.Sin(radian), Mathf.Cos(radian));
     }
 
-
-    public virtual void Start()
-    {
-        m_horizontalViewHalfAngle = m_horizontalViewAngle * 0.5f;
-    }
-
-    public void Dead()              //애니메이션에서 실행
-    {
-        Count(this);    
-        Destroy(this.gameObject);
-    }
-
-    public override void Die()
-    {
-        base.Die();
-        enemyStatus = CharacterStatus.DIE;
-    }
-
     public void startMob()
     {
         start = true;
+        ShowTarget();
         StartCoroutine(StartStatus());
         StartCoroutine(StartAction());
     }
@@ -152,21 +146,10 @@ public class Mob : MovingObject
         yield return null;
     }
 
-    public void TracePlayer()
-    {
-
-    }
-
-    public void OnPlayerDie()
-    {
-        StopAllCoroutines();
-    }
-
     public bool FindPlayer()
     {
         Vector2 originPos = transform.position;
-        Collider2D[] hitedTargets = Physics2D.OverlapCircleAll(originPos, weaponDistance, m_viewTargetMask);
-
+        Collider2D[] hitedTargets = Physics2D.OverlapCircleAll(originPos, weaponDistance);
         foreach (Collider2D hitedTarget in hitedTargets)
         {
             Vector2 targetPos = hitedTarget.transform.position;
@@ -176,17 +159,16 @@ public class Mob : MovingObject
             float dot = Vector2.Dot(lookDir, dir);
             float angle = Mathf.Acos(dot) * Mathf.Rad2Deg;
 
-            RaycastHit2D rayHitedTarget = Physics2D.Raycast(originPos, dir, weaponDistance, m_viewObstacleMask);
+            RaycastHit2D rayHitedTarget = Physics2D.Raycast(originPos, dir, weaponDistance, m_viewTargetMask);
             if (rayHitedTarget)
             {
                 hitPlayer = rayHitedTarget;
-                Debug.DrawLine(originPos, rayHitedTarget.point, Color.yellow);
+                Debug.DrawLine(originPos, rayHitedTarget.point, Color.red);
                 return true;
             }
         }
         return false;
     }
-
     public bool CollEtcObject()
     {
         RaycastHit2D rayHitedTarget = Physics2D.Raycast(transform.position, -transform.up, weaponDistance, m_viewObstacleMask);
@@ -197,7 +179,6 @@ public class Mob : MovingObject
         }
         return false;
     }
-
     public bool Comparison()
     {
         if (hitEtcObject.distance > hitPlayer.distance)
@@ -209,4 +190,23 @@ public class Mob : MovingObject
             return false;
         }
     }
+    public void Dead()              //애니메이션에서 실행
+    {
+        Count(this);    
+        Destroy(this.gameObject);
+    }
+
+    public override void Die()
+    {
+        base.Die();
+        enemyStatus = CharacterStatus.DIE;
+    }
+
+
+
+    public void OnPlayerDie()
+    {
+        StopAllCoroutines();
+    }
+
 }
