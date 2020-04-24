@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2997059971369029913}
   - component: {fileID: 2997059971369029912}
   - component: {fileID: 2997059971369029919}
-  - component: {fileID: 114460187448994922}
+  - component: {fileID: 114221438316619530}
   m_Layer: 0
   m_Name: Item_0
   m_TagString: Untagged
@@ -97,7 +97,7 @@ CircleCollider2D:
   m_Offset: {x: -0.000000014901161, y: 0}
   serializedVersion: 2
   m_Radius: 0.2
---- !u!114 &114460187448994922
+--- !u!114 &114221438316619530
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -106,11 +106,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2997059971369029917}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10699b8fb47d31c4eb8e95a9fe9bb21e, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d2597f00abfc1348bee2ee0989033ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: money_0
+  itemName: Money
   itemType: 2
   itemId: 1
-  itemImage: {fileID: 0}
-  itemDes: Nothing to explict this.
+  itemImage: {fileID: 21300000, guid: f86a2f7d46154d9438b2ae10f87f9004, type: 3}
+  itemDes: Nothing to explicit this
+  min_money: 1
+  max_money: 5

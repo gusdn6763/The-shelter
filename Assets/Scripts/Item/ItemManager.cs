@@ -66,7 +66,7 @@ public class ItemManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //StartCoroutine(CountTime(2f)); //for debugging
+        StartCoroutine(CountTime(2f)); //for debugging
         Debug.Log("Next line for Coroutine");
     }
 
