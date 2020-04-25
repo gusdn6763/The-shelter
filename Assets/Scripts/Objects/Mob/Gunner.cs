@@ -1,15 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using PolyNav;
+
 public class Gunner : Mob
 {
-    private PolyNavAgent _agent;
-    private PolyNavAgent agent
-    {
-        get { return _agent != null ? _agent : _agent = GetComponent<PolyNavAgent>(); }
-    }
-
     public override void Start()
     {
         base.Start();
@@ -50,10 +44,10 @@ public class Gunner : Mob
                     enemyStatus = CharacterStatus.MOVE;
                 }
             }
+            Debug.Log(enemyStatus);
             yield return null;
         }
     }
-
     public override IEnumerator StartAction()
     {
         while (!isDie)
@@ -73,6 +67,7 @@ public class Gunner : Mob
                 case CharacterStatus.TRACE:
                     animator.SetBool("Move", true);
                     agent.SetDestination(target.transform.position);
+                    
                     break;
                 case CharacterStatus.FAR_TRACE:
                     animator.SetBool("Move", true);
@@ -80,6 +75,7 @@ public class Gunner : Mob
                     break;
                 case CharacterStatus.ATTACK:
                     animator.SetBool("Move", false);
+                    agent.Stop();
                     ShowTarget();
                     break;
                 case CharacterStatus.DIE:
@@ -90,10 +86,4 @@ public class Gunner : Mob
             yield return null;
         }
     }
-    IEnumerator TraceTarget()
-    {
-        //while()
-        yield return new WaitForSeconds(1f);
-    }
-
 }

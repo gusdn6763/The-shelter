@@ -10,11 +10,11 @@ public class FireCtrl : MonoBehaviour
     public int maxBullet = 10;                  //탄창의 최대 총알 수
     public int remainingBullet = 10;            //남은 총알 수
     public float nextFire = 0.0f;               //다음 발사할 시간 계산용 변수
-    public float reloadTime = 2.0f;              //재장전 시간
+    public float reloadTime = 2.0f;             //재장전 시간
     public bool isReload = false;               //재장전 여부
     public bool isFire = false;                 //총 발사 여부를 판단할 변수 
     [Header("총알 발사 속도")]
-    public float fireRate = 0.3f;            //총알 발사 간격
+    public float fireRate = 0.3f;               //총알 발사 간격
     public float add_Damage;                    //총알의 추가 데미지                                              
 
     private void Awake()

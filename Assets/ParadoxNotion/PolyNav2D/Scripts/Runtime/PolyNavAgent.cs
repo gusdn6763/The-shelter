@@ -41,6 +41,7 @@ namespace PolyNav
 
         [Header("Rotation")]///Rotate transform as well?
 		public bool rotateTransform = false;
+        public bool rotateRevert = false;
         ///Speed to rotate at moving direction.
         public float rotateSpeed = 350;
 
@@ -308,9 +309,18 @@ namespace PolyNav
 
             //rotate if must
             if ( rotateTransform ) {
-                float rot = -Mathf.Atan2(movingDirection.x, movingDirection.y) * 180 / Mathf.PI;
-                float newZ = Mathf.MoveTowardsAngle(transform.localEulerAngles.z, rot, rotateSpeed * Time.deltaTime);
-                transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, newZ);
+                if (!rotateRevert)
+                {
+                    float rot = -Mathf.Atan2(movingDirection.x, movingDirection.y) * 180 / Mathf.PI;
+                    float newZ = Mathf.MoveTowardsAngle(transform.localEulerAngles.z, rot, rotateSpeed * Time.deltaTime);
+                    transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, newZ);
+                }
+                else
+                {
+                    float rot = -Mathf.Atan2(-movingDirection.x, -movingDirection.y) * 180 / Mathf.PI;
+                    float newZ = Mathf.MoveTowardsAngle(-transform.localEulerAngles.z, -rot, rotateSpeed * Time.deltaTime);
+                    transform.localEulerAngles = new Vector3(-transform.localEulerAngles.x, -transform.localEulerAngles.y, -newZ);
+                }
             }
 
             if ( repath ) {

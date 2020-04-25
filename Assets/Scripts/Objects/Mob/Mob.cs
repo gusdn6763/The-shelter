@@ -2,9 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using PolyNav;
 public class Mob : MovingObject
 {
+    protected PolyNavAgent _agent;
+    public PolyNavAgent agent
+    {
+        get { return _agent != null ? _agent : _agent = GetComponent<PolyNavAgent>(); }
+    }
+
     [Header("View Config")]
     [Range(0f, 360f)]
     [SerializeField] private float m_horizontalViewAngle = 0f; // 시야각
@@ -47,7 +53,6 @@ public class Mob : MovingObject
     public override void Awake()
     {
         base.Awake();
-        
     }
     public virtual void Start()
     {
@@ -80,10 +85,6 @@ public class Mob : MovingObject
 
             FindViewTargets();
         }
-    }
-    public void TracePlayer()
-    {
-
     }
 
     public Collider2D[] FindViewTargets()
@@ -171,13 +172,32 @@ public class Mob : MovingObject
     }
     public bool CollEtcObject()
     {
-        RaycastHit2D rayHitedTarget = Physics2D.Raycast(transform.position, -transform.up, weaponDistance, m_viewObstacleMask);
-        if (rayHitedTarget)
+        Vector2 originPos = transform.position;
+        Collider2D[] hitedTargets = Physics2D.OverlapCircleAll(originPos, weaponDistance, m_viewTargetMask);
+
+        foreach (Collider2D hitedTarget in hitedTargets)
         {
-            hitEtcObject = rayHitedTarget;
-            return true;
+            Vector2 targetPos = hitedTarget.transform.position;
+            Vector2 dir = (targetPos - originPos).normalized;
+            Vector2 lookDir = AngleToDirZ(m_viewRotateZ);
+
+            float dot = Vector2.Dot(lookDir, dir);
+            float angle = Mathf.Acos(dot) * Mathf.Rad2Deg;
+
+            if (angle <= m_horizontalViewHalfAngle)
+            {
+                RaycastHit2D rayHitedTarget = Physics2D.Raycast(originPos, dir, weaponDistance, m_viewObstacleMask);
+                if (rayHitedTarget)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
         }
-        return false;
+        return true;
     }
     public bool Comparison()
     {

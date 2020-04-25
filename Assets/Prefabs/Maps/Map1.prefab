@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 4522000482490792921}
   - component: {fileID: 4522000482490792902}
   m_Layer: 0
-  m_Name: Map
+  m_Name: Map1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -244,6 +244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a182f446377de84fabbeeab4e5fbad6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mobs: []
   mapInfo:
     ground:
     - {fileID: 4083215096118165663, guid: 0e0d7cdea96186a4987cd7df50cf671b, type: 3}
@@ -255,15 +256,7 @@ MonoBehaviour:
     mapColumns: 10
   mobInfo:
   - mob: {fileID: 4106287914498153928, guid: 5db8a6d699aa66b4a9eb3d0c8656550f, type: 3}
-    mobSpawnPos: 0
-    mobSpawnStage: 0
-    mobMaxCount: 2
-  - mob: {fileID: 2527270916776841072, guid: 984e375c7c379c1498a66edfb26b6b0b, type: 3}
-    mobSpawnPos: 0
-    mobSpawnStage: 0
-    mobMaxCount: 2
-  - mob: {fileID: 8140796973798387962, guid: 538b95dd6d7991f4b9efd05a6f4aa692, type: 3}
-    mobSpawnPos: 0
+    mobSpawnPos: 2
     mobSpawnStage: 0
     mobMaxCount: 1
   objectInfo:

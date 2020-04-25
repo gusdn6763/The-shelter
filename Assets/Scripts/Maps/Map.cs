@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using PolyNav;
 
 [System.Serializable]
 public class MapInfo // 맵, 타일에 관련된 클래스
@@ -59,6 +60,8 @@ public class Map : MonoBehaviour
 {
     private BoxCollider2D boxCollider2D;
 
+    public List<Mob> mobs;
+
     public MapInfo mapInfo;
     public MobInfo[] mobInfo;
     public ObjectInfo objectInfo;
@@ -77,6 +80,7 @@ public class Map : MonoBehaviour
 
         mapInfo.mapTileArray = new MapInfo.e_mapTileType[mapInfo.mapRow, mapInfo.mapColumns];
         mapInfo.mapObjArray = new MapInfo.e_mapObjectType[mapInfo.mapRow, mapInfo.mapColumns];
+        spawnCheck = new bool[mapInfo.mapRow + 1, mapInfo.mapColumns + 1];
 
         background = transform.GetChild(0);
         mobsParentObject = transform.GetChild(1);
@@ -157,27 +161,30 @@ public class Map : MonoBehaviour
     }
     private void CreateMob()
     {
-        GameObject temp;
-        int pool_index = 0;
-
         for (int i = 0; i < mobInfo.Length; i++)
         {
-            for (int j = 0; j < mapInfo.mapRow; j++)
+            int mobCountTmp = Random.Range(1, mobInfo[i].mobMaxCount);
+
+            for (int j = 0; j < mobCountTmp; j++)
             {
-                for (int k = 0; k < mapInfo.mapColumns; k++)
+                int l = Random.Range(1, mapInfo.mapRow - 1);
+                int k = Random.Range(mobInfo[j].mobSpawnPos, mapInfo.mapColumns - 1);
+
+                if (spawnCheck[l, k] == true)
                 {
-                    if (mapInfo.mapObjArray[k, k] == MapInfo.e_mapObjectType.ENEMY)
-                    {
-                        if (pool_index < mobInfo[k].mobMaxCount)
-                        {
-                            temp = mobInfo[i].mob.gameObject;
-                            temp.transform.SetParent(background);
-                            temp.transform.localPosition = new Vector3(Random.Range((float)k, (float)k + 1), Random.Range((float)k, (float)k + 1), 0f);
-                            spawnCheck
-                        }
-                        pool_index++;
-                    }
+                    j--;
+                    continue;
                 }
+
+                Mob mobTmp = Instantiate(mobInfo[j].mob);
+                mobTmp.transform.SetParent(mobsParentObject);
+                mobTmp.transform.localPosition = new Vector3(l, k);
+
+                mobs.Add(mobTmp);
+                spawnCheck[l, k] = true;
+
+                mobTmp.target = GameManager.instance.player.gameObject;
+                mobTmp.agent.map = GetComponent<PolyNav2D>();
             }
         }
     }
