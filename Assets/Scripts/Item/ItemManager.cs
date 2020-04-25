@@ -77,7 +77,7 @@ public class ItemManager : MonoBehaviour
     }
     IEnumerator CountTime(float delayTime)
     {
-        GenerateItem(new Vector3(0f, 1f, 0), 1f, 1, 1);
+        GenerateItem(new Vector3(0f, 1f, 0), 1f, Random.Range(1, 4), 1);
         Debug.Log("Generate Item");
         yield return new WaitForSeconds(delayTime);
         Debug.Log("Are you watiing?");

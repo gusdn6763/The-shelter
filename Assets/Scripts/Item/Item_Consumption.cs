@@ -5,30 +5,31 @@ using UnityEngine;
 [System.Serializable]
 public class Item_Consumption : Item
 {
-    public int instant_heal; // 즉시 회복 시
+    public float instant_heal; // 즉시 회복 시
     public float duration_time; // 버프 식으로 회복 시 지속 시간
     private float duration_temp_time; 
-    public int duration_heal; // 지속적 회복량(틱 or sec 당)
-    private float tick; // 지속 회복 시 기준
-    public void GetItem()
+    public float duration_heal; // 지속적 회복량(틱 or sec 당)
+    private float tick = 1; // 지속 회복 시 기준
+    public override void GetItem()
     {
-        /*
-        ** duration_temp_time = duration_time;
-        ** player.hp += instant_heal;
-        ** StartCoroutine(Continuing_Heal(tick));
-        ** //Delete this Item Object
-        */
+        Debug.Log("GetItem Activate");
+        duration_temp_time = duration_time;
+        player.currentHp += instant_heal;
+        if (player.currentHp > player.FullHp)
+            player.currentHp = player.FullHp;
+        if (duration_heal == 0)
+            Destroy(gameObject);
+        StartCoroutine(Continuing_Heal(tick));
     }
-    /*
     IEnumerator Continuing_Heal(float delayTime)
     {
-        player.hp += duration_heal;
+        player.currentHp += duration_heal;
+        if (player.currentHp > player.FullHp)
+            player.currentHp = player.FullHp;
         duration_temp_time -= delayTime;
-        if (duration_temp_time > 0)
-        {
-            yield return new WaitForSeconds(delayTime);
-            StartCoroutine(Continuing_Heal(delayTime));
-        }
+        if (duration_temp_time <= 0)
+            Destroy(gameObject);
+        yield return new WaitForSeconds(delayTime);
+        StartCoroutine(Continuing_Heal(delayTime));
     }
-    */
 }

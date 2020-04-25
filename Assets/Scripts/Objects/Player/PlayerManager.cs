@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerManager : MovingObject
 {
+    public int currentMoney;
     public enum CharacterStatus
     {
         NONE,
@@ -70,5 +71,13 @@ public class PlayerManager : MovingObject
             yield return null;
         }
         playerStatus = CharacterStatus.IDLE;
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.tag == "Item")
+        {
+            col.gameObject.GetComponent<Item>().GetItem();
+        }
     }
 }

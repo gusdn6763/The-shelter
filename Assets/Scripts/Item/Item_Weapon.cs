@@ -6,7 +6,7 @@ using UnityEngine;
 public class Item_Weapon : Item
 {
     public int damage; //
-    public void GetItem()
+    public override void GetItem()
     {
         // 플레이어의 현재 무기와 교체하는 코드
     }
