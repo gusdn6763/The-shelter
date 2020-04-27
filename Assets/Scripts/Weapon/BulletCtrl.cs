@@ -9,6 +9,7 @@ public class BulletCtrl : MonoBehaviour
     private Transform trans;
 
     public bool playerBullet;
+    public bool passObstacle;
     public float speed;
     public float distance;
     private float distanceTmp;
@@ -44,6 +45,13 @@ public class BulletCtrl : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D Col)
     {
+        if (!passObstacle)
+        {
+            if (Col.gameObject.CompareTag("EtcObject"))
+            {
+                gameObject.SetActive(false);
+            }
+        }
         if (playerBullet)
         {
             if (Col.gameObject.CompareTag("Enemy"))

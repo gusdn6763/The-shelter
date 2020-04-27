@@ -15,7 +15,13 @@ public class Gunner : Mob
         while (!isDie)
         {
             if (enemyStatus == CharacterStatus.DIE) yield break;
-            if (FindPlayer())
+
+            if (fireCtrl.isReload)
+            {
+                enemyStatus = CharacterStatus.AVODING;
+            }
+
+            else if (FindPlayer())
             {
                 if(CollEtcObject())
                 {
@@ -44,7 +50,6 @@ public class Gunner : Mob
                     enemyStatus = CharacterStatus.MOVE;
                 }
             }
-            Debug.Log(enemyStatus);
             yield return null;
         }
     }
@@ -64,10 +69,14 @@ public class Gunner : Mob
                     transform.Translate((Vector3.down * (speed * 0.1f)) * Time.deltaTime);
                     animator.SetBool("Move", true);
                     break;
+                case CharacterStatus.AVODING:
+                    Avoding();
+                    transform.Translate((Vector3.down * (speed * 0.05f)) * Time.deltaTime);
+                    animator.SetBool("Move", true);
+                    break;
                 case CharacterStatus.TRACE:
                     animator.SetBool("Move", true);
-                    agent.SetDestination(target.transform.position);
-                    
+                    agent.SetDestination(target.transform.position); 
                     break;
                 case CharacterStatus.FAR_TRACE:
                     animator.SetBool("Move", true);
@@ -77,6 +86,15 @@ public class Gunner : Mob
                     animator.SetBool("Move", false);
                     agent.Stop();
                     ShowTarget();
+                    fireCtrl.isFire = true;
+                    if (!fireCtrl.isReload && fireCtrl.isFire)
+                    {
+                        if (Time.time >= fireCtrl.nextFire)        //현재 시간이 다음 발사 시간보다 큰지를 확인
+                        {
+                            animator.SetTrigger("Attack");
+                            fireCtrl.nextFire = Time.time + fireCtrl.fireRate + Random.Range(0.0f, 0.3f); //다음 발사 시간 계산
+                        }
+                    }
                     break;
                 case CharacterStatus.DIE:
                     isDie = true;

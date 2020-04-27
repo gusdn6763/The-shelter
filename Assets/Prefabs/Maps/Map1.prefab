@@ -244,7 +244,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a182f446377de84fabbeeab4e5fbad6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mobs: []
+  mobs:
+  - {fileID: 168403762374085388, guid: 5db8a6d699aa66b4a9eb3d0c8656550f, type: 3}
   mapInfo:
     ground:
     - {fileID: 4083215096118165663, guid: 0e0d7cdea96186a4987cd7df50cf671b, type: 3}
@@ -255,13 +256,40 @@ MonoBehaviour:
     mapRow: 7
     mapColumns: 10
   mobInfo:
-  - mob: {fileID: 4106287914498153928, guid: 5db8a6d699aa66b4a9eb3d0c8656550f, type: 3}
-    mobSpawnPos: 2
+  - mob: {fileID: 3472594064298888512, guid: d79f1663b4f95af4aa9fe689c3660201, type: 3}
+    mobSpawnPos: 6
+    mobSpawnStage: 0
+    mobMaxCount: 1
+  - mob: {fileID: 4403699217481417990, guid: 054a8935afefc294bac26499d436d97f, type: 3}
+    mobSpawnPos: 6
+    mobSpawnStage: 0
+    mobMaxCount: 1
+  - mob: {fileID: 449326859083558403, guid: b6d8f946a98902a4ab1a7181329f258b, type: 3}
+    mobSpawnPos: 6
     mobSpawnStage: 0
     mobMaxCount: 1
   objectInfo:
-    objCount: 0
-    objects: []
+  - objCount: 1
+    objects: {fileID: 3024792676961902536, guid: 1eff25ba8025bf345b70da8405dde1c4,
+      type: 3}
+  - objCount: 1
+    objects: {fileID: 8693114752785767096, guid: 6b0ed132374c59849b8fc6b3e961719d,
+      type: 3}
+  - objCount: 1
+    objects: {fileID: 4472335834922484349, guid: aace3e2fbacfe2e48a8bfd871f585a75,
+      type: 3}
+  - objCount: 1
+    objects: {fileID: 7656157092524382299, guid: 09c6ac5a503c1434ea92d1be38a40197,
+      type: 3}
+  - objCount: 1
+    objects: {fileID: 1076775100269951993, guid: d6caf9bbc63867244a0a9f2402a79374,
+      type: 3}
+  - objCount: 0
+    objects: {fileID: 1259970307805797167, guid: 639634cba835e024b9959c38317f675f,
+      type: 3}
+  - objCount: 0
+    objects: {fileID: 6024087235516590970, guid: eaffb424a2036f240852da304a930b90,
+      type: 3}
   playerInfo:
     player: {fileID: 0}
     startPoint: {fileID: 0}

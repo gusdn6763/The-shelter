@@ -35,6 +35,7 @@ public class Mob : MovingObject
 
     public bool start = false;
     public bool isDie = false;
+    private bool avoding = false;
 
     public enum CharacterStatus
     {
@@ -43,7 +44,7 @@ public class Mob : MovingObject
         MOVE,
         TRACE,
         FAR_TRACE,
-        EVE,
+        AVODING,
         ATTACK,
         DIE
     }
@@ -221,7 +222,21 @@ public class Mob : MovingObject
         base.Die();
         enemyStatus = CharacterStatus.DIE;
     }
+    public virtual void Avoding(float rotate = 0f)
+    {
+        if (avoding == false)
+        {
+            StartCoroutine(AvodingCoroutine(rotate));
+        }
+    }
 
+    public virtual IEnumerator AvodingCoroutine(float rotate = 0f)
+    {
+        avoding = true;
+        transform.Rotate(0, 0, 50);
+        yield return new WaitUntil(() => fireCtrl.isReload == false);
+        avoding = false;
+    }
 
 
     public void OnPlayerDie()

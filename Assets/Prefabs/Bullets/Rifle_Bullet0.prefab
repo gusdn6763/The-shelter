@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2481751533817819898}
   - component: {fileID: 8500337595949639901}
   - component: {fileID: 5064183980885777709}
+  - component: {fileID: 50681397462889078}
   m_Layer: 0
   m_Name: Rifle_Bullet0
   m_TagString: BULLET
@@ -110,5 +111,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerBullet: 0
+  passObstacle: 0
   speed: 5
   distance: 5
+--- !u!50 &50681397462889078
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5064183980885777708}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
