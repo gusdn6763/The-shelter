@@ -20,19 +20,16 @@ public class Mob : MovingObject
     public LayerMask m_viewTargetMask;       // 인식 가능한 타켓의 마스크
     public LayerMask m_viewObstacleMask;     // 인식 방해물의 마스크 
 
-    private List<Collider2D> hitedTargetContainer = new List<Collider2D>(); // 인식한 물체들을 보관할 컨테이너
-
     private float m_horizontalViewHalfAngle = 0f; // 시야각의 절반 값
 
     public Action<Mob> Count;       //방에서 죽으면 몹의 갯수를 빼줄 딜리게이트
 
-    protected RaycastHit2D raycastHit;
     protected Ray2D currentRayPos = new Ray2D();        //현재 적이 보고있는 방향
     protected Ray2D playerRay = new Ray2D();            //플레이어의 방향
     protected RaycastHit2D hitPlayer;
     protected RaycastHit2D hitEtcObject;
-    public float weaponDistance;
 
+    public float weaponDistance;
     public bool start = false;
     public bool isDie = false;
     private bool avoding = false;
@@ -88,10 +85,8 @@ public class Mob : MovingObject
         }
     }
 
-    public Collider2D[] FindViewTargets()
+    public void FindViewTargets()
     {
-        hitedTargetContainer.Clear();
-
         Vector2 originPos = transform.position;
         Collider2D[] hitedTargets = Physics2D.OverlapCircleAll(originPos, weaponDistance, m_viewTargetMask);
 
@@ -113,16 +108,10 @@ public class Mob : MovingObject
                 }
                 else
                 {
-                    hitedTargetContainer.Add(hitedTarget);
                     Debug.DrawLine(originPos, targetPos, Color.red);
                 }
             }
         }
-
-        if (hitedTargetContainer.Count > 0)
-            return hitedTargetContainer.ToArray();
-        else
-            return null;
     }
     private Vector2 AngleToDirZ(float angleInDegree)
     {
@@ -237,11 +226,4 @@ public class Mob : MovingObject
         yield return new WaitUntil(() => fireCtrl.isReload == false);
         avoding = false;
     }
-
-
-    public void OnPlayerDie()
-    {
-        StopAllCoroutines();
-    }
-
 }
