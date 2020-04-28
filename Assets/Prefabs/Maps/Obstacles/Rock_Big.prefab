@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8693114752785767092}
   - component: {fileID: 8693114752785767093}
-  - component: {fileID: 8693114752785767099}
   - component: {fileID: 8693114752785767098}
+  - component: {fileID: 8693114752785767099}
   m_Layer: 9
   m_Name: Rock_Big
   m_TagString: EtcObject
@@ -81,21 +81,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8693114752785767099
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8693114752785767096}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc4f7f33d8fc7c0419b2308165807ce0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shapeType: 0
-  extraOffset: 0
-  invertPolygon: 1
 --- !u!60 &8693114752785767098
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -129,3 +114,18 @@ PolygonCollider2D:
       - {x: 0.28, y: -0.29}
       - {x: 0.28, y: 0.02}
       - {x: 0.13, y: 0.32}
+--- !u!114 &8693114752785767099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8693114752785767096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc4f7f33d8fc7c0419b2308165807ce0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shapeType: 0
+  extraOffset: 0
+  invertPolygon: 1

@@ -793,7 +793,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maps: []
-  map: {fileID: 4522000482490792921, guid: 34a815e1f8045ed4db09ecce34ed4e17, type: 3}
+  map: {fileID: 7561387596866840332, guid: 8b1bd5ac774924946b9b7334906557b2, type: 3}
   maps_count: 1
   map_random_add: 0
 --- !u!4 &1667995177
@@ -963,6 +963,8 @@ MonoBehaviour:
   FullHp: 0
   currentHp: 0
   speed: 10
+  currentArmor: 0
+  currentMoney: 0
   playerStatus: 0
 --- !u!95 &6419694401289327937
 Animator:
