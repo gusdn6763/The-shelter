@@ -16,7 +16,7 @@ public class MovingObject : MonoBehaviour
     public float FullHp;
     public float currentHp;
     public float speed;
-
+    public float currentArmor;
     public virtual void Awake()
     {
         animator = GetComponent<Animator>();
@@ -36,6 +36,13 @@ public class MovingObject : MonoBehaviour
 
     public void Damaged(float damage)
     {
+        if (currentArmor > 0)
+        {
+            currentArmor -= damage;
+            if (currentArmor < 0)
+                damage = -currentArmor;
+            else return ;
+        }
         currentHp -= damage;
         if (currentHp<=0)
         {

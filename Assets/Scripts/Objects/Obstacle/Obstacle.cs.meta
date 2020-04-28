@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:Assets/Scripts/GameManager.cs.meta
-guid: 7c322fe7f59bec64796b95ea4a3bffda
-=======
 guid: a7ac533bc58b2d44c877f2e887ec9c91
->>>>>>> kylee_item:Assets/Scripts/Objects/Obstacle/Obstacle.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
