@@ -13,7 +13,8 @@ public class MapManager : MonoBehaviour
     private int row = 7;
     public int maps_count;
     public int map_random_add;
-
+    private int activateStage;
+    public List<Vector3> startPoint = new List<Vector3>();
     public void Awake()
     {
         if (instance != null)
@@ -25,11 +26,21 @@ public class MapManager : MonoBehaviour
             instance = this;
         }
         maps = new Map[maps_count];
+        CreateStage();
     }
 
     void Start()
     {
-        CreateStage();
+    }
+
+    public void StartStage(int stageNum) // from.maps
+    {
+        Debug.Log(maps[stageNum].mobs.Count);
+        for (int i = 0; i < maps[stageNum].mobs.Count; i++) // 
+        {
+            Debug.Log("sdfsd");
+            maps[stageNum].mobs[i].gameObject.SetActive(true);
+        }
     }
 
     public void CreateStage()
@@ -41,10 +52,19 @@ public class MapManager : MonoBehaviour
         {
             map.mapInfo.mapColumns = Random.Range(col, col + Random.Range(0, map_random_add));
             Map tmp = Instantiate(map, new Vector3(-0.5f * map.mapInfo.mapRow, (float)(columns), 0),Quaternion.identity);
-            tmp.transform.localPosition = new Vector3(-0.5f * map.mapInfo.mapRow, (float)(columns), 0);
+            tmp.transform.position = new Vector3(-0.5f * map.mapInfo.mapRow, (float)(columns), 0);
+            Debug.Log(columns);
+            startPoint.Add(tmp.transform.localPosition);
             columns += map.mapInfo.mapColumns;
+            tmp.stageNum = i;
             tmp.transform.SetParent(this.transform);
             maps[i] = tmp;
         }
+    }
+
+    public void MoveStage(int stageNum)
+    {
+        StartStage(stageNum);
+        //GameManager.instance.player.nowStage
     }
 }

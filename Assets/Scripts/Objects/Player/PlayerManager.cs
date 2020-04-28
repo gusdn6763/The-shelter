@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerManager : MovingObject
 {
     public int currentMoney;
+    public int nowStage;
     public enum CharacterStatus
     {
         NONE,

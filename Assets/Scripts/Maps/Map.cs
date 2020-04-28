@@ -74,6 +74,11 @@ public class Map : MonoBehaviour
     private Transform exitParentObject;
 
     public bool[,] spawnCheck;
+    public int stageNum;
+    public int MobsCount
+    {
+        get { return mobsParentObject.childCount; }
+    }
 
     void Awake()
     {
@@ -96,6 +101,8 @@ public class Map : MonoBehaviour
         CreateMap();
         CreateMob();
         CreateObject();
+        if (stageNum == 0)
+            MapManager.instance.StartStage(0);
     }
 
     private void CreateMapTile()
@@ -105,11 +112,11 @@ public class Map : MonoBehaviour
         {
             for (int j = 0; j < mapInfo.mapColumns; j++)
             {
-                if (i == 0 || i == mapInfo.mapRow - 1 || j == mapInfo.mapColumns - 1 && i != exit)
+                if (i == 0 || i == mapInfo.mapRow - 1)
                 {
                     mapInfo.mapTileArray[i, j] = MapInfo.e_mapTileType.WALL;
                 }
-                else if (j == mapInfo.mapColumns - 1 && i == exit)
+                else if (j == mapInfo.mapColumns - 1)
                 {
                     mapInfo.mapTileArray[i, j] = MapInfo.e_mapTileType.EXIT;
                 }
@@ -143,6 +150,7 @@ public class Map : MonoBehaviour
                     tmp = Instantiate(mapInfo.exit[Random.Range(0, mapInfo.exit.Length)]);
                     tmp.transform.SetParent(exitParentObject);
                     tmp.transform.localPosition = new Vector3(i, j, 0f);
+                    tmp.GetComponent<ExitTile>().exitNum = stageNum;
                 }
                 else if (mapInfo.mapTileArray[i, j] == MapInfo.e_mapTileType.WALL)
                 {
@@ -182,8 +190,8 @@ public class Map : MonoBehaviour
                 Mob mobTmp = Instantiate(mobInfo[i].mob);
                 mobTmp.transform.SetParent(mobsParentObject);
                 mobTmp.transform.localPosition = new Vector3(l, k);
-
                 mobs.Add(mobTmp);
+                mobTmp.gameObject.SetActive(false);
                 spawnCheck[l, k] = true;
 
                 mobTmp.target = GameManager.instance.player.gameObject;
