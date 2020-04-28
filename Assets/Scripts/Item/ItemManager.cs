@@ -7,6 +7,7 @@ public class ItemManager : MonoBehaviour
     private GameObject itemDatabase;
     private ItemDatabase itemScript;
     private Transform itemParent;
+    public GameObject droppedEffect;
     void GenerateItem(Vector3 position, int id) // 1개 생성
     {
         GameObject tmp;
@@ -52,6 +53,49 @@ public class ItemManager : MonoBehaviour
             //Debug.Log(temp_radius);
         }
     }
+
+    void GenerateItem(Vector3 position, float radius, int id, int count, float speed)
+    {
+
+        float temp_radius = Mathf.Sqrt(Random.Range(0f, radius * radius));
+        float temp_angle = Random.Range(0f, 2f) * Mathf.PI;
+        Vector2 temp_position = new Vector2(position.x + temp_radius * Mathf.Cos(temp_angle),
+        position.y + temp_radius * Mathf.Sin(temp_angle));
+        GameObject tmp;
+        GameObject item = itemScript.itemList.Find(x => x.GetComponent<Item>().itemId == id);
+        while (item != null && count > 0)
+        {
+            tmp = Instantiate(droppedEffect);
+            tmp.transform.position = position;
+            StartCoroutine(MoveItem(tmp, temp_position, id, speed));
+            temp_radius = Mathf.Sqrt(Random.Range(0f, radius * radius));
+            temp_angle = Random.Range(0f, 2f) * Mathf.PI;
+            temp_position = new Vector2(position.x + temp_radius * Mathf.Cos(temp_angle),
+        position.y + temp_radius * Mathf.Sin(temp_angle));
+            tmp.transform.SetParent(itemParent);
+            count--;
+            //Debug.Log(temp_radius);
+        }
+    }
+
+    IEnumerator MoveItem(GameObject tmp, Vector2 dest, int id, float speed)
+    {
+        float count = 0;
+        Vector2 wasPos = tmp.transform.position;
+        while (true)
+        {
+            count += Time.deltaTime;
+            tmp.transform.position = Vector2.Lerp(wasPos, dest, speed * count);
+            if (count >= 1)
+            {
+                tmp.transform.position = dest;
+                GenerateItem(new Vector3(dest.x, dest.y, 0f), id);
+                Destroy(tmp);
+                break ;
+            }
+            yield return null;
+        }
+    }
     /*
     **
     **
@@ -77,10 +121,12 @@ public class ItemManager : MonoBehaviour
     }
     IEnumerator CountTime(float delayTime)
     {
-        GenerateItem(new Vector3(0f, 1f, 0), 1f, Random.Range(1, 4), 1);
-        Debug.Log("Generate Item");
+        GenerateItem(new Vector3(0f, 1f, 0), 1f, 1, 2, 3);
+        GenerateItem(new Vector3(0f, 1f, 0), 1f, 2, 2, 3);
+        GenerateItem(new Vector3(0f, 1f, 0), 1f, 3, 2, 3);
+        //Debug.Log("Generate Item");
         yield return new WaitForSeconds(delayTime);
-        Debug.Log("Are you watiing?");
+        //Debug.Log("Are you watiing?");
         StartCoroutine(CountTime(2f));
     }
 }
