@@ -18,11 +18,6 @@ public class FireCtrl : MonoBehaviour
     public float fireRate = 0.3f;               //총알 발사 간격
     public float add_Damage;                    //총알의 추가 데미지                                              
 
-    private void Awake()
-    {
-        add_Damage = 10f;
-    }
-
     private void Start()
     {
         weapon = ObjectPoolManager.instance.weapons[0];
@@ -45,8 +40,6 @@ public class FireCtrl : MonoBehaviour
     IEnumerator Reloading()                                         //총알 재장전 함수
     {
         isReload = true;
-        //재장전 애니메이션 실행
-        //animator.SetTrigger(hashReload);
         //재장전 사운드 발생
         //audio.PlayOneShot(reloadSfx, 1.0f);
         //재장전 시간만큼 대기하는 동안 제어권 양보

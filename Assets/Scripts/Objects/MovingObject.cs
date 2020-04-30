@@ -5,26 +5,30 @@ using UnityEngine;
 [RequireComponent(typeof(Animator), typeof(CapsuleCollider2D),typeof(FireCtrl))]
 public class MovingObject : MonoBehaviour
 {
-    protected Animator animator;
+    protected FireCtrl fireCtrl;
 
     protected CapsuleCollider2D dmgCheck;
-
-    protected FireCtrl fireCtrl;
+    protected Animator animator;
 
     public GameObject target;
 
-    public float FullHp;
+    public float HP;
     public float currentHp;
-    public float speed;
+    public float Armor;
     public float currentArmor;
+    public float Speed;
+
     public virtual void Awake()
     {
         animator = GetComponent<Animator>();
         dmgCheck = GetComponent<CapsuleCollider2D>();
         fireCtrl = GetComponent<FireCtrl>();
+    }
 
-        FullHp = 100;
-        speed = 10f;
+    public virtual void Start()
+    {
+        currentHp = HP;
+        currentArmor = Armor;
     }
 
     public void ShowTarget()
@@ -34,20 +38,20 @@ public class MovingObject : MonoBehaviour
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
-    public void Damaged(float damage)
+    public virtual void Damaged(float damage)
     {
         if (currentArmor > 0)
         {
-            currentArmor -= damage;
-            if (currentArmor < 0)
-                damage = -currentArmor;
-            else return ;
+            currentArmor--;
         }
-        currentHp -= damage;
-        if (currentHp<=0)
+        else
         {
-            Die();
-        } 
+            currentHp -= damage;
+            if (currentHp <= 0)
+            {
+                Die();
+            }
+        }
     }
 
     public virtual void Die()

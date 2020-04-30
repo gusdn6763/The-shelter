@@ -2,14 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Soldier : Mob
+public class Gunner : Mob
 {
-    public override void Start()
-    {
-        base.Start();
-        startMob();
-    }
-
     public override IEnumerator StartStatus()
     {
         while (!isDie)
@@ -23,7 +17,7 @@ public class Soldier : Mob
 
             else if (FindPlayer())
             {
-                if (CollEtcObject())
+                if(CollEtcObject())
                 {
                     if (Comparison())
                     {
@@ -66,17 +60,17 @@ public class Soldier : Mob
                     break;
                 case CharacterStatus.MOVE:
                     ShowTarget();
-                    transform.Translate((Vector3.down * (speed * 0.1f)) * Time.deltaTime);
+                    transform.Translate((Vector3.down * (Speed * 0.1f)) * Time.deltaTime);
                     animator.SetBool("Move", true);
                     break;
                 case CharacterStatus.AVODING:
                     Avoding();
-                    transform.Translate((Vector3.down * (speed * 0.05f)) * Time.deltaTime);
+                    transform.Translate((Vector3.down * (Speed * 0.05f)) * Time.deltaTime);
                     animator.SetBool("Move", true);
                     break;
                 case CharacterStatus.TRACE:
                     animator.SetBool("Move", true);
-                    agent.SetDestination(target.transform.position);
+                    agent.SetDestination(target.transform.position); 
                     break;
                 case CharacterStatus.FAR_TRACE:
                     animator.SetBool("Move", true);
@@ -92,7 +86,7 @@ public class Soldier : Mob
                         if (Time.time >= fireCtrl.nextFire)        //현재 시간이 다음 발사 시간보다 큰지를 확인
                         {
                             animator.SetTrigger("Attack");
-                            fireCtrl.nextFire = Time.time + fireCtrl.fireRate; //다음 발사 시간 계산
+                            fireCtrl.nextFire = Time.time + fireCtrl.fireRate + Random.Range(0.0f, 0.3f); //다음 발사 시간 계산
                         }
                     }
                     break;

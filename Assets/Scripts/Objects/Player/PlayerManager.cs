@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerManager : MovingObject
 {
-    public int currentMoney;
     public enum CharacterStatus
     {
         NONE,
@@ -14,13 +13,9 @@ public class PlayerManager : MovingObject
         DIE
     }
 
-    public CharacterStatus playerStatus;                
+    public CharacterStatus playerStatus;
 
-    public override void Awake()
-    {
-        base.Awake();
-    }
-
+    public int currentMoney;
     public void Update()
     {
         switch (playerStatus)
@@ -33,13 +28,11 @@ public class PlayerManager : MovingObject
                 animator.SetBool("Move", false);
                 break;
             case CharacterStatus.MOVE:
-                transform.Translate((Vector3.down * (speed * 0.1f)) * Time.deltaTime);
+                transform.Translate((Vector3.down * (Speed * 0.1f)) * Time.deltaTime);
                 animator.SetBool("Move", true);
                 break;
             case CharacterStatus.ATTACK:
-                //ShowTarget();
-                //순찰 및 추적을 정지
-                //TODO:
+                //타겟 보기
                     fireCtrl.isFire = true;
                     if (!fireCtrl.isReload && fireCtrl.isFire)
                     {
@@ -54,13 +47,11 @@ public class PlayerManager : MovingObject
                 break;
         }
     }
-
     //나중에 처음 시작할때 자동이로 움직여주는 함수
     public void Move(float distance,float startTime)        
     {
         StartCoroutine(MoveCoroutine(distance, startTime));
     }
-
     IEnumerator MoveCoroutine(float distance,float startTime)
     {
         Vector3 toPos = new Vector3(transform.position.x, transform.position.y+distance, transform.position.z);
@@ -72,7 +63,6 @@ public class PlayerManager : MovingObject
         }
         playerStatus = CharacterStatus.IDLE;
     }
-
     void OnTriggerEnter2D(Collider2D col)
     {
         if (col.tag == "Item")

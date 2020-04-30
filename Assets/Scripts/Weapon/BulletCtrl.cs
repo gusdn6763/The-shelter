@@ -12,6 +12,7 @@ public class BulletCtrl : MonoBehaviour
     public bool passObstacle;
     public float speed;
     public float distance;
+    public float damage;
     private float distanceTmp;
 
     private void Awake()
@@ -56,7 +57,7 @@ public class BulletCtrl : MonoBehaviour
         {
             if (Col.gameObject.CompareTag("Enemy"))
             {
-                //Col.GetComponent<MovingObject>().Damaged(damage);
+                Col.GetComponent<MovingObject>().Damaged(damage);
                 gameObject.SetActive(false);
             }
         }

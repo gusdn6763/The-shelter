@@ -223,6 +223,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: MapManager
       objectReference: {fileID: 0}
+    - target: {fileID: 8935939532961126456, guid: d5b598583f0e6d64aaf72d65beb41b64,
+        type: 3}
+      propertyPath: map
+      value: 
+      objectReference: {fileID: 7561387596866840332, guid: 8b1bd5ac774924946b9b7334906557b2,
+        type: 3}
     - target: {fileID: 8935939532961126457, guid: d5b598583f0e6d64aaf72d65beb41b64,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -309,6 +315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e21aeeaf266b3d345a0d759f9d40c32f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  droppedEffect: {fileID: 1403034125}
 --- !u!4 &535999109
 Transform:
   m_ObjectHideFlags: 0
@@ -664,6 +671,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1403034125 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1781886594842125905, guid: 00ce5407418c7b14aaba1a065ccd2535,
+    type: 3}
+  m_PrefabInstance: {fileID: 5076612249195646626}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1450517544
 GameObject:
   m_ObjectHideFlags: 0

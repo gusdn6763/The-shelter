@@ -15,8 +15,8 @@ public class Item_Consumption : Item
         Debug.Log("GetItem Activate");
         duration_temp_time = duration_time;
         player.currentHp += instant_heal;
-        if (player.currentHp > player.FullHp)
-            player.currentHp = player.FullHp;
+        if (player.currentHp > player.HP)
+            player.currentHp = player.HP;
         if (duration_heal == 0)
             Destroy(gameObject);
         StartCoroutine(Continuing_Heal(tick));
@@ -24,8 +24,8 @@ public class Item_Consumption : Item
     IEnumerator Continuing_Heal(float delayTime)
     {
         player.currentHp += duration_heal;
-        if (player.currentHp > player.FullHp)
-            player.currentHp = player.FullHp;
+        if (player.currentHp > player.HP)
+            player.currentHp = player.HP;
         duration_temp_time -= delayTime;
         if (duration_temp_time <= 0)
             Destroy(gameObject);

@@ -13,29 +13,27 @@ public class Mob : MovingObject
 
     [Header("View Config")]
     [Range(0f, 360f)]
-    [SerializeField] private float m_horizontalViewAngle = 0f; // 시야각
-    [Range(-180f, 180f)]
-    [SerializeField] private float m_viewRotateZ = 0f; // 시야각의 회전값
+    [SerializeField] private float m_horizontalViewAngle = 0f; // 시야 범위 값
+    private float m_horizontalViewHalfAngle = 0f; // 시야각의 절반 값
 
     public LayerMask m_viewTargetMask;       // 인식 가능한 타켓의 마스크
     public LayerMask m_viewObstacleMask;     // 인식 방해물의 마스크 
 
-    private List<Collider2D> hitedTargetContainer = new List<Collider2D>(); // 인식한 물체들을 보관할 컨테이너
-
-    private float m_horizontalViewHalfAngle = 0f; // 시야각의 절반 값
-
     public Action<Mob> Count;       //방에서 죽으면 몹의 갯수를 빼줄 딜리게이트
 
-    protected RaycastHit2D raycastHit;
     protected Ray2D currentRayPos = new Ray2D();        //현재 적이 보고있는 방향
     protected Ray2D playerRay = new Ray2D();            //플레이어의 방향
-    protected RaycastHit2D hitPlayer;
+    protected RaycastHit2D hitPlayer;                   //몹의 방향에 플레이어가 맞았는지 확인하는 여부
     protected RaycastHit2D hitEtcObject;
-    public float weaponDistance;
 
-    public bool start = false;
-    public bool isDie = false;
+    private float m_viewRotateZ = -180f; // 보고있는 z의 값
     private bool avoding = false;
+
+    public float weaponDistance;
+    public float AvodingRotate;
+    public bool isDie = false;
+    public bool start = false;
+    
 
     public enum CharacterStatus
     {
@@ -51,14 +49,12 @@ public class Mob : MovingObject
 
     public CharacterStatus enemyStatus;
 
-    public override void Awake()
+    public override void Start()
     {
-        base.Awake();
-    }
-    public virtual void Start()
-    {
+        base.Start();
         target = GameManager.instance.player.gameObject;
         m_horizontalViewHalfAngle = m_horizontalViewAngle * 0.5f;
+        startMob();
     }
     protected void OnDrawGizmos()
     {
@@ -84,52 +80,37 @@ public class Mob : MovingObject
             Debug.DrawRay(currentRayPos.origin, lookDir * weaponDistance, Color.green);
             Debug.DrawRay(currentRayPos.origin, horizontalRightDir * weaponDistance, Color.cyan);
 
-            FindViewTargets();
-        }
-    }
+            Vector2 originPos = transform.position;
+            Collider2D[] hitedTargets = Physics2D.OverlapCircleAll(originPos, weaponDistance, m_viewTargetMask);
 
-    public Collider2D[] FindViewTargets()
-    {
-        hitedTargetContainer.Clear();
-
-        Vector2 originPos = transform.position;
-        Collider2D[] hitedTargets = Physics2D.OverlapCircleAll(originPos, weaponDistance, m_viewTargetMask);
-
-        foreach (Collider2D hitedTarget in hitedTargets)
-        {
-            Vector2 targetPos = hitedTarget.transform.position;
-            Vector2 dir = (targetPos - originPos).normalized;
-            Vector2 lookDir = AngleToDirZ(m_viewRotateZ);
-
-            float dot = Vector2.Dot(lookDir, dir);
-            float angle = Mathf.Acos(dot) * Mathf.Rad2Deg;
-
-            if (angle <= m_horizontalViewHalfAngle)
+            foreach (Collider2D hitedTarget in hitedTargets)
             {
-                RaycastHit2D rayHitedTarget = Physics2D.Raycast(originPos, dir, weaponDistance, m_viewObstacleMask);
-                if (rayHitedTarget)
+                Vector2 targetPos = hitedTarget.transform.position;
+                Vector2 dir = (targetPos - originPos).normalized;
+
+                float dot = Vector2.Dot(lookDir, dir);
+                float angle = Mathf.Acos(dot) * Mathf.Rad2Deg;
+
+                if (angle <= m_horizontalViewHalfAngle)
                 {
-                    Debug.DrawLine(originPos, rayHitedTarget.point, Color.yellow);
-                }
-                else
-                {
-                    hitedTargetContainer.Add(hitedTarget);
-                    Debug.DrawLine(originPos, targetPos, Color.red);
+                    RaycastHit2D rayHitedTarget = Physics2D.Raycast(originPos, dir, weaponDistance, m_viewObstacleMask);
+                    if (rayHitedTarget)
+                    {
+                        Debug.DrawLine(originPos, rayHitedTarget.point, Color.yellow);
+                    }
+                    else
+                    {
+                        Debug.DrawLine(originPos, targetPos, Color.red);
+                    }
                 }
             }
         }
-
-        if (hitedTargetContainer.Count > 0)
-            return hitedTargetContainer.ToArray();
-        else
-            return null;
     }
     private Vector2 AngleToDirZ(float angleInDegree)
     {
         float radian = (angleInDegree - transform.eulerAngles.z) * Mathf.Deg2Rad;
         return new Vector3(Mathf.Sin(radian), Mathf.Cos(radian));
     }
-
     public void startMob()
     {
         start = true;
@@ -137,17 +118,14 @@ public class Mob : MovingObject
         StartCoroutine(StartStatus());
         StartCoroutine(StartAction());
     }
-
     public virtual IEnumerator StartStatus()
     {
         yield return null;
     }
-
     public virtual IEnumerator StartAction()
     {
         yield return null;
     }
-
     public bool FindPlayer()
     {
         Vector2 originPos = transform.position;
@@ -211,17 +189,6 @@ public class Mob : MovingObject
             return false;
         }
     }
-    public void Dead()              //애니메이션에서 실행
-    {
-        Count(this);    
-        Destroy(this.gameObject);
-    }
-
-    public override void Die()
-    {
-        base.Die();
-        enemyStatus = CharacterStatus.DIE;
-    }
     public virtual void Avoding(float rotate = 0f)
     {
         if (avoding == false)
@@ -229,19 +196,30 @@ public class Mob : MovingObject
             StartCoroutine(AvodingCoroutine(rotate));
         }
     }
-
     public virtual IEnumerator AvodingCoroutine(float rotate = 0f)
     {
+        int chooseMovePos = UnityEngine.Random.Range(0, 1);
+        if (chooseMovePos == 0)
+            rotate = -rotate;
         avoding = true;
-        transform.Rotate(0, 0, 50);
+        transform.Rotate(0, 0, UnityEngine.Random.Range(rotate - 10, rotate + 10));
         yield return new WaitUntil(() => fireCtrl.isReload == false);
         avoding = false;
     }
-
-
-    public void OnPlayerDie()
+    public override void Damaged(float damage)
     {
-        StopAllCoroutines();
+        base.Damaged(damage);
+        GetComponent<EnemyUI>().DamagedBar(currentHp / HP);
+    }
+    public override void Die()
+    {
+        base.Die();
+        enemyStatus = CharacterStatus.DIE;
+    }
+    public void Dead()              //애니메이션에서 실행
+    {
+        //Count(this);
+        Destroy(this.gameObject);
     }
 
 }

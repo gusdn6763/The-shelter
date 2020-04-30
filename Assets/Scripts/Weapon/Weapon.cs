@@ -52,6 +52,7 @@ public class Weapon : MonoBehaviour
         bullet.playerBullet = check;
         bullet.transform.position = pos.position;
         bullet.transform.rotation = pos.rotation;
+        bullet.damage += damage;
         bullet.gameObject.SetActive(true);
         return;
     }

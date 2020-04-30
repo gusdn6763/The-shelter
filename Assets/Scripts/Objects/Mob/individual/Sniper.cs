@@ -59,7 +59,7 @@ public class Sniper : Mob
                     break;
                 case CharacterStatus.MOVE:
                     ShowTarget();
-                    transform.Translate((Vector3.down * (speed * 0.1f)) * Time.deltaTime);
+                    transform.Translate((Vector3.down * (Speed * 0.1f)) * Time.deltaTime);
                     animator.SetBool("Move", true);
                     break;
                 case CharacterStatus.TRACE:

@@ -179,6 +179,7 @@ public class Map : MonoBehaviour
                     j--;
                     continue;
                 }
+
                 Mob mobTmp = Instantiate(mobInfo[i].mob);
                 mobTmp.transform.SetParent(mobsParentObject);
                 mobTmp.transform.localPosition = new Vector3(l, k);

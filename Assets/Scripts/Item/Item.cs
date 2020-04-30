@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public enum e_itemType
 {
@@ -40,7 +38,7 @@ public class Item : MonoBehaviour
     // 인벤토리가 없다면, 즉시 해당 아이템의 효과를 발휘하는 방식
     void Start()
     {
-        player = GameObject.FindWithTag("Player").GetComponent<PlayerManager>();
+        player = GameManager.instance.player.GetComponent<PlayerManager>();
     }
     void Update()
     {

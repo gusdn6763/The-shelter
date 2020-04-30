@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 3472594064298888516}
   - component: {fileID: 3472594064298888515}
   - component: {fileID: 3472594064298888514}
-  - component: {fileID: 3472594064298888513}
   - component: {fileID: 3472594064298888512}
+  - component: {fileID: 3472594064298888513}
   - component: {fileID: 3472594064298888527}
+  - component: {fileID: 114641696662035470}
   m_Layer: 0
   m_Name: Gunner
   m_TagString: Enemy
@@ -143,6 +144,36 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &3472594064298888512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3472594064298888526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5e48dc3f0ec6f4c9dd34986da600bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  HP: 100
+  currentHp: 100
+  Armor: 0
+  currentArmor: 0
+  Speed: 5
+  m_horizontalViewAngle: 45
+  m_viewTargetMask:
+    serializedVersion: 2
+    m_Bits: 256
+  m_viewObstacleMask:
+    serializedVersion: 2
+    m_Bits: 512
+  weaponDistance: 4
+  AvodingRotate: 0
+  isDie: 0
+  start: 0
+  enemyStatus: 0
 --- !u!114 &3472594064298888513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,34 +196,6 @@ MonoBehaviour:
   isFire: 0
   fireRate: -1.54
   add_Damage: 0
---- !u!114 &3472594064298888512
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3472594064298888526}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5e48dc3f0ec6f4c9dd34986da600bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  FullHp: 100
-  currentHp: 10
-  speed: 1
-  m_horizontalViewAngle: 45
-  m_viewRotateZ: -180
-  m_viewTargetMask:
-    serializedVersion: 2
-    m_Bits: 256
-  m_viewObstacleMask:
-    serializedVersion: 2
-    m_Bits: 512
-  weaponDistance: 4
-  start: 1
-  isDie: 0
-  enemyStatus: 0
 --- !u!114 &3472594064298888527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,6 +227,22 @@ MonoBehaviour:
   restrict: 0
   closerPointOnInvalid: 1
   debugPath: 1
+--- !u!114 &114641696662035470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3472594064298888526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e4d96ee892e46b4b89607d2e2236abd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiCanvas: {fileID: 0}
+  hpBarPrefab: {fileID: 6452681554856648127, guid: 894fcf793d2787c47b22ec1187f4171e,
+    type: 3}
+  hpBarOffset: {x: 0, y: 0.4, z: 0}
 --- !u!1 &3472594065175033302
 GameObject:
   m_ObjectHideFlags: 0
