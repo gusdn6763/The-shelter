@@ -13,8 +13,8 @@ public class MapManager : MonoBehaviour
     private int row = 7;
     public int maps_count;
     public int map_random_add;
-    private int activateStage;
-    public List<Vector3> startPoint = new List<Vector3>();
+    private int activateStage; // 어떤 스테이지가 Activate 되어있는가? 사용하지않음.
+    public List<Vector3> startPoint = new List<Vector3>(); // 각 맵의 시작 위치
     public void Awake()
     {
         if (instance != null)
@@ -35,10 +35,8 @@ public class MapManager : MonoBehaviour
 
     public void StartStage(int stageNum) // from.maps
     {
-        Debug.Log(maps[stageNum].mobs.Count);
-        for (int i = 0; i < maps[stageNum].mobs.Count; i++) // 
+        for (int i = 0; i < maps[stageNum].MobsCount; i++) // 
         {
-            Debug.Log("sdfsd");
             maps[stageNum].mobs[i].gameObject.SetActive(true);
         }
     }
@@ -53,7 +51,7 @@ public class MapManager : MonoBehaviour
             map.mapInfo.mapColumns = Random.Range(col, col + Random.Range(0, map_random_add));
             Map tmp = Instantiate(map, new Vector3(-0.5f * map.mapInfo.mapRow, (float)(columns), 0),Quaternion.identity);
             tmp.transform.position = new Vector3(-0.5f * map.mapInfo.mapRow, (float)(columns), 0);
-            Debug.Log(columns);
+            Debug.Log(tmp.transform.localPosition);
             startPoint.Add(tmp.transform.localPosition);
             columns += map.mapInfo.mapColumns;
             tmp.stageNum = i;

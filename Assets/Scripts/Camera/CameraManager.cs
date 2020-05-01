@@ -7,7 +7,7 @@ public class CameraManager : MonoBehaviour
     public static CameraManager instance;
     public GameObject target;
     internal Transform trans;
-    private Vector3 cameraPosition;
+    private Vector3 targetPosition;
     private float moveSpeed = 1f;
     // Start is called before the first frame update
     void Awake()
@@ -31,8 +31,29 @@ public class CameraManager : MonoBehaviour
     {
         if (target.gameObject != null)
         {
-            cameraPosition.Set(target.transform.position.x, target.transform.position.y, -10f);
-            trans.position = Vector3.Lerp(trans.position, cameraPosition, moveSpeed * Time.deltaTime);
+            Vector3 mapPosition = MapManager.instance.startPoint[GameManager.instance.player.nowStage];
+            int mapRow = MapManager.instance.maps[GameManager.instance.player.nowStage].mapInfo.mapRow;
+            int mapCol = MapManager.instance.maps[GameManager.instance.player.nowStage].mapInfo.mapColumns;
+            targetPosition.Set(target.transform.position.x, target.transform.position.y, - 10f);
+            targetPosition.x = Mathf.Clamp(target.transform.position.x, mapPosition.x + mapRow / 2 - 3 + 3.5f, mapPosition.x - mapRow / 2 + 3 + 3.5f); // 임의의 값, 3.5f는 Map이 -3.5f 좌표값을 갖기때문에 더해줌
+            targetPosition.y = Mathf.Clamp(target.transform.position.y, mapPosition.y, mapPosition.y + mapCol / 2 + (mapCol % 2) - 5); // 임의의 값
+            trans.position = Vector3.Lerp(trans.position, targetPosition, moveSpeed * Time.deltaTime);
         }
     }
+
+/*
+    Vector3 BoundCameraLocation(Vector3 position)
+    {
+        Vector3 cameraLocation = position;
+        //MapManager.instance.maps[target.GetComponent<PlayerManager>().nowStage].mapInfo.mapRow;
+        //x = 
+
+        if (cameraLocation.x > x) cameraLocation.x = x;
+        if (cameraLocation.x < x2) cameraLocation.x = x2;
+        if (cameraLocation.y > y) cameraLocation.y = y;
+        if (cameraLocation.y < y) cameraLocation.y = y;
+
+        return (cameraLocation);
+    }
+*/
 }

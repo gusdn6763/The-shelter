@@ -26,17 +26,19 @@ public class ExitTile : MonoBehaviour
             {
                 if (MapManager.instance.maps[stage].MobsCount == 0)
                 {
-                    Debug.Log("tets");
                     this.gameObject.GetComponent<Collider2D>().isTrigger = true;
-                    if (GameManager.instance.player.nowStage == exitNum)
+                    if (GameManager.instance.player.nowStage == exitNum) // 앞으로 전진
                     {
-                        MapManager.instance.MoveStage(exitNum + 1);
                         GameManager.instance.player.nowStage++;
+                        GameManager.instance.player.Move(2.0f, 2.0f);
+                        Invoke("InvokeCollsionEnter2DFront", 2.0f);
                     }
-                    else
+                    else // 뒤로 후진
                     {
-                        MapManager.instance.MoveStage(exitNum);
+                        //MapManager.instance.MoveStage(exitNum);
                         GameManager.instance.player.nowStage--;
+                        GameManager.instance.player.MoveBack(2.0f, 2.0f);
+                        Invoke("InvokeCollsionEnter2DBack", 2.0f);
                     }
                     // 플레이어 이동
                     // 몹 비활성화
@@ -49,5 +51,16 @@ public class ExitTile : MonoBehaviour
                 }
             }
         }
+    }
+
+    void InvokeCollsionEnter2DFront()
+    {
+        MapManager.instance.MoveStage(exitNum + 1);
+        this.gameObject.GetComponent<Collider2D>().isTrigger = false;
+    }
+    void InvokeCollsionEnter2DBack()
+    {
+        MapManager.instance.MoveStage(exitNum);
+        this.gameObject.GetComponent<Collider2D>().isTrigger = false;   
     }
 }
