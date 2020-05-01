@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Sniper : Mob
 {
+    public bool shotAterAvoding = false;
+    public bool recoil = false;
     public override void Start()
     {
         base.Start();
@@ -14,34 +16,14 @@ public class Sniper : Mob
         while (!isDie)
         {
             if (enemyStatus == CharacterStatus.DIE) yield break;
-            if (FindPlayer())
+
+            if (fireCtrl.isReload)
             {
-                if (CollEtcObject())
-                {
-                    if (Comparison())
-                    {
-                        enemyStatus = CharacterStatus.ATTACK;
-                    }
-                    else
-                    {
-                        enemyStatus = CharacterStatus.TRACE;
-                    }
-                }
-                else
-                {
-                    enemyStatus = CharacterStatus.ATTACK;
-                }
+                enemyStatus = CharacterStatus.AVODING;
             }
             else
             {
-                if (CollEtcObject())
-                {
-                    enemyStatus = CharacterStatus.FAR_TRACE;
-                }
-                else
-                {
-                    enemyStatus = CharacterStatus.MOVE;
-                }
+                enemyStatus = CharacterStatus.ATTACK;
             }
             yield return null;
         }
@@ -55,21 +37,14 @@ public class Sniper : Mob
                 case CharacterStatus.NONE:
                     break;
                 case CharacterStatus.IDLE:
-                    animator.SetBool("Move", false);
                     break;
-                case CharacterStatus.MOVE:
-                    ShowTarget();
-                    transform.Translate((Vector3.down * (Speed * 0.1f)) * Time.deltaTime);
-                    animator.SetBool("Move", true);
-                    break;
-                case CharacterStatus.TRACE:
-                    animator.SetBool("Move", true);
-                    agent.SetDestination(target.transform.position);
-
-                    break;
-                case CharacterStatus.FAR_TRACE:
-                    animator.SetBool("Move", true);
-                    agent.SetDestination(target.transform.position);
+                case CharacterStatus.AVODING:
+                    if (!recoil)
+                    {
+                        Avoding();
+                        animator.SetBool("Move", true);
+                        transform.Translate((Vector3.down * (Speed * 0.05f)) * Time.deltaTime);
+                    }
                     break;
                 case CharacterStatus.ATTACK:
                     animator.SetBool("Move", false);
@@ -81,6 +56,7 @@ public class Sniper : Mob
                         if (Time.time >= fireCtrl.nextFire)        //현재 시간이 다음 발사 시간보다 큰지를 확인
                         {
                             animator.SetTrigger("Attack");
+                            StartCoroutine(WeaponRecoil());
                             fireCtrl.nextFire = Time.time + fireCtrl.fireRate + Random.Range(0.0f, 0.3f); //다음 발사 시간 계산
                         }
                     }
@@ -93,4 +69,33 @@ public class Sniper : Mob
             yield return null;
         }
     }
+
+    public override IEnumerator AvodingCoroutine()
+    {
+        int chooseMovePos = UnityEngine.Random.Range(0, 2);
+        if (chooseMovePos == 0)
+            AvodingRotate = -AvodingRotate;
+        if (this.transform.localPosition.x < 1)
+        {
+            AvodingRotate = Mathf.Abs(AvodingRotate);
+        }
+        if (this.transform.localPosition.x > 5)
+        {
+            if (AvodingRotate > 0)
+            {
+                AvodingRotate = -AvodingRotate;
+            }
+        }
+        avoding = true;
+        transform.rotation = Quaternion.Euler(0, 0, AvodingRotate);
+        yield return new WaitUntil(() => fireCtrl.isReload == false);
+        avoding = false;
+    }
+    IEnumerator WeaponRecoil()
+    {
+        recoil = true;
+        yield return new WaitForSeconds(Random.Range(1.2f,1.9f));
+        recoil = false;
+    }
+
 }

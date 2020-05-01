@@ -258,12 +258,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  HP: 0
-  currentHp: 0
+  HP: 20
+  currentHp: 20
   Armor: 0
   currentArmor: 0
-  Speed: 0
-  m_horizontalViewAngle: 60
+  Speed: 5
+  obstViewAngle: 30
+  AvodingRotate: 45
   m_viewTargetMask:
     serializedVersion: 2
     m_Bits: 256
@@ -271,7 +272,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   weaponDistance: 3
-  AvodingRotate: 0
   isDie: 0
   start: 1
   enemyStatus: 0
@@ -320,6 +320,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hpBarPrefab: {fileID: 6452681554856648127, guid: 894fcf793d2787c47b22ec1187f4171e,
     type: 3}
+  reloadingPrefab: {fileID: 0}
   hpBarOffset: {x: 0, y: 0.4, z: 0}
 --- !u!1 &1337709350687180148
 GameObject:

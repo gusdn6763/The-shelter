@@ -13,7 +13,9 @@ public class Mob : MovingObject
 
     [Header("View Config")]
     [Range(0f, 360f)]
-    [SerializeField] private float m_horizontalViewAngle = 0f; // 시야 범위 값
+    [SerializeField] private float obstViewAngle = 0f; // 시야 범위 값, 장애물 회피 여부
+    [Range(0f, 360f)]
+    public float AvodingRotate;
     private float m_horizontalViewHalfAngle = 0f; // 시야각의 절반 값
 
     public LayerMask m_viewTargetMask;       // 인식 가능한 타켓의 마스크
@@ -27,10 +29,9 @@ public class Mob : MovingObject
     protected RaycastHit2D hitEtcObject;
 
     private float m_viewRotateZ = -180f; // 보고있는 z의 값
-    private bool avoding = false;
+    protected bool avoding = false;
 
     public float weaponDistance;
-    public float AvodingRotate;
     public bool isDie = false;
     public bool start = false;
     
@@ -53,7 +54,7 @@ public class Mob : MovingObject
     {
         base.Start();
         target = GameManager.instance.player.gameObject;
-        m_horizontalViewHalfAngle = m_horizontalViewAngle * 0.5f;
+        m_horizontalViewHalfAngle = obstViewAngle * 0.5f;
         startMob();
     }
     protected void OnDrawGizmos()
@@ -68,7 +69,7 @@ public class Mob : MovingObject
             
             Debug.DrawLine(currentRayPos.origin, playerRay.origin, Color.black);
 
-            m_horizontalViewHalfAngle = m_horizontalViewAngle * 0.5f;
+            m_horizontalViewHalfAngle = obstViewAngle * 0.5f;
 
             Gizmos.DrawWireSphere(currentRayPos.origin, weaponDistance);
 
@@ -182,6 +183,7 @@ public class Mob : MovingObject
     {
         if (hitEtcObject.distance > hitPlayer.distance)
         {
+            
             return true;
         }
         else
@@ -189,20 +191,27 @@ public class Mob : MovingObject
             return false;
         }
     }
-    public virtual void Avoding(float rotate = 0f)
+    public void Avoding()
     {
         if (avoding == false)
         {
-            StartCoroutine(AvodingCoroutine(rotate));
+            StartCoroutine(AvodingCoroutine());
         }
     }
-    public virtual IEnumerator AvodingCoroutine(float rotate = 0f)
+    public virtual IEnumerator AvodingCoroutine()
     {
-        int chooseMovePos = UnityEngine.Random.Range(0, 1);
+        int chooseMovePos = UnityEngine.Random.Range(0, 2);
         if (chooseMovePos == 0)
-            rotate = -rotate;
+            AvodingRotate = -AvodingRotate;
+        if (transform.localPosition.x < 1)
+            AvodingRotate = Mathf.Abs(AvodingRotate);
+        if (transform.localPosition.x > 5)
+        {
+            if (AvodingRotate > 0)
+                AvodingRotate = -AvodingRotate;
+        }
         avoding = true;
-        transform.Rotate(0, 0, UnityEngine.Random.Range(rotate - 10, rotate + 10));
+        transform.Rotate(0, 0, UnityEngine.Random.Range(AvodingRotate - 10, AvodingRotate + 10));
         yield return new WaitUntil(() => fireCtrl.isReload == false);
         avoding = false;
     }

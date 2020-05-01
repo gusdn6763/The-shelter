@@ -400,7 +400,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 725054426}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.13846649, y: -1.9150063, z: 0.03212125}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1950248689}
@@ -867,7 +867,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maps: []
   map: {fileID: 7561387596866840332, guid: 8b1bd5ac774924946b9b7334906557b2, type: 3}
-  maps_count: 1
+  maps_count: 2
   map_random_add: 0
 --- !u!4 &1667995177
 Transform:
@@ -877,7 +877,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1667995175}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.13846649, y: 1.9150063, z: -0.03212125}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 725054427}

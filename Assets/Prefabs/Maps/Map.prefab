@@ -143,10 +143,6 @@ MonoBehaviour:
     mobSpawnPos: 10
     mobSpawnStage: 0
     mobMaxCount: 1
-  - mob: {fileID: 449326859083558403, guid: b6d8f946a98902a4ab1a7181329f258b, type: 3}
-    mobSpawnPos: 5
-    mobSpawnStage: 0
-    mobMaxCount: 1
   objectInfo:
   - objCount: 1
     objects: {fileID: 3024792676961902536, guid: 1eff25ba8025bf345b70da8405dde1c4,
