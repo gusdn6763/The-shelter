@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerManager : MovingObject
 {
+
+    public int currentMoney;
+    public int nowStage; // 현재 플레이어가 있는 위치.
     public enum CharacterStatus
     {
         NONE,
@@ -15,7 +18,6 @@ public class PlayerManager : MovingObject
 
     public CharacterStatus playerStatus;
 
-    public int currentMoney;
     public void Update()
     {
         switch (playerStatus)
@@ -51,6 +53,24 @@ public class PlayerManager : MovingObject
     public void Move(float distance,float startTime)        
     {
         StartCoroutine(MoveCoroutine(distance, startTime));
+    }
+
+
+    public void MoveBack(float distance, float startTime)
+    {
+        StartCoroutine(MoveBackCoroutine(distance, startTime));
+    }
+
+    IEnumerator MoveBackCoroutine(float distance, float startTime)
+    {
+        Vector3 toPos = new Vector3(transform.position.x, transform.position.y - distance, transform.position.z);
+        while (startTime > 0)
+        {
+            startTime -= Time.deltaTime;
+            transform.position = Vector3.Lerp(transform.position, toPos,(startTime+(Time.deltaTime/startTime))-startTime);
+            yield return null;
+        }
+        playerStatus = CharacterStatus.IDLE;  
     }
     IEnumerator MoveCoroutine(float distance,float startTime)
     {

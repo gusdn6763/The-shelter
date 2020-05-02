@@ -69,6 +69,7 @@ public class Map : MonoBehaviour
     {
         get { return mobsParentObject.childCount; }
     }
+
     void Awake()
     {
         boxCollider2D = GetComponent<BoxCollider2D>();
@@ -88,8 +89,8 @@ public class Map : MonoBehaviour
         CreateMap();
         CreateMob();
         CreateObject();
-       // if (stageNum == 0)
-            //MapManager.instance.StartStage(0);
+        if (stageNum == 0)
+            MapManager.instance.StartStage(0);
     }
     private void CreateMapTile()
     {
@@ -134,7 +135,6 @@ public class Map : MonoBehaviour
                     tmp = Instantiate(mapInfo.exit[Random.Range(0, mapInfo.exit.Length)]);
                     tmp.transform.SetParent(exitParentObject);
                     tmp.transform.localPosition = new Vector3(i, j, 0f);
-                    //tmp.GetComponent<ExitTile>().exitNum = stageNum;
                 }
                 else if (mapInfo.mapTileArray[i, j] == MapInfo.e_mapTileType.WALL)
                 {
@@ -172,6 +172,7 @@ public class Map : MonoBehaviour
                 mobTmp.transform.SetParent(mobsParentObject);
                 mobTmp.transform.localPosition = new Vector3(l, k);
                 mobs.Add(mobTmp);
+                mobTmp.gameObject.SetActive(false);
 
                 spawnCheck[l, k] = true;
                 mobTmp.target = GameManager.instance.player.gameObject;

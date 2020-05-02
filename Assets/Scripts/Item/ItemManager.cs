@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ItemManager : MonoBehaviour
 {
+    public static ItemManager itemManager;
     private GameObject itemDatabase;
     private ItemDatabase itemScript;
     private Transform itemParent;
@@ -19,6 +20,7 @@ public class ItemManager : MonoBehaviour
             tmp.transform.SetParent(itemParent);
         }
     }
+    
     void GenerateItem(Vector3 position, int id, int count) // 여러개 생성. 사용하지는 않을 듯
     {
         GameObject tmp;
@@ -56,7 +58,6 @@ public class ItemManager : MonoBehaviour
 
     void GenerateItem(Vector3 position, float radius, int id, int count, float speed)
     {
-
         float temp_radius = Mathf.Sqrt(Random.Range(0f, radius * radius));
         float temp_angle = Random.Range(0f, 2f) * Mathf.PI;
         Vector2 temp_position = new Vector2(position.x + temp_radius * Mathf.Cos(temp_angle),
@@ -86,7 +87,7 @@ public class ItemManager : MonoBehaviour
         {
             count += Time.deltaTime;
             tmp.transform.position = Vector2.Lerp(wasPos, dest, speed * count);
-            if (count >= 1)
+            if (speed * count >= 0.5f)
             {
                 tmp.transform.position = dest;
                 GenerateItem(new Vector3(dest.x, dest.y, 0f), id);
@@ -110,23 +111,11 @@ public class ItemManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(CountTime(2f)); //for debugging
-        Debug.Log("Next line for Coroutine");
     }
 
     // Update is called once per frame
     void Update()
     {
         
-    }
-    IEnumerator CountTime(float delayTime)
-    {
-        GenerateItem(new Vector3(0f, 1f, 0), 1f, 1, 2, 3);
-        GenerateItem(new Vector3(0f, 1f, 0), 1f, 2, 2, 3);
-        GenerateItem(new Vector3(0f, 1f, 0), 1f, 3, 2, 3);
-        //Debug.Log("Generate Item");
-        yield return new WaitForSeconds(delayTime);
-        //Debug.Log("Are you watiing?");
-        StartCoroutine(CountTime(2f));
     }
 }
