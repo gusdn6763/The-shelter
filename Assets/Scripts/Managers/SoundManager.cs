@@ -73,7 +73,7 @@ public class SoundManager : MonoBehaviour
     }
     public void PlaySEVolume(float volume)
     {
-        for (int i = 0; i < playSoundName.Length; i++)
+        for (int i = 0; i < playSoundName.Length - 1; i++)
         {
             audioSourceEffects[i].volume = volume;
         }

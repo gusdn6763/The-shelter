@@ -9,8 +9,8 @@ public class MapManager : MonoBehaviour
     public Map[] maps;
     public Map map;
 
-    private int col = 10;
-    private int row = 7;
+    public int col = 11;
+    public int row = 7;
     public int maps_count;
     public int map_random_add;
     private int activateStage; // 어떤 스테이지가 Activate 되어있는가? 사용하지않음.
@@ -29,10 +29,6 @@ public class MapManager : MonoBehaviour
         CreateStage();
     }
 
-    void Start()
-    {
-    }
-
     public void StartStage(int stageNum) // from.maps
     {
         for (int i = 0; i < maps[stageNum].MobsCount; i++) // 
@@ -48,10 +44,9 @@ public class MapManager : MonoBehaviour
         map.mapInfo.mapRow = row;
         for (int i = 0; i < maps_count; i++)
         {
-            map.mapInfo.mapColumns = Random.Range(col, col + Random.Range(0, map_random_add));
+            map.mapInfo.mapColumns = Random.Range(col, col + map_random_add);
             Map tmp = Instantiate(map, new Vector3(-0.5f * map.mapInfo.mapRow, (float)(columns), 0),Quaternion.identity);
             tmp.transform.position = new Vector3(-0.5f * map.mapInfo.mapRow, (float)(columns), 0);
-            Debug.Log(tmp.transform.localPosition);
             startPoint.Add(tmp.transform.localPosition);
             columns += map.mapInfo.mapColumns;
             tmp.stageNum = i;

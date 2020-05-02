@@ -12,8 +12,6 @@ public class GameManager : MonoBehaviour
 
     public GameObject joyStick;
 
-    public float cameraSpeed;
-
     [HideInInspector] public int mobCount;
 
     public bool stageClearStatus = false;
@@ -43,6 +41,5 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
         }
-        moveCamera = Camera.main;
     }
 }

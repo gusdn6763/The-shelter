@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-
 public enum e_itemType
 {
     NULL, // 
@@ -18,16 +17,13 @@ public class Item : MonoBehaviour
     public int itemId; // 아이템 id
     public Sprite itemImage; // 아이템 이미지
     public string itemDes; // 아이템 설명
-    public void InitSetting(string _itemName, int _itemId, e_itemType _itemType, string _itemDes,
-    Sprite _itemImage)
+    public void InitSetting(string _itemName, int _itemId, e_itemType _itemType, string _itemDes, Sprite _itemImage)
     {
         itemName = _itemName;
         itemId = _itemId;
         itemType = _itemType;
         itemDes = _itemDes;
         itemImage = _itemImage;
-
-        //this.GetComponent<Sprite>();
     }
     //public virtual void Animation(); // 애니메이션 관련 함수 
     public virtual void GetItem()
@@ -39,9 +35,5 @@ public class Item : MonoBehaviour
     void Start()
     {
         player = GameManager.instance.player.GetComponent<PlayerManager>();
-    }
-    void Update()
-    {
-
     }
 }

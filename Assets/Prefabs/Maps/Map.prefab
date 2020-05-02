@@ -139,6 +139,10 @@ MonoBehaviour:
     mobSpawnPos: 3
     mobSpawnStage: 0
     mobMaxCount: 1
+  - mob: {fileID: 449326859083558403, guid: b6d8f946a98902a4ab1a7181329f258b, type: 3}
+    mobSpawnPos: 5
+    mobSpawnStage: 0
+    mobMaxCount: 1
   - mob: {fileID: 4403699217481417990, guid: 054a8935afefc294bac26499d436d97f, type: 3}
     mobSpawnPos: 10
     mobSpawnStage: 0
@@ -160,14 +164,12 @@ MonoBehaviour:
     objects: {fileID: 1076775100269951993, guid: d6caf9bbc63867244a0a9f2402a79374,
       type: 3}
   - objCount: 1
-    objects: {fileID: 1259970307805797167, guid: 639634cba835e024b9959c38317f675f,
-      type: 3}
-  - objCount: 1
     objects: {fileID: 6024087235516590970, guid: eaffb424a2036f240852da304a930b90,
       type: 3}
   playerInfo:
     player: {fileID: 0}
     startPoint: {fileID: 0}
+  stageNum: 0
 --- !u!114 &7561387596866840335
 MonoBehaviour:
   m_ObjectHideFlags: 0

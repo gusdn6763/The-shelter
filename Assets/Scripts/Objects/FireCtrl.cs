@@ -14,9 +14,10 @@ public class FireCtrl : MonoBehaviour
     public float reloadTime = 2.0f;             //재장전 시간
     public bool isReload = false;               //재장전 여부
     public bool isFire = false;                 //총 발사 여부를 판단할 변수 
-    [Header("총알 연사 속도")]
+    [Header("BulletConfig")]
     public float fireRate = 0.3f;               //총알 발사 간격
-    public float add_Damage;                    //총알의 추가 데미지                                              
+    public float add_Damage;                    //총알의 추가 데미지    
+    public bool passObstacles;
 
     private void Start()
     {
@@ -28,7 +29,7 @@ public class FireCtrl : MonoBehaviour
         if (!isReload)
         {
             --remainingBullet;      //총알 수를 하나 감소
-            weapon.Fire(playerOrEnemyBulletCheck, trans, add_Damage);
+            weapon.Fire(playerOrEnemyBulletCheck, trans, add_Damage, passObstacles);
             if(!playerOrEnemyBulletCheck)
                 GetComponent<EnemyUI>().ReduceReloadBar(remainingBullet);
             //남은 총알이 없을 경우 재장전 코루틴 호출
@@ -48,7 +49,6 @@ public class FireCtrl : MonoBehaviour
         yield return new WaitForSeconds (reloadTime);
         remainingBullet = maxBullet;
         isReload = false;
-        Debug.Log("123");
         if (!playerOrEnemyBulletCheck)
             GetComponent<EnemyUI>().Charged();
     }

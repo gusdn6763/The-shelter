@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using PolyNav;
+
 [System.Serializable]
 public class MapInfo // 맵, 타일에 관련된 클래스
 {
@@ -20,8 +21,10 @@ public class MapInfo // 맵, 타일에 관련된 클래스
         ENEMY,
         PLAYER,
     }
+
     public e_mapTileType[,] mapTileArray; // 맵 타일 배열
     public e_mapObjectType[,] mapObjArray; // 오브젝트 타일 배열
+
     public int mapRow;
     public int mapColumns;
 }
@@ -30,7 +33,7 @@ public class MobInfo // 몹 정보
 {
     public Mob mob;
     [Tooltip("어떤 위치부터 나올지(세로 기준만 끝부터)")]
-    [Range(0, 10)]
+    [Range(0, 8)]
     public int mobSpawnPos;
     [Tooltip("어떤 스테이지부터 나올지")]
     [Range(0, 10)]
@@ -45,24 +48,30 @@ public class ObjectInfo // 장애물 정보
     public GameObject objects;
 }
 [System.Serializable]
+
 public class PlayerInfo // 플레이어 정보
 {
     public GameObject player;
     public Transform startPoint;
 }
 [System.Serializable]
+
 public class Map : MonoBehaviour
 {
     private BoxCollider2D boxCollider2D;
+
     [HideInInspector] public List<Mob> mobs;
+
     public MapInfo mapInfo;
     public MobInfo[] mobInfo;
     public ObjectInfo[] objectInfo;
     public PlayerInfo playerInfo;
+
     private Transform background;
     private Transform mobsParentObject;
     private Transform objParentObject;
     private Transform exitParentObject;
+
     public bool[,] spawnCheck;
     public int stageNum;
     public int MobsCount
@@ -73,9 +82,11 @@ public class Map : MonoBehaviour
     void Awake()
     {
         boxCollider2D = GetComponent<BoxCollider2D>();
+
         mapInfo.mapTileArray = new MapInfo.e_mapTileType[mapInfo.mapRow, mapInfo.mapColumns];
         mapInfo.mapObjArray = new MapInfo.e_mapObjectType[mapInfo.mapRow, mapInfo.mapColumns];
         spawnCheck = new bool[mapInfo.mapRow + 1, mapInfo.mapColumns + 1];
+
         background = transform.GetChild(0);
         mobsParentObject = transform.GetChild(1);
         objParentObject = transform.GetChild(2);
@@ -92,6 +103,7 @@ public class Map : MonoBehaviour
         if (stageNum == 0)
             MapManager.instance.StartStage(0);
     }
+
     private void CreateMapTile()
     {
         int exit = mapInfo.mapRow;
@@ -120,12 +132,14 @@ public class Map : MonoBehaviour
         boxCollider2D.size = new Vector2(mapInfo.mapRow, mapInfo.mapColumns);
         boxCollider2D.offset = new Vector2((((float)mapInfo.mapRow - 1) / 2), (((float)mapInfo.mapColumns - 1) / 2 - 5));
         boxCollider2D.isTrigger = true;
+
         //endCheck.offset = new Vector2((((float)mapInfo.mapRow - 1) / 2), boardColumns - 0.5f);
         //endCheck.size = new Vector2(mapInfo.mapRow, 1);
     }
     private void CreateMap()
     {
         GameObject tmp;
+
         for (int i = 0; i < mapInfo.mapRow; i++)
         {
             for (int j = 0; j < mapInfo.mapColumns; j++)
@@ -135,6 +149,7 @@ public class Map : MonoBehaviour
                     tmp = Instantiate(mapInfo.exit[Random.Range(0, mapInfo.exit.Length)]);
                     tmp.transform.SetParent(exitParentObject);
                     tmp.transform.localPosition = new Vector3(i, j, 0f);
+                    tmp.GetComponent<ExitTile>().exitNum = stageNum;
                 }
                 else if (mapInfo.mapTileArray[i, j] == MapInfo.e_mapTileType.WALL)
                 {
@@ -157,24 +172,28 @@ public class Map : MonoBehaviour
         for (int i = 0; i < mobInfo.Length; i++)
         {
             int mobCountTmp = Random.Range(1, mobInfo[i].mobMaxCount);
+
             if (MapManager.instance.maps.Length < mobInfo[i].mobSpawnStage)
                 continue;
+
             for (int j = 0; j < mobCountTmp; j++)
             {
                 int l = Random.Range(1, mapInfo.mapRow - 1);
-                int k = Random.Range(mobInfo[i].mobSpawnPos - 1, mapInfo.mapColumns - 1);
+                int k = Random.Range(mapInfo.mapColumns - MapManager.instance.col + mobInfo[i].mobSpawnPos - 1, mapInfo.mapColumns - 2);
+
                 if (spawnCheck[l, k] == true)
                 {
                     j--;
                     continue;
                 }
+
                 Mob mobTmp = Instantiate(mobInfo[i].mob);
                 mobTmp.transform.SetParent(mobsParentObject);
                 mobTmp.transform.localPosition = new Vector3(l, k);
                 mobs.Add(mobTmp);
+                spawnCheck[l, k] = true;
                 mobTmp.gameObject.SetActive(false);
 
-                spawnCheck[l, k] = true;
                 mobTmp.target = GameManager.instance.player.gameObject;
                 mobTmp.agent.map = GetComponent<PolyNav2D>();
             }
@@ -185,10 +204,12 @@ public class Map : MonoBehaviour
         for (int i = 0; i < objectInfo.Length; i++)
         {
             int CountTmp = objectInfo[i].objCount;
+
             for (int j = 0; j < CountTmp; j++)
             {
                 int l = Random.Range(2, 6);
-                int k = Random.Range(2, 8);
+                int k = Random.Range(2, mapInfo.mapColumns - 2);
+
                 if (spawnCheck[l, k] == true)
                 {
                     j--;

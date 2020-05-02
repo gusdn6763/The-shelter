@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class EnemyUI : MonoBehaviour
 {
-    //부모가 될  오브젝트
     private Canvas uiCanvas;
 
     private GameObject hpBar;           //몹이 죽으면 삭제하기위해 저장하는 오브젝트
@@ -20,7 +19,7 @@ public class EnemyUI : MonoBehaviour
     public Vector3 hpBarOffset;
     public Vector3 reloadingOffset;
 
-    public int bulletcount;
+    private int bulletcount;
 
     void Start()
     {
@@ -76,18 +75,18 @@ public class EnemyUI : MonoBehaviour
 
     public void ReduceReloadBar(int count)
     {
-        reloadBar.GetComponent<EnemyReloadBar>().gameObject.GetComponent<HorizontalLayoutGroup>().enabled = false;
+        reloadBar.GetComponent<HorizontalLayoutGroup>().enabled = false;
         bullets[count].SetActive(false);
     }
 
     public void Charged()
     {
-        reloadBar.GetComponent<EnemyReloadBar>().gameObject.GetComponent<HorizontalLayoutGroup>().enabled = true;
+        reloadBar.GetComponent<HorizontalLayoutGroup>().enabled = true;
         for (int i = 0;i <bullets.Length;i++)
         {
             bullets[i].SetActive(true);
         }
-        reloadBar.GetComponent<EnemyReloadBar>().gameObject.GetComponent<HorizontalLayoutGroup>().enabled = false;
+        reloadBar.GetComponent<HorizontalLayoutGroup>().enabled = false;
     }
 
 }

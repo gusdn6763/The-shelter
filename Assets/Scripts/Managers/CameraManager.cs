@@ -5,28 +5,26 @@ using UnityEngine;
 public class CameraManager : MonoBehaviour
 {
     public static CameraManager instance;
+
     public GameObject target;
     internal Transform trans;
+
     private Vector3 targetPosition;
-    private float moveSpeed = 1f;
-    // Start is called before the first frame update
+    public float moveSpeed = 1f;
     void Awake()
     {
-        trans = GetComponent<Transform>();
         if (instance != null)
+        {
             Destroy(this.gameObject);
+        }
         else
         {
             DontDestroyOnLoad(this.gameObject);
             instance = this;
         }
-    }
-    void Start()
-    {
-        
+        trans = GetComponent<Transform>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (target.gameObject != null)

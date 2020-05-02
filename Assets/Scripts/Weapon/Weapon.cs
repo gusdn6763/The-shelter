@@ -27,7 +27,7 @@ public class Weapon : MonoBehaviour
     }
 
 
-    public void Fire(bool check,Transform pos,float damage)
+    public void Fire(bool check,Transform pos,float damage, bool passObstacles)
     {
         int Count = bulletManager.Count;
         for (int i = 0; i < Count; i++)
@@ -37,22 +37,23 @@ public class Weapon : MonoBehaviour
                 if (i == Count - 1)
                 {
                     InstanceBullet(1);
-                    BulletActive(check, damage,pos, bulletManager[i+1]);
+                    BulletActive(check, damage,pos, bulletManager[i+1], passObstacles);
                     break;
                 }
                 continue;
             }
-            BulletActive(check, damage, pos, bulletManager[i]);
+            BulletActive(check, damage, pos, bulletManager[i], passObstacles);
             break;
         }
     }
 
-    public void BulletActive(bool check, float damage,Transform pos, BulletCtrl bullet)
+    public void BulletActive(bool check, float damage,Transform pos, BulletCtrl bullet,bool passObstacles)
     {
         bullet.playerBullet = check;
         bullet.transform.position = pos.position;
         bullet.transform.rotation = pos.rotation;
         bullet.damage += damage;
+        bullet.passObstacle = passObstacles;
         bullet.gameObject.SetActive(true);
         return;
     }
