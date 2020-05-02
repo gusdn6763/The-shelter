@@ -89,7 +89,6 @@ public class Gunner : Mob
                         if (Time.time >= fireCtrl.nextFire)        //현재 시간이 다음 발사 시간보다 큰지를 확인
                         {
                             animator.SetTrigger("Attack");
-                            SoundManager.instance.PlaySE("Shoot");
                             StartCoroutine(WeaponRecoil(AvodingTimeMin, AvodingTimeMax));
                             fireCtrl.nextFire = Time.time + fireCtrl.fireRate + Random.Range(0.0f, 0.3f); //다음 발사 시간 계산
                         }

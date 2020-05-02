@@ -30,7 +30,8 @@ public class FireCtrl : MonoBehaviour
         {
             --remainingBullet;      //총알 수를 하나 감소
             weapon.Fire(playerOrEnemyBulletCheck, trans, add_Damage, passObstacles);
-            if(!playerOrEnemyBulletCheck)
+            SoundManager.instance.PlaySE("Shoot");
+            if (!playerOrEnemyBulletCheck)
                 GetComponent<EnemyUI>().ReduceReloadBar(remainingBullet);
             //남은 총알이 없을 경우 재장전 코루틴 호출
             if (remainingBullet == 0)
