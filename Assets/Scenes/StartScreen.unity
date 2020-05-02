@@ -2727,6 +2727,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoundManager
       objectReference: {fileID: 0}
+    - target: {fileID: 2944172006196378102, guid: 54e6a47993b75fb439dd1b413ddc9964,
+        type: 3}
+      propertyPath: effectSounds.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2944172006196378102, guid: 54e6a47993b75fb439dd1b413ddc9964,
+        type: 3}
+      propertyPath: playSoundName.Array.data[0]
+      value: Shoot
+      objectReference: {fileID: 0}
+    - target: {fileID: 2944172006196378102, guid: 54e6a47993b75fb439dd1b413ddc9964,
+        type: 3}
+      propertyPath: effectSounds.Array.data[0].name
+      value: Shoot
+      objectReference: {fileID: 0}
+    - target: {fileID: 2944172006196378102, guid: 54e6a47993b75fb439dd1b413ddc9964,
+        type: 3}
+      propertyPath: effectSounds.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: e2662e342abed7e4aa64136fbc9f0a74, type: 3}
     - target: {fileID: 2944172006196378103, guid: 54e6a47993b75fb439dd1b413ddc9964,
         type: 3}
       propertyPath: m_LocalPosition.x

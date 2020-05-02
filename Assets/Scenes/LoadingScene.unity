@@ -311,6 +311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menu: {fileID: 0}
+  MainMenuBgm: 
 --- !u!114 &789291564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -400,7 +401,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 924e3946f8cbf3b4281236b36af1ed95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: hye
+  nextScene: GameScene
   progressBar: {fileID: 1848220571}
 --- !u!4 &927888462
 Transform:
