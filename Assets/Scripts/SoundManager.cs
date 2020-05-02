@@ -21,7 +21,8 @@ public class SoundManager : MonoBehaviour
     public Sound[] effectSounds;
     public Sound[] bgmSounds;
 
-    public bool soundIsOn = false;
+    public bool soundIsOn = true;
+    public bool bgmIsOn = true;
 
     void Awake() // 객체 생성시 최초 실행.
     {
@@ -39,6 +40,10 @@ public class SoundManager : MonoBehaviour
     void Start()
     {
         playSoundName = new string[audioSourceEffects.Length];
+        if (bgmIsOn)
+        {
+            audioSourceBgm.Play();
+        }
     }
 
     public void PlaySE(string _name)

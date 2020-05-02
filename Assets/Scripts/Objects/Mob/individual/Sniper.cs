@@ -5,7 +5,6 @@ using UnityEngine;
 public class Sniper : Mob
 {
     public bool shotAterAvoding = false;
-    public bool recoil = false;
     public override void Start()
     {
         base.Start();
@@ -56,7 +55,7 @@ public class Sniper : Mob
                         if (Time.time >= fireCtrl.nextFire)        //현재 시간이 다음 발사 시간보다 큰지를 확인
                         {
                             animator.SetTrigger("Attack");
-                            StartCoroutine(WeaponRecoil());
+                            StartCoroutine(WeaponRecoil(AvodingTimeMin, AvodingTimeMax));
                             fireCtrl.nextFire = Time.time + fireCtrl.fireRate + Random.Range(0.0f, 0.3f); //다음 발사 시간 계산
                         }
                     }
@@ -91,11 +90,4 @@ public class Sniper : Mob
         yield return new WaitUntil(() => fireCtrl.isReload == false);
         avoding = false;
     }
-    IEnumerator WeaponRecoil()
-    {
-        recoil = true;
-        yield return new WaitForSeconds(Random.Range(1.2f,1.9f));
-        recoil = false;
-    }
-
 }

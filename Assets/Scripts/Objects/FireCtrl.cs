@@ -29,6 +29,8 @@ public class FireCtrl : MonoBehaviour
         {
             --remainingBullet;      //총알 수를 하나 감소
             weapon.Fire(playerOrEnemyBulletCheck, trans, add_Damage);
+            if(!playerOrEnemyBulletCheck)
+                GetComponent<EnemyUI>().ReduceReloadBar(remainingBullet);
             //남은 총알이 없을 경우 재장전 코루틴 호출
             if (remainingBullet == 0)
             {
@@ -46,5 +48,8 @@ public class FireCtrl : MonoBehaviour
         yield return new WaitForSeconds (reloadTime);
         remainingBullet = maxBullet;
         isReload = false;
+        Debug.Log("123");
+        if (!playerOrEnemyBulletCheck)
+            GetComponent<EnemyUI>().Charged();
     }
 }

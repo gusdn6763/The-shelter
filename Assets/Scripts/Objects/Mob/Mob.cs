@@ -11,17 +11,15 @@ public class Mob : MovingObject
         get { return _agent != null ? _agent : _agent = GetComponent<PolyNavAgent>(); }
     }
 
+    public Action<Mob> Count;       //방에서 죽으면 몹의 갯수를 빼줄 딜리게이트
+
     [Header("View Config")]
     [Range(0f, 360f)]
     [SerializeField] private float obstViewAngle = 0f; // 시야 범위 값, 장애물 회피 여부
-    [Range(0f, 360f)]
-    public float AvodingRotate;
     private float m_horizontalViewHalfAngle = 0f; // 시야각의 절반 값
 
     public LayerMask m_viewTargetMask;       // 인식 가능한 타켓의 마스크
     public LayerMask m_viewObstacleMask;     // 인식 방해물의 마스크 
-
-    public Action<Mob> Count;       //방에서 죽으면 몹의 갯수를 빼줄 딜리게이트
 
     protected Ray2D currentRayPos = new Ray2D();        //현재 적이 보고있는 방향
     protected Ray2D playerRay = new Ray2D();            //플레이어의 방향
@@ -29,12 +27,20 @@ public class Mob : MovingObject
     protected RaycastHit2D hitEtcObject;
 
     private float m_viewRotateZ = -180f; // 보고있는 z의 값
-    protected bool avoding = false;
-
     public float weaponDistance;
+
+    [Header("Avoding Value")]
+    [Range(0f, 360f)]
+    public float AvodingRotate;
+    [Range(0f, 10f)]
+    public float AvodingTimeMin;
+    [Range(0f, 10f)]
+    public float AvodingTimeMax;
+    protected bool avoding = false;
+    protected bool recoil = false;
+
     public bool isDie = false;
     public bool start = false;
-    
 
     public enum CharacterStatus
     {
@@ -215,6 +221,12 @@ public class Mob : MovingObject
         yield return new WaitUntil(() => fireCtrl.isReload == false);
         avoding = false;
     }
+    public IEnumerator WeaponRecoil(float a, float b)
+    {
+        recoil = true;
+        yield return new WaitForSeconds(UnityEngine.Random.Range(a, b));
+        recoil = false;
+    }
     public override void Damaged(float damage)
     {
         base.Damaged(damage);
@@ -228,6 +240,7 @@ public class Mob : MovingObject
     public void Dead()              //애니메이션에서 실행
     {
         //Count(this);
+        StopAllCoroutines();
         Destroy(this.gameObject);
     }
 

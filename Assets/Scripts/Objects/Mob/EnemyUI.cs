@@ -8,19 +8,25 @@ public class EnemyUI : MonoBehaviour
     //부모가 될  오브젝트
     private Canvas uiCanvas;
 
-    private GameObject hpBar;
+    private GameObject hpBar;           //몹이 죽으면 삭제하기위해 저장하는 오브젝트
     public GameObject hpBarPrefab;
     private GameObject reloadBar;
     public GameObject reloadingPrefab;
 
-    private Image hpBarImage;
+    private Image hpBarImage;           //체력바
+    private GameObject reloadBullet;    //총알 수만큼
+    private GameObject[] bullets;
 
     public Vector3 hpBarOffset;
+    public Vector3 reloadingOffset;
+
+    public int bulletcount;
 
     void Start()
     {
         uiCanvas = GameObject.Find("UI Canvas").GetComponent<Canvas>();
         SetHpBar();
+        SetReloadingBar();
     }
 
     void SetHpBar()
@@ -36,11 +42,21 @@ public class EnemyUI : MonoBehaviour
     void SetReloadingBar()
     {
         reloadBar = Instantiate<GameObject>(reloadingPrefab, uiCanvas.transform);
-        hpBarImage = reloadBar.GetComponentsInChildren<Image>()[1];
 
-        var _hpBar = hpBar.GetComponent<EnemyHpBar>();
-        _hpBar.targetTr = this.gameObject.transform;
-        _hpBar.offset = hpBarOffset;
+        reloadBullet = reloadBar.GetComponent<EnemyReloadBar>().bulletBar;
+
+        bulletcount = GetComponent<FireCtrl>().maxBullet;
+
+        bullets = new GameObject[bulletcount];
+
+        for (int i =0; i<bulletcount;i++)
+        {
+            GameObject tmp = Instantiate(reloadBullet, reloadBar.transform);
+            bullets[i] = tmp;
+        }
+        var _reloadBar = reloadBar.GetComponent<EnemyReloadBar>();
+        _reloadBar.targetTr = this.gameObject.transform;
+        _reloadBar.offset = reloadingOffset;
     }
 
     public void DamagedBar(float hp)
@@ -54,17 +70,24 @@ public class EnemyUI : MonoBehaviour
             //적 캐릭터의 사망 횟수를 누적시키는 함수 호출
             // GameManager.instance.IncKillCount();
             Destroy(hpBar);
+            Destroy(reloadBar);
         }
     }
 
-    public void ReduceReloadBar(float hp)
+    public void ReduceReloadBar(int count)
     {
-        hpBarImage.fillAmount = hp;
+        reloadBar.GetComponent<EnemyReloadBar>().gameObject.GetComponent<HorizontalLayoutGroup>().enabled = false;
+        bullets[count].SetActive(false);
+    }
 
-        if (hp <= 0.0f)
+    public void Charged()
+    {
+        reloadBar.GetComponent<EnemyReloadBar>().gameObject.GetComponent<HorizontalLayoutGroup>().enabled = true;
+        for (int i = 0;i <bullets.Length;i++)
         {
-
+            bullets[i].SetActive(true);
         }
+        reloadBar.GetComponent<EnemyReloadBar>().gameObject.GetComponent<HorizontalLayoutGroup>().enabled = false;
     }
 
 }

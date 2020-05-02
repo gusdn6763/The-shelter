@@ -41,10 +41,14 @@ public class Title : MonoBehaviour
     }
     public void MusicValue(float value)
     {
-        SoundManager.instance.PlaySEVolume(value);
+        SoundManager.instance.PlayBgmVolume(value);
     }
     public void SoundOn(bool IsOn)
     {
         SoundManager.instance.CheckSound(IsOn);
+    }
+    public void PlaySEVolume(float value)
+    {
+        SoundManager.instance.PlaySEVolume(value);
     }
 }

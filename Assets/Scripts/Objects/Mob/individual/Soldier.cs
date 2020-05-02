@@ -70,9 +70,12 @@ public class Soldier : Mob
                     animator.SetBool("Move", true);
                     break;
                 case CharacterStatus.AVODING:
-                    Avoding();
-                    transform.Translate((Vector3.down * (Speed * 0.05f)) * Time.deltaTime);
-                    animator.SetBool("Move", true);
+                    if (!recoil)
+                    {
+                        Avoding();
+                        transform.Translate((Vector3.down * (Speed * 0.05f)) * Time.deltaTime);
+                        animator.SetBool("Move", true);
+                    }
                     break;
                 case CharacterStatus.TRACE:
                     animator.SetBool("Move", true);
@@ -92,6 +95,7 @@ public class Soldier : Mob
                         if (Time.time >= fireCtrl.nextFire)        //현재 시간이 다음 발사 시간보다 큰지를 확인
                         {
                             animator.SetTrigger("Attack");
+                            StartCoroutine(WeaponRecoil(AvodingTimeMin, AvodingTimeMax));
                             fireCtrl.nextFire = Time.time + fireCtrl.fireRate; //다음 발사 시간 계산
                         }
                     }

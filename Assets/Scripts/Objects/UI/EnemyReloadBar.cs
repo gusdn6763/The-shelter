@@ -8,6 +8,7 @@ public class EnemyReloadBar : MonoBehaviour
     private Camera uiCamera;
     private RectTransform rectParent;
     private RectTransform rectHp;
+    public GameObject bulletBar;
 
     [HideInInspector] public Vector3 offset = Vector3.zero;
     [HideInInspector] public Transform targetTr;

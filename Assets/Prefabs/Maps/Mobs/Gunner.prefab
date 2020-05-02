@@ -162,8 +162,7 @@ MonoBehaviour:
   Armor: 0
   currentArmor: 0
   Speed: 5
-  obstViewAngle: 30
-  AvodingRotate: 60
+  obstViewAngle: 60
   m_viewTargetMask:
     serializedVersion: 2
     m_Bits: 256
@@ -171,6 +170,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   weaponDistance: 4
+  AvodingRotate: 60
+  AvodingTimeMin: 0.8
+  AvodingTimeMax: 1.4
   isDie: 0
   start: 0
   enemyStatus: 0
@@ -241,8 +243,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hpBarPrefab: {fileID: 6452681554856648127, guid: 894fcf793d2787c47b22ec1187f4171e,
     type: 3}
-  reloadingPrefab: {fileID: 0}
+  reloadingPrefab: {fileID: 8059690328308298118, guid: f697039294bb0164a870f544f3d42a70,
+    type: 3}
   hpBarOffset: {x: 0, y: 0.4, z: 0}
+  reloadingOffset: {x: 0, y: 0.3, z: 0}
+  bulletcount: 0
 --- !u!1 &3472594065175033302
 GameObject:
   m_ObjectHideFlags: 0
