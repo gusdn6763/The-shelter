@@ -11,7 +11,6 @@ public class Mob : MovingObject
     {
         get { return _agent != null ? _agent : _agent = GetComponent<PolyNavAgent>(); }
     }
-
     protected EnemyUI enemyUI;
 
     public Action<Mob> Count;       //방에서 죽으면 몹의 갯수를 빼줄 딜리게이트

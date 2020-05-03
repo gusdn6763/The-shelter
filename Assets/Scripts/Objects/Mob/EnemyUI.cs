@@ -68,8 +68,6 @@ public class EnemyUI : MonoBehaviour
             hpBarImage.GetComponentsInParent<Image>()[1].color = Color.clear;
             //적 캐릭터의 사망 횟수를 누적시키는 함수 호출
             // GameManager.instance.IncKillCount();
-            Destroy(hpBar);
-            Destroy(reloadBar);
         }
     }
 
@@ -88,6 +86,7 @@ public class EnemyUI : MonoBehaviour
         }
         reloadBar.GetComponent<HorizontalLayoutGroup>().enabled = false;
     }
+
     public void DestoryUI()
     {
         Destroy(hpBar);

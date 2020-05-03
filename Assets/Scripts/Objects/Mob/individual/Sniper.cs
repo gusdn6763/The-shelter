@@ -5,6 +5,7 @@ using UnityEngine;
 public class Sniper : Mob
 {
     private SniperRenderer sniperRenderer;
+
     private bool shotAterAvoding = false;
     private bool waitBeforeShoot = true;
     private float waitTimeTmp;
@@ -52,7 +53,7 @@ public class Sniper : Mob
                 case CharacterStatus.IDLE:
                     waitTimeTmp = waitTimeTmp - Time.deltaTime;
                     sniperRenderer.ShowLaser();
-                    if (waitTimeTmp <= 0)
+                    if (waitTimeTmp <= 0)       
                     {
                         waitBeforeShoot = false;
                         waitTimeTmp = waitTime;
