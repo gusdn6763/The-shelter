@@ -7,18 +7,23 @@ public class SniperRenderer : MonoBehaviour
     private Transform target;
 
 
-    // Use this for initialization
-    void Start()
+    private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
         target = GameManager.instance.player.transform;
 
+        lineRenderer.SetColors(Color.yellow, Color.red);
         lineRenderer.SetWidth(0.05f, 0.05f);
     }
 
     public void ShowLaser()
     {
+        lineRenderer.enabled = true;
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, target.position);
+    }
+    public void DisableLaser()
+    {
+        lineRenderer.enabled = false;
     }
 }

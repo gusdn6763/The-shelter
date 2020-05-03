@@ -23,7 +23,7 @@ public class EnemyUI : MonoBehaviour
 
     void Start()
     {
-        uiCanvas = GameObject.Find("UI Canvas").GetComponent<Canvas>();
+        uiCanvas = GameObject.Find("Mob Canvas").GetComponent<Canvas>();
         SetHpBar();
         SetReloadingBar();
     }
@@ -88,5 +88,9 @@ public class EnemyUI : MonoBehaviour
         }
         reloadBar.GetComponent<HorizontalLayoutGroup>().enabled = false;
     }
-
+    public void DestoryUI()
+    {
+        Destroy(hpBar);
+        Destroy(reloadBar);
+    }
 }

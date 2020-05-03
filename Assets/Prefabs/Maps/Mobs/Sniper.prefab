@@ -139,7 +139,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb9863a8424217d419b663ee8820f86a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 7264090032472027693}
 --- !u!1 &7264090031983249538
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,7 +394,7 @@ MonoBehaviour:
   isDie: 0
   start: 0
   enemyStatus: 0
-  shotAterAvoding: 0
+  waitTime: 1
 --- !u!114 &7264090032472027690
 MonoBehaviour:
   m_ObjectHideFlags: 0

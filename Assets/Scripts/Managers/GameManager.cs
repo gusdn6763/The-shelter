@@ -6,8 +6,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    private Camera moveCamera;
-
     public PlayerManager player;
 
     public GameObject joyStick;
