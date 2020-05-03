@@ -11,6 +11,8 @@ public class Mob : MovingObject
         get { return _agent != null ? _agent : _agent = GetComponent<PolyNavAgent>(); }
     }
 
+    public EnemyUI enemyui;
+
     public Action<Mob> Count;       //방에서 죽으면 몹의 갯수를 빼줄 딜리게이트
 
     [Header("View Config")]
@@ -58,6 +60,7 @@ public class Mob : MovingObject
 
     public override void Start()
     {
+        enemyui = GetComponent<EnemyUI>();
         base.Start();
         target = GameManager.instance.player.gameObject;
         m_horizontalViewHalfAngle = obstViewAngle * 0.5f;
@@ -230,7 +233,7 @@ public class Mob : MovingObject
     public override void Damaged(float damage)
     {
         base.Damaged(damage);
-        GetComponent<EnemyUI>().DamagedBar(currentHp / HP);
+        enemyui.DamagedBar(currentHp / HP);
     }
     public override void Die()
     {
@@ -240,7 +243,7 @@ public class Mob : MovingObject
     public void Dead()              //애니메이션에서 실행
     {
         //Count(this);
-        StopAllCoroutines();
+        enemyui.DestoryUI();
         Destroy(this.gameObject);
     }
 

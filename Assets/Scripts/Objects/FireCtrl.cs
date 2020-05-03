@@ -50,7 +50,7 @@ public class FireCtrl : MonoBehaviour
         yield return new WaitForSeconds (reloadTime);
         remainingBullet = maxBullet;
         isReload = false;
-        if (!playerOrEnemyBulletCheck)
+        if (!playerOrEnemyBulletCheck && GetComponent<Mob>().enemyStatus != Mob.CharacterStatus.DIE)
             GetComponent<EnemyUI>().Charged();
     }
 }

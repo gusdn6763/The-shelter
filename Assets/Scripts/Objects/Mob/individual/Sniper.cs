@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class Sniper : Mob
 {
-    public bool shotAterAvoding = false;
+    private bool shotAterAvoding = false;
+    private bool waitBeforeShoot = true;
+    private float waitTimeTmp;
+    public float waitTime;
+    
     public override void Start()
     {
         base.Start();
+        waitTimeTmp = waitTime;
         startMob();
     }
     public override IEnumerator StartStatus()
@@ -22,7 +27,14 @@ public class Sniper : Mob
             }
             else
             {
-                enemyStatus = CharacterStatus.ATTACK;
+                if (!waitBeforeShoot)
+                {
+                    enemyStatus = CharacterStatus.ATTACK;
+                }
+                else
+                {
+                    enemyStatus = CharacterStatus.IDLE;
+                }
             }
             yield return null;
         }
@@ -36,6 +48,14 @@ public class Sniper : Mob
                 case CharacterStatus.NONE:
                     break;
                 case CharacterStatus.IDLE:
+                    waitTimeTmp = waitTimeTmp - Time.deltaTime;
+                    if (waitTimeTmp <= 0)       
+                    {
+                        waitBeforeShoot = false;
+                        waitTimeTmp = waitTime;
+                    }
+                    animator.SetBool("Move", false);
+                    ShowTarget();
                     break;
                 case CharacterStatus.AVODING:
                     if (!recoil)
@@ -55,6 +75,7 @@ public class Sniper : Mob
                         if (Time.time >= fireCtrl.nextFire)        //현재 시간이 다음 발사 시간보다 큰지를 확인
                         {
                             animator.SetTrigger("Attack");
+                            waitBeforeShoot = true;
                             StartCoroutine(WeaponRecoil(AvodingTimeMin, AvodingTimeMax));
                             fireCtrl.nextFire = Time.time + fireCtrl.fireRate + Random.Range(0.0f, 0.3f); //다음 발사 시간 계산
                         }

@@ -241,6 +241,7 @@ MonoBehaviour:
   Armor: 0
   currentArmor: 0
   Speed: 5
+  enemyui: {fileID: 0}
   obstViewAngle: 90
   m_viewTargetMask:
     serializedVersion: 2
@@ -255,7 +256,7 @@ MonoBehaviour:
   isDie: 0
   start: 0
   enemyStatus: 0
-  shotAterAvoding: 0
+  waitTime: 1
 --- !u!114 &4403699217481417991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,7 +274,7 @@ MonoBehaviour:
   maxBullet: 1
   remainingBullet: 1
   nextFire: 0
-  reloadTime: 3
+  reloadTime: 4
   isReload: 0
   isFire: 0
   fireRate: 2
