@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Sniper : Mob
 {
+    private SniperRenderer sniperRenderer;
+
     public bool shotAterAvoding = false;
     public override void Start()
     {
+        sniperRenderer = GetComponentInChildren<SniperRenderer>();
         base.Start();
         startMob();
     }

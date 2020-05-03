@@ -143,7 +143,7 @@ MonoBehaviour:
     mobSpawnPos: 5
     mobSpawnStage: 0
     mobMaxCount: 1
-  - mob: {fileID: 4403699217481417990, guid: 054a8935afefc294bac26499d436d97f, type: 3}
+  - mob: {fileID: 7264090032472027691, guid: 054a8935afefc294bac26499d436d97f, type: 3}
     mobSpawnPos: 10
     mobSpawnStage: 0
     mobMaxCount: 1

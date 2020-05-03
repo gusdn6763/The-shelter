@@ -7,6 +7,7 @@ TagManager:
   - BULLET
   - Enemy
   - EtcObject
+  - Item
   layers:
   - Default
   - TransparentFX
@@ -43,4 +44,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Laser
+    uniqueID: 2911908309
     locked: 0
