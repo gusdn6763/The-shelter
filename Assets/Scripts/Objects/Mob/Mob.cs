@@ -15,6 +15,7 @@ public class Mob : MovingObject
 
     public Action<Mob> Count;       //방에서 죽으면 몹의 갯수를 빼줄 딜리게이트
 
+
     [Header("View Config")]
     [Range(0f, 360f)]
     [SerializeField] private float obstViewAngle = 0f; // 시야 범위 값, 장애물 회피 여부
