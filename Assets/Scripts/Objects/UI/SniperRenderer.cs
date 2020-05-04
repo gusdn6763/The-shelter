@@ -6,7 +6,6 @@ public class SniperRenderer : MonoBehaviour
     private LineRenderer lineRenderer;
     private Transform target;
 
-
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();

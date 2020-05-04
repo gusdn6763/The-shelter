@@ -11,16 +11,10 @@ public class ItemDatabase : MonoBehaviour
     {
         itemDatabase = this;
     }
-    // Start is called before the first frame update
+
     void Start()
     {
         //Add("money_0", 0, "Nothing to explicate this.", e_itemType.MONEY);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     void Add(string itemName, int itemId, string itemDes, e_itemType itemType)

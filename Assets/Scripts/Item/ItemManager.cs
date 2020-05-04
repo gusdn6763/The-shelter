@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class ItemManager : MonoBehaviour
 {
-    public static ItemManager itemManager;
-    private GameObject itemDatabase;
+    public static ItemManager instance;
+
     private ItemDatabase itemScript;
-    private Transform itemParent;
+
+    private GameObject itemDatabase;
     public GameObject droppedEffect;
+
+    private Transform itemParent;
     void GenerateItem(Vector3 position, int id) // 1개 생성
     {
         GameObject tmp;
@@ -97,25 +100,12 @@ public class ItemManager : MonoBehaviour
             yield return null;
         }
     }
-    /*
-    **
-    **
-    */
+
     void Awake()
     {
         itemParent = transform.GetChild(0);
 
         itemDatabase = GameObject.Find("ItemDatabase");
         itemScript = itemDatabase.GetComponent<ItemDatabase>();
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
