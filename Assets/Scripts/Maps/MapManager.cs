@@ -6,15 +6,16 @@ public class MapManager : MonoBehaviour
 {
     public static MapManager instance;
 
-    public Map[] maps;
+    [HideInInspector]public Map[] maps;
     public Map map;
+
+    [HideInInspector]public Vector3[] startPoint; // 각 맵의 시작 위치
 
     public int col = 11;
     public int row = 7;
+
     public int maps_count;
-    public int map_random_add;
-    private int activateStage; // 어떤 스테이지가 Activate 되어있는가? 사용하지않음.
-    public List<Vector3> startPoint = new List<Vector3>(); // 각 맵의 시작 위치
+    public int map_random_add; //세로길이를 얼마나 늘릴지
     public void Awake()
     {
         if (instance != null)
@@ -27,18 +28,11 @@ public class MapManager : MonoBehaviour
             DontDestroyOnLoad(this);
         }
         maps = new Map[maps_count];
-        CreateStage();
+        startPoint = new Vector3[maps_count];
+        CreateStage(GameManager.instance.currentLevel);
     }
 
-    public void StartStage(int stageNum) // from.maps
-    {
-        for (int i = 0; i < maps[stageNum].MobsCount; i++) // 
-        {
-            maps[stageNum].mobs[i].gameObject.SetActive(true);
-        }
-    }
-
-    public void CreateStage()
+    public void CreateStage(int currentLevel)
     {
         float columns = 0;
 
@@ -48,17 +42,20 @@ public class MapManager : MonoBehaviour
             map.mapInfo.mapColumns = Random.Range(col, col + map_random_add);
             Map tmp = Instantiate(map, new Vector3(-0.5f * map.mapInfo.mapRow, (float)(columns), 0),Quaternion.identity);
             tmp.transform.position = new Vector3(-0.5f * map.mapInfo.mapRow, (float)(columns), 0);
-            startPoint.Add(tmp.transform.localPosition);
-            columns += map.mapInfo.mapColumns;
-            tmp.stageNum = i;
             tmp.transform.SetParent(this.transform);
+
+            tmp.stageNum = i;
+            startPoint[i] = tmp.transform.localPosition;
             maps[i] = tmp;
+            columns += map.mapInfo.mapColumns;
         }
     }
 
-    public void MoveStage(int stageNum)
+    public void StartStage(int stageNum) // from.maps
     {
-        StartStage(stageNum);
-        //GameManager.instance.player.nowStage
+        for (int i = 0; i < maps[stageNum].MobsCount; i++) // 
+        {
+            maps[stageNum].mobs[i].gameObject.SetActive(true);
+        }
     }
 }

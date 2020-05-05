@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class ItemManager : MonoBehaviour
 {
-    public static ItemManager instance;
-
     private ItemDatabase itemScript;
 
     private GameObject itemDatabase;
     public GameObject droppedEffect;
 
     private Transform itemParent;
+
+   
     void GenerateItem(Vector3 position, int id) // 1개 생성
     {
         GameObject tmp;

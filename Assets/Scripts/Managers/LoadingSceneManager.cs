@@ -10,7 +10,6 @@ public class LoadingSceneManager : MonoBehaviour
 
     [SerializeField] Image progressBar;
 
-
     private void Start()
     {
         StartCoroutine(LoadScene());

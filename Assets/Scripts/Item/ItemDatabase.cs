@@ -4,12 +4,20 @@ using UnityEngine;
 
 public class ItemDatabase : MonoBehaviour
 {
-    public static ItemDatabase itemDatabase;
+    public static ItemDatabase instance;
     public List<GameObject> itemList;
 
     void Awake()
     {
-        itemDatabase = this;
+        if (instance != null)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(this);
+        }
     }
 
     void Start()

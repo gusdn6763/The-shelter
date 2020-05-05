@@ -17,6 +17,7 @@ public class ObjectPoolManager : MonoBehaviour
         else
         {
             instance = this;
+            DontDestroyOnLoad(this);
         }
 
         for (int i = 0; i < weapons.Length; i++)

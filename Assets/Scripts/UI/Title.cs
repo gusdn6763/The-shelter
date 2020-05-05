@@ -20,11 +20,21 @@ public class Title : MonoBehaviour
         menu.SoundOn(SoundManager.instance.soundIsOn);
     }
 
+    private void Start()
+    {
+        chooseStage.SetActive(false);
+    }
+
     public void StartButton()
     {
         button.SetActive(false);
         chooseStage.SetActive(true);
-        SceneManager.LoadScene("LoadingScene");
+    }
+
+    public void StartCancleButton()
+    {
+        button.SetActive(true);
+        chooseStage.SetActive(false);
     }
 
     public void SettingButton()
@@ -37,8 +47,18 @@ public class Title : MonoBehaviour
         menu.Close();
     }
 
+    public void LoadData()
+    {
+        PlayerPrefs.GetInt("Level", DatabaseManager.instance.currentPlayerClearStage);
+    }
     public void Quit()
     {
         Application.Quit();
+    }
+
+    public void ImprovementStage(int stageCount)
+    {
+        GameManager.instance.currentLevel = stageCount;
+        SceneManager.LoadScene("LoadingScene");
     }
 }

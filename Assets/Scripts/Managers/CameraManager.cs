@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
-    public static CameraManager instance;
-
     public GameObject target;
     internal Transform trans;
 
@@ -13,15 +11,6 @@ public class CameraManager : MonoBehaviour
     public float moveSpeed = 1f;
     void Awake()
     {
-        if (instance != null)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            DontDestroyOnLoad(this.gameObject);
-            instance = this;
-        }
         trans = GetComponent<Transform>();
     }
 
@@ -29,9 +18,9 @@ public class CameraManager : MonoBehaviour
     {
         if (target.gameObject != null)
         {
-            Vector3 mapPosition = MapManager.instance.startPoint[GameManager.instance.player.nowStage];
-            int mapRow = MapManager.instance.maps[GameManager.instance.player.nowStage].mapInfo.mapRow;
-            int mapCol = MapManager.instance.maps[GameManager.instance.player.nowStage].mapInfo.mapColumns;
+            Vector3 mapPosition = MapManager.instance.startPoint[GameManager.instance.nowStage];
+            int mapRow = MapManager.instance.maps[GameManager.instance.nowStage].mapInfo.mapRow;
+            int mapCol = MapManager.instance.maps[GameManager.instance.nowStage].mapInfo.mapColumns;
             targetPosition.Set(target.transform.position.x, target.transform.position.y, - 10f);
             targetPosition.x = Mathf.Clamp(target.transform.position.x, mapPosition.x + mapRow / 2 - 3 + 3.5f, mapPosition.x - mapRow / 2 + 3 + 3.5f); // 임의의 값, 3.5f는 Map이 -3.5f 좌표값을 갖기때문에 더해줌
             targetPosition.y = Mathf.Clamp(target.transform.position.y, mapPosition.y, mapPosition.y + mapCol - 10); // 10 카메라 길이

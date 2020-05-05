@@ -14,8 +14,8 @@ public class GameManager : MonoBehaviour
     public string currenBgm;
 
     public bool stageClearStatus = false;
-
-    public bool isOn = false;
+    public int currentLevel;
+    public int nowStage; // 현재 플레이어가 있는 위치.
 
     public enum GameStaus
     {
@@ -41,5 +41,6 @@ public class GameManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(this);
         }
+        player = FindObjectOfType<PlayerManager>();
     }
 }

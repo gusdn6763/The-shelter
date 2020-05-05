@@ -6,7 +6,6 @@ public class PlayerManager : MovingObject
 {
 
     public int currentMoney;
-    public int nowStage; // 현재 플레이어가 있는 위치.
     public enum CharacterStatus
     {
         NONE,
