@@ -24,6 +24,7 @@ public class JoyStick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
 
     private void Awake()
     {
+        player = GameManager.instance.player;
         Init();
     }
 

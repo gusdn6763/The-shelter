@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerManager : MovingObject
 {
+    public static PlayerManager instance;
 
     public int currentMoney;
     public enum CharacterStatus
@@ -16,6 +17,20 @@ public class PlayerManager : MovingObject
     }
 
     public CharacterStatus playerStatus;
+
+    public override void Awake()
+    {
+        base.Awake();
+        if (instance != null)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(this);
+        }
+    }
 
     public void Update()
     {

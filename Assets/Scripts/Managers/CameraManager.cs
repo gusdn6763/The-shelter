@@ -12,6 +12,7 @@ public class CameraManager : MonoBehaviour
     void Awake()
     {
         trans = GetComponent<Transform>();
+        target = GameManager.instance.player.gameObject;
     }
 
     void Update()
