@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public GameObject joyStick;
 
     [HideInInspector] public int mobCount;
+    public string currenBgm;
 
     public bool stageClearStatus = false;
 
@@ -38,6 +39,7 @@ public class GameManager : MonoBehaviour
         else
         {
             instance = this;
+            DontDestroyOnLoad(this);
         }
     }
 }
