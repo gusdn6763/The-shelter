@@ -25,7 +25,6 @@ public class MapManager : MonoBehaviour
         else
         {
             instance = this;
-            DontDestroyOnLoad(this);
         }
         maps = new Map[maps_count];
         startPoint = new Vector3[maps_count];

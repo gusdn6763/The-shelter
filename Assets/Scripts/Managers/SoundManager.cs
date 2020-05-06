@@ -104,17 +104,19 @@ public class SoundManager : MonoBehaviour
 
     public void PlayBgm(string _name)
     {
-        for (int i = 0; i < bgmSounds.Length; i++)
+        if (bgmIsOn)
         {
-            if (_name == bgmSounds[i].name)
+            for (int i = 0; i < bgmSounds.Length; i++)
             {
-                audioSourceBgm.Stop();
-                audioSourceBgm.clip = bgmSounds[i].clip;
-                audioSourceBgm.Play();
-                return;
+                if (_name == bgmSounds[i].name)
+                {
+                    audioSourceBgm.Stop();
+                    audioSourceBgm.clip = bgmSounds[i].clip;
+                    audioSourceBgm.Play();
+                    return;
+                }
             }
         }
-        Debug.Log(_name + "사운드가 SoundManager에 등록되지 않았습니다.");
     }
 
     public void StopBgm()

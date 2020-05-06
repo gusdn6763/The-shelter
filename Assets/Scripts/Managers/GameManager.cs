@@ -8,27 +8,14 @@ public class GameManager : MonoBehaviour
 
     public PlayerManager player;
 
-    public GameObject joyStick;
-
-    [HideInInspector] public int mobCount;
-    public string currenBgm;
+    [HideInInspector]public string currenBgm;
+    public string menuBgm;
+    public string gameBgm;
 
     public bool stageClearStatus = false;
+    public int mobCount;
     public int currentLevel;
     public int nowStage; // 현재 플레이어가 있는 위치.
-
-    public enum GameStaus
-    {
-        NONE,
-        MENU,
-        READY,
-        START,
-        PLAY,
-        CLEAR,
-        GAMEOVER
-    }
-
-    public GameStaus status = GameStaus.NONE;
 
     private void Awake()
     {
@@ -42,5 +29,19 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(this);
         }
         player = FindObjectOfType<PlayerManager>();
+    }
+
+    public void MenuScene()
+    {
+        player.gameObject.SetActive(false);
+        currenBgm = menuBgm;
+        SoundManager.instance.PlayBgm(currenBgm);
+    }
+
+    public void StartScene()
+    {
+        player.gameObject.SetActive(true);
+        currenBgm = gameBgm;
+        SoundManager.instance.PlayBgm(currenBgm);
     }
 }

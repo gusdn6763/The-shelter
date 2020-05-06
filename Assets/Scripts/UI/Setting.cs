@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Setting : ViewManager
+public class Setting : MonoBehaviour
 {
+    Animator animator;
+
+
     public Toggle musicOn;
     public Toggle soundOn;
     public Slider musicVolume;
     public Slider soundVolume;
 
-    protected override void Awake()
+    void Awake()
     {
-        base.Awake();
+        animator = GetComponent<Animator>();
     }
     private void Start()
     {
@@ -24,6 +27,7 @@ public class Setting : ViewManager
 
     public void MusicOn(bool IsOn)
     {
+        SoundManager.instance.bgmIsOn = IsOn;
         if (IsOn)
         {
             SoundManager.instance.PlayBgm(GameManager.instance.currenBgm);
@@ -44,5 +48,14 @@ public class Setting : ViewManager
     public void PlaySEVolume(float value)
     {
         SoundManager.instance.PlaySEVolume(value);
+    }
+    public void Open()
+    {
+        animator.SetTrigger("Open");
+    }
+
+    public void Close()
+    {
+        animator.SetTrigger("Close");
     }
 }

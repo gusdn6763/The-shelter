@@ -4,25 +4,18 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Title : MonoBehaviour
+public class menuSceneUi : MonoBehaviour
 {
     public GameObject chooseStage;
     public GameObject button;
 
-    public Setting menu;
-
-    public string MainMenuBgm;
+    public Setting setting;
 
     private void Awake()
     {
-        GameManager.instance.currenBgm = MainMenuBgm;
-        menu.MusicOn(SoundManager.instance.bgmIsOn);
-        menu.SoundOn(SoundManager.instance.soundIsOn);
-    }
-
-    private void Start()
-    {
-        chooseStage.SetActive(false);
+        GameManager.instance.MenuScene();
+        setting.MusicOn(SoundManager.instance.bgmIsOn);
+        setting.SoundOn(SoundManager.instance.soundIsOn);
     }
 
     public void StartButton()
@@ -39,12 +32,12 @@ public class Title : MonoBehaviour
 
     public void SettingButton()
     {
-        menu.Open();
+        setting.Open();
     }
 
     public void SettingCloseButton()
     {
-        menu.Close();
+        setting.Close();
     }
 
     public void LoadData()
