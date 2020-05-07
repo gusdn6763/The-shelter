@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameSceneUI : MonoBehaviour
 {
     public GameObject pausePanel;
+    public JoyStick joystick;
 
     public Setting setting;
 
@@ -21,6 +22,7 @@ public class GameSceneUI : MonoBehaviour
     public void OnClickPause()
     {
         pausePanel.SetActive(true);
+        joystick.JoystickIsActive(false);
         Time.timeScale = 0f;
     }
 
@@ -39,5 +41,6 @@ public class GameSceneUI : MonoBehaviour
     {
         pausePanel.SetActive(false);
         Time.timeScale = 1f;
+        joystick.JoystickIsActive(true);
     }
 }

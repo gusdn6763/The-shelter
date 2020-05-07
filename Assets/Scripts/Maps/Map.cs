@@ -60,7 +60,7 @@ public class Map : MonoBehaviour
 {
     private BoxCollider2D boxCollider2D;
 
-    [HideInInspector] public List<Mob> mobs;
+    [HideInInspector] public List<Mob> mobs = new List<Mob>();
 
     public MapInfo mapInfo;
     public MobInfo[] mobInfo;

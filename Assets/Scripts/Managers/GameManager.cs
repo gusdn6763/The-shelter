@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
 
     public PlayerManager player;
 
+    public GameObject firstPopupView;
+
     [HideInInspector]public string currenBgm;
     public string menuBgm;
     public string gameBgm;
@@ -43,5 +45,12 @@ public class GameManager : MonoBehaviour
         player.gameObject.SetActive(true);
         currenBgm = gameBgm;
         SoundManager.instance.PlayBgm(currenBgm);
+
+        if (PlayerPrefs.GetInt(Constant.kFirstIntroduceView, 1) == 1)
+        {
+            Time.timeScale = 0f;
+            Instantiate(firstPopupView);
+            PlayerPrefs.SetInt(Constant.kFirstIntroduceView, 0);
+        }
     }
 }

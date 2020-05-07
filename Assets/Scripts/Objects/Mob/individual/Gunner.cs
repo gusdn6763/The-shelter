@@ -97,6 +97,7 @@ public class Gunner : Mob
                 case CharacterStatus.DIE:
                     isDie = true;
                     animator.SetTrigger("Die");
+                    StopAllCoroutines();
                     break;
             }
             yield return null;

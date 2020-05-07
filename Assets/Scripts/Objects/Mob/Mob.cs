@@ -244,7 +244,6 @@ public class Mob : MovingObject
     public void Dead()              //애니메이션에서 실행
     {
         //Count(this);
-        StopAllCoroutines();
         enemyUI.DestoryUI();
         Destroy(this.gameObject);
     }

@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class menuSceneUi : MonoBehaviour
 {
-    public GameObject chooseStage;
     public GameObject button;
+    public GameObject chooseStage;
 
     public Setting setting;
 
@@ -42,7 +41,7 @@ public class menuSceneUi : MonoBehaviour
 
     public void LoadData()
     {
-        PlayerPrefs.GetInt("Level", DatabaseManager.instance.currentPlayerClearStage);
+        PlayerPrefs.GetInt(Constant.kLoadLevel, DatabaseManager.instance.currentPlayerClearStage);
     }
     public void Quit()
     {

@@ -68,4 +68,9 @@ public class JoyStick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
         joystick.localPosition = m_VecJoystickValue;
         m_VecJoyRotValue = new Vector3(joystick.localPosition.x, 0f, joystick.localPosition.y);
     }
+
+    public void JoystickIsActive(bool isOn)
+    {
+        this.gameObject.SetActive(isOn);
+    }
 }

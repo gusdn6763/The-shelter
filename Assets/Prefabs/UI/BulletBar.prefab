@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3919599136442894343}
   - component: {fileID: 116180060929106349}
   m_Layer: 5
-  m_Name: Image
+  m_Name: BulletBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,7 +63,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 46af88be2f9262e4c957ca1c33b3bbde, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b43e7c12d66fc3d49b3566e8b264874e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

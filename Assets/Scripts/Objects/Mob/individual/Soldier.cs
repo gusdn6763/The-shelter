@@ -103,6 +103,7 @@ public class Soldier : Mob
                 case CharacterStatus.DIE:
                     isDie = true;
                     animator.SetTrigger("Die");
+                    StopAllCoroutines();
                     break;
             }
             yield return null;

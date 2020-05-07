@@ -245,6 +245,7 @@ MonoBehaviour:
   isFire: 0
   fireRate: 0
   add_Damage: 0
+  passObstacles: 0
 --- !u!114 &449326859083558403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,7 +326,7 @@ MonoBehaviour:
   reloadingPrefab: {fileID: 8059690328308298118, guid: f697039294bb0164a870f544f3d42a70,
     type: 3}
   hpBarOffset: {x: 0, y: 0.4, z: 0}
-  reloadingOffset: {x: 0, y: 0.3, z: 0}
+  reloadingOffset: {x: 0, y: 0.29, z: 0}
 --- !u!1 &1337709350687180148
 GameObject:
   m_ObjectHideFlags: 0

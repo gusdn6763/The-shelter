@@ -90,6 +90,7 @@ public class Sniper : Mob
                 case CharacterStatus.DIE:
                     isDie = true;
                     animator.SetTrigger("Die");
+                    StopAllCoroutines();
                     break;
             }
             yield return null;
