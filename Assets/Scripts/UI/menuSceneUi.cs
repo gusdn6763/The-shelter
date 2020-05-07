@@ -37,12 +37,9 @@ public class menuSceneUi : MonoBehaviour
     public void SettingCloseButton()
     {
         setting.Close();
+        GameManager.instance.CallSave(false);
     }
 
-    public void LoadData()
-    {
-        PlayerPrefs.GetInt(Constant.kLoadLevel, DatabaseManager.instance.currentPlayerClearStage);
-    }
     public void Quit()
     {
         Application.Quit();

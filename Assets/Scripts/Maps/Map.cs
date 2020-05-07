@@ -222,4 +222,8 @@ public class Map : MonoBehaviour
             }
         }
     }
+
+    public void EnhanceMob()
+    { 
+    }
 }

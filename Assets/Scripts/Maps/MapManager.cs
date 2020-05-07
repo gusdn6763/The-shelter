@@ -28,7 +28,6 @@ public class MapManager : MonoBehaviour
         }
         maps = new Map[maps_count];
         startPoint = new Vector3[maps_count];
-        CreateStage(GameManager.instance.currentLevel);
     }
 
     public void CreateStage(int currentLevel)

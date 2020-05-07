@@ -20,7 +20,7 @@ public class StageDefault : MonoBehaviour
     }
     private void Start()
     {
-        for (int i = 0; i < DatabaseManager.instance.currentPlayerClearStage; i++)
+        for (int i = 0; i < GameManager.instance.PlayerClearStage; i++)
         {
             Images[i].color = Color.white;
             button[i].interactable = true;

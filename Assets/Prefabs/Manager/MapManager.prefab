@@ -44,9 +44,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maps: []
-  map: {fileID: 7561387596866840332, guid: 8b1bd5ac774924946b9b7334906557b2, type: 3}
+  map: {fileID: 7561387596866840332, guid: edabc424c7e86294f98789db9cf8e970, type: 3}
+  startPoint: []
   col: 11
   row: 7
   maps_count: 5
   map_random_add: 5
-  startPoint: []

@@ -17,7 +17,8 @@ public class Setting : MonoBehaviour
     {
         animator = GetComponent<Animator>();
     }
-    private void Start()
+
+    private void OnEnable()
     {
         musicOn.isOn = SoundManager.instance.bgmIsOn;
         soundOn.isOn = SoundManager.instance.soundIsOn;
@@ -51,11 +52,17 @@ public class Setting : MonoBehaviour
     }
     public void Open()
     {
+        gameObject.SetActive(true);
         animator.SetTrigger("Open");
     }
 
     public void Close()
     {
         animator.SetTrigger("Close");
+    }
+
+    public void CloseAnimation()
+    {
+        gameObject.SetActive(false);
     }
 }
