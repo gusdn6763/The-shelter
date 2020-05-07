@@ -11,6 +11,7 @@ public class PlayerUI : MonoBehaviour
     public Text Bullet;
     public Text Hp;
     public Text Armor;
+    public Text Money;
 
     public float hpMax;
     public int bulletMax;
@@ -27,6 +28,7 @@ public class PlayerUI : MonoBehaviour
         Bullet.text = firectrl.remainingBullet + " / " + bulletMax;
         Hp.text = player.currentHp + " / " + hpMax;
         Armor.text = player.Armor.ToString();
+        Money.text = player.currentMoney.ToString();
     }
 
 }

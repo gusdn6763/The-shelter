@@ -42,6 +42,13 @@ public class SaveNLoad : MonoBehaviour
     public void CallLoad()
     {
         BinaryFormatter bf = new BinaryFormatter();
+
+        if (!(File.Exists(Application.dataPath + "/SaveFile.dat")))
+        {
+            Debug.Log("없음");
+            return;
+        }
+
         FileStream file = File.Open(Application.dataPath + "/SaveFile.dat", FileMode.Open);
 
         if (file != null && file.Length > 0)

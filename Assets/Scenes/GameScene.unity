@@ -613,6 +613,7 @@ MonoBehaviour:
   Bullet: {fileID: 937314959}
   Hp: {fileID: 1424366838}
   Armor: {fileID: 629971020}
+  Money: {fileID: 1919383307}
   hpMax: 0
   bulletMax: 0
 --- !u!1001 &380029262
