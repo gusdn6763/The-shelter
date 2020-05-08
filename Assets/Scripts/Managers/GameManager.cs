@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        nowStage = 0; // 0부터 시작
         if (instance != null)
         {
             Destroy(this.gameObject);

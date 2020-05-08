@@ -111,7 +111,11 @@ public class Map : MonoBehaviour
         {
             for (int j = 0; j < mapInfo.mapColumns; j++)
             {
-                if (i == 0 || i == mapInfo.mapRow - 1)
+                if (stageNum == 0 && j == 0)
+                {
+                    mapInfo.mapTileArray[i, j] = MapInfo.e_mapTileType.WALL;
+                }
+                else if (i == 0 || i == mapInfo.mapRow - 1)
                 {
                     mapInfo.mapTileArray[i, j] = MapInfo.e_mapTileType.WALL;
                 }

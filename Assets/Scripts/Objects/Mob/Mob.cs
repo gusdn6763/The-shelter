@@ -238,6 +238,8 @@ public class Mob : MovingObject
     }
     public override void Die()
     {
+        ItemManager.instance.GenerateItem(this.gameObject.transform.position, 0.6f, UnityEngine.Random.Range(1, 4), 1, 1f);
+        //ItemManager.instance.Nothing();
         base.Die();
         enemyStatus = CharacterStatus.DIE;
     }

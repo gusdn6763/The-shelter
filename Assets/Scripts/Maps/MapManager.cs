@@ -30,6 +30,11 @@ public class MapManager : MonoBehaviour
         startPoint = new Vector3[maps_count];
     }
 
+    void Start()
+    {
+        Vector3 tmp = new Vector3(0f, -4f, 0f);
+        GameObject.Find("Player").transform.position = tmp;
+    }
     public void CreateStage(int currentLevel)
     {
         float columns = 0;
