@@ -93,6 +93,7 @@ public class PlayerManager : MovingObject
         {
             startTime -= Time.deltaTime;
             transform.position = Vector3.Lerp(transform.position, toPos,(startTime+(Time.deltaTime/startTime))-startTime);
+            Debug.Log(toPos);
             yield return null;
         }
         playerStatus = CharacterStatus.IDLE;

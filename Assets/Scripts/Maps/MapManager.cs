@@ -25,13 +25,17 @@ public class MapManager : MonoBehaviour
         else
         {
             instance = this;
-            DontDestroyOnLoad(this);
         }
         maps = new Map[maps_count];
         startPoint = new Vector3[maps_count];
         CreateStage(GameManager.instance.currentLevel);
     }
 
+    void Start()
+    {
+        Vector3 tmp = new Vector3(0f, -4f, 0f);
+        GameObject.Find("Player").transform.position = tmp;
+    }
     public void CreateStage(int currentLevel)
     {
         float columns = 0;

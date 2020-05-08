@@ -34,6 +34,6 @@ public class Item : MonoBehaviour
     // 인벤토리가 없다면, 즉시 해당 아이템의 효과를 발휘하는 방식
     void Start()
     {
-        player = GameManager.instance.player.GetComponent<PlayerManager>();
+        player = GameManager.instance.player;
     }
 }

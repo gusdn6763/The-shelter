@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ItemManager : MonoBehaviour
 {
+    public static ItemManager instance = null;
     private ItemDatabase itemScript;
 
     private GameObject itemDatabase;
@@ -11,11 +12,14 @@ public class ItemManager : MonoBehaviour
 
     private Transform itemParent;
 
-   
-    void GenerateItem(Vector3 position, int id) // 1개 생성
+    public void Nothing()
+    {
+        return ;
+    }    
+    public void GenerateItem(Vector3 position, int id) // 1개 생성
     {
         GameObject tmp;
-        GameObject item = itemScript.itemList.Find(x => x.GetComponent<Item>().itemId == id);
+        GameObject item = ItemDatabase.instance.itemList.Find(x => x.GetComponent<Item>().itemId == id);
         if (item != null)
         {
             tmp = Instantiate(item);
@@ -27,7 +31,7 @@ public class ItemManager : MonoBehaviour
     void GenerateItem(Vector3 position, int id, int count) // 여러개 생성. 사용하지는 않을 듯
     {
         GameObject tmp;
-        GameObject item = itemScript.itemList.Find(x => x.GetComponent<Item>().itemId == id);
+        GameObject item = ItemDatabase.instance.itemList.Find(x => x.GetComponent<Item>().itemId == id);
         while (item != null && count > 0)
         {
             tmp = Instantiate(item);
@@ -39,12 +43,13 @@ public class ItemManager : MonoBehaviour
     // 특정 범위 내 랜덤 생성
     void GenerateItem(Vector3 position, float radius, int id, int count)
     {
+        Debug.Log("Gen Item");
         float temp_radius = Mathf.Sqrt(Random.Range(0f, radius * radius));
         float temp_angle = Random.Range(0f, 2f) * Mathf.PI;
         Vector3 temp_position = new Vector3(position.x + temp_radius * Mathf.Cos(temp_angle),
         position.y + temp_radius * Mathf.Sin(temp_angle), position.y);
         GameObject tmp;
-        GameObject item = itemScript.itemList.Find(x => x.GetComponent<Item>().itemId == id);
+        GameObject item = ItemDatabase.instance.itemList.Find(x => x.GetComponent<Item>().itemId == id);
         while (item != null && count > 0)
         {
             tmp = Instantiate(item);
@@ -59,14 +64,20 @@ public class ItemManager : MonoBehaviour
         }
     }
 
-    void GenerateItem(Vector3 position, float radius, int id, int count, float speed)
+    public void GenerateItem(Vector3 position, float radius, int id, int count, float speed)
     {
+        Debug.Log("Gen Item");
         float temp_radius = Mathf.Sqrt(Random.Range(0f, radius * radius));
         float temp_angle = Random.Range(0f, 2f) * Mathf.PI;
         Vector2 temp_position = new Vector2(position.x + temp_radius * Mathf.Cos(temp_angle),
         position.y + temp_radius * Mathf.Sin(temp_angle));
+        Vector3 mapPosition = MapManager.instance.startPoint[GameManager.instance.nowStage];
+        int mapRow = MapManager.instance.maps[GameManager.instance.nowStage].mapInfo.mapRow;
+        int mapCol = MapManager.instance.maps[GameManager.instance.nowStage].mapInfo.mapColumns;
+        Mathf.Clamp(temp_position.x, mapPosition.x + 0.5f, mapPosition.x + mapRow - 2f + 0.5f); // 0.5는 벽 절반 사이즈, 2f는 양쪽 벽
+        Mathf.Clamp(temp_position.y, mapPosition.y - 0.5f, mapPosition.y + -0.5f + (mapCol - 1)); // 0.5는 벽 절반 사이즈, mapCol - 1은 ExitTile을 제외한 거리
         GameObject tmp;
-        GameObject item = itemScript.itemList.Find(x => x.GetComponent<Item>().itemId == id);
+        GameObject item = ItemDatabase.instance.itemList.Find(x => x.GetComponent<Item>().itemId == id);
         while (item != null && count > 0)
         {
             tmp = Instantiate(droppedEffect);
@@ -76,6 +87,10 @@ public class ItemManager : MonoBehaviour
             temp_angle = Random.Range(0f, 2f) * Mathf.PI;
             temp_position = new Vector2(position.x + temp_radius * Mathf.Cos(temp_angle),
         position.y + temp_radius * Mathf.Sin(temp_angle));
+            mapRow = MapManager.instance.maps[GameManager.instance.nowStage].mapInfo.mapRow;
+            mapCol = MapManager.instance.maps[GameManager.instance.nowStage].mapInfo.mapColumns;
+            Mathf.Clamp(temp_position.x, mapPosition.x + 0.5f, mapPosition.x + mapRow - 2f + 0.5f);
+            Mathf.Clamp(temp_position.y, mapPosition.y - 5, mapPosition.y + mapCol - 5);
             tmp.transform.SetParent(itemParent);
             count--;
             //Debug.Log(temp_radius);
@@ -103,9 +118,18 @@ public class ItemManager : MonoBehaviour
 
     void Awake()
     {
+        DontDestroyOnLoad(this);
         itemParent = transform.GetChild(0);
 
         itemDatabase = GameObject.Find("ItemDatabase");
-        itemScript = itemDatabase.GetComponent<ItemDatabase>();
+        if (instance != null)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(this);
+        }
     }
 }
