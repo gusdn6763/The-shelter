@@ -30,12 +30,7 @@ public class MapManager : MonoBehaviour
         startPoint = new Vector3[maps_count];
     }
 
-    void Start()
-    {
-        Vector3 tmp = new Vector3(0f, -4f, 0f);
-        GameObject.Find("Player").transform.position = tmp;
-    }
-    public void CreateStage(int currentLevel)
+    public void CreateStage()
     {
         float columns = 0;
 
@@ -46,19 +41,20 @@ public class MapManager : MonoBehaviour
             Map tmp = Instantiate(map, new Vector3(-0.5f * map.mapInfo.mapRow, (float)(columns), 0),Quaternion.identity);
             tmp.transform.position = new Vector3(-0.5f * map.mapInfo.mapRow, (float)(columns), 0);
             tmp.transform.SetParent(this.transform);
-
             tmp.stageNum = i;
+
+            columns += map.mapInfo.mapColumns;
             startPoint[i] = tmp.transform.localPosition;
             maps[i] = tmp;
-            columns += map.mapInfo.mapColumns;
         }
     }
 
     public void StartStage(int stageNum) // from.maps
     {
-        for (int i = 0; i < maps[stageNum].MobsCount; i++) // 
+        for (int i = 0; i < maps[stageNum].mobs.Count; i++) // 
         {
             maps[stageNum].mobs[i].gameObject.SetActive(true);
+            GameManager.instance.player.mobs = maps[stageNum].mobs;
         }
     }
 }

@@ -6,7 +6,6 @@ public class Sniper : Mob
 {
     private SniperRenderer sniperRenderer;
 
-    private bool shotAterAvoding = false;
     private bool waitBeforeShoot = true;
     private float waitTimeTmp;
     public float waitTime;

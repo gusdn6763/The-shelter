@@ -14,6 +14,7 @@ public class Data
     public float soundVolume;
 
     public int playerClearStage;
+    public int playerMoney;
 }
 public class GameManager : MonoBehaviour
 {
@@ -22,22 +23,21 @@ public class GameManager : MonoBehaviour
     public PlayerManager player;
 
     public GameObject firstPopupView;
+    public GameObject victoryView;
 
     public Data data;
 
     [HideInInspector]public string currenBgm;
     public string menuBgm;
     public string gameBgm;
+    public string win;
 
-    public bool stageClearStatus = false;
-    public int mobCount;
-    public int PlayerClearStage;
-    public int currentLevel;
+    [HideInInspector]public int PlayerClearStage = 1;         //플레이어가 클리어한 스테이지
+    public int currentLevel;                                    //플레이어가 선택한 스테이지
     public int nowStage; // 현재 플레이어가 있는 위치.
 
     private void Awake()
     {
-        nowStage = 0; // 0부터 시작
         if (instance != null)
         {
             Destroy(this.gameObject);
@@ -47,7 +47,6 @@ public class GameManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(this);
         }
-        player = FindObjectOfType<PlayerManager>();
     }
 
     private void Start()
@@ -64,17 +63,35 @@ public class GameManager : MonoBehaviour
 
     public void StartScene()
     {
+        Vector3 startPos = new Vector3(0f, -4f, 0f);
+
         player.gameObject.SetActive(true);
+        player.transform.position = startPos;
+
         currenBgm = gameBgm;
         SoundManager.instance.PlayBgm(currenBgm);
 
-        if (PlayerPrefs.GetInt(Constant.kFirstIntroduceView, 1) == 1)
+        if (PlayerPrefs.GetInt("FirstView", 1) == 1)
         {
             Time.timeScale = 0f;
             Instantiate(firstPopupView);
-            PlayerPrefs.SetInt(Constant.kFirstIntroduceView, 0);
+            PlayerPrefs.SetInt("FirstView", 0);
         }
-        MapManager.instance.CreateStage(currentLevel);
+        MapManager.instance.CreateStage();
+    }
+
+    public void ClearStage()
+    {
+        if(currentLevel == PlayerClearStage)
+        {
+            PlayerClearStage++;
+        }
+        player.gameObject.SetActive(false);
+
+        VictoryView victoryViewPanel = Instantiate(victoryView).GetComponent<VictoryView>();
+        victoryViewPanel.GetInfo(player.currentMoney,3,PlayerClearStage - 1);
+        SoundManager.instance.PlaySE(win);
+        CallSave(true);
     }
 
     public void CallSave(bool stageClear)
@@ -83,6 +100,7 @@ public class GameManager : MonoBehaviour
         data.soundOn = SoundManager.instance.soundIsOn;
         data.bgmVolume = SoundManager.instance.audioSourceBgm.volume;
         data.soundVolume = SoundManager.instance.audioSourceEffects[0].volume;
+        data.playerMoney = player.currentMoney;
         if (stageClear)
         {
             data.playerClearStage = PlayerClearStage;

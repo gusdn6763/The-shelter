@@ -15,7 +15,6 @@ public class MovingObject : MonoBehaviour
     public float HP;
     public float currentHp;
     public float Armor;
-    public float currentArmor;
     public float Speed;
 
     public virtual void Awake()
@@ -28,7 +27,6 @@ public class MovingObject : MonoBehaviour
     public virtual void Start()
     {
         currentHp = HP;
-        currentArmor = Armor;
     }
 
     public void ShowTarget()
@@ -40,9 +38,9 @@ public class MovingObject : MonoBehaviour
 
     public virtual void Damaged(float damage)
     {
-        if (currentArmor > 0)
+        if (Armor > 0)
         {
-            currentArmor--;
+            Armor--;
         }
         else
         {

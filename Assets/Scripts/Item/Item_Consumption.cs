@@ -10,7 +10,7 @@ public class Item_Consumption : Item
     private float duration_temp_time; 
     public float duration_heal; // 지속적 회복량(틱 or sec 당)
     private float tick = 1; // 지속 회복 시 기준
-    public override void GetItem()
+    public override void GetItem(PlayerManager player)
     {
         Debug.Log("GetItem Activate");
         duration_temp_time = duration_time;
@@ -19,17 +19,5 @@ public class Item_Consumption : Item
             player.currentHp = player.HP;
         if (duration_heal == 0)
             Destroy(gameObject);
-        StartCoroutine(Continuing_Heal(tick));
-    }
-    IEnumerator Continuing_Heal(float delayTime)
-    {
-        player.currentHp += duration_heal;
-        if (player.currentHp > player.HP)
-            player.currentHp = player.HP;
-        duration_temp_time -= delayTime;
-        if (duration_temp_time <= 0)
-            Destroy(gameObject);
-        yield return new WaitForSeconds(delayTime);
-        StartCoroutine(Continuing_Heal(delayTime));
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerManager : MovingObject
 {
-    public static PlayerManager instance;
+    public List<Mob> mobs = new List<Mob>();
 
     public int currentMoney;
     public enum CharacterStatus
@@ -21,15 +21,7 @@ public class PlayerManager : MovingObject
     public override void Awake()
     {
         base.Awake();
-        if (instance != null)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            instance = this;
-            DontDestroyOnLoad(this);
-        }
+        DontDestroyOnLoad(this);
     }
 
     public void Update()
@@ -39,8 +31,10 @@ public class PlayerManager : MovingObject
             case CharacterStatus.NONE:
                 break;
             case CharacterStatus.IDLE:
-                    //방안에 몹이 있을시
+                if (mobs.Count != 0)
+                {
                     playerStatus = CharacterStatus.ATTACK;
+                }
                 animator.SetBool("Move", false);
                 break;
             case CharacterStatus.MOVE:
@@ -48,8 +42,8 @@ public class PlayerManager : MovingObject
                 animator.SetBool("Move", true);
                 break;
             case CharacterStatus.ATTACK:
-                //타겟 보기
-                    fireCtrl.isFire = true;
+                FindTarget();
+                fireCtrl.isFire = true;
                     if (!fireCtrl.isReload && fireCtrl.isFire)
                     {
                         if (Time.time >= fireCtrl.nextFire)        //현재 시간이 다음 발사 시간보다 큰지를 확인
@@ -69,23 +63,25 @@ public class PlayerManager : MovingObject
         StartCoroutine(MoveCoroutine(distance, startTime));
     }
 
-
-    public void MoveBack(float distance, float startTime)
+    public void FindTarget()
     {
-        StartCoroutine(MoveBackCoroutine(distance, startTime));
-    }
+        float distanceTmp = 64;
 
-    IEnumerator MoveBackCoroutine(float distance, float startTime)
-    {
-        Vector3 toPos = new Vector3(transform.position.x, transform.position.y - distance, transform.position.z);
-        while (startTime > 0)
+        for (int i = 0; i < mobs.Count; i++)
         {
-            startTime -= Time.deltaTime;
-            transform.position = Vector3.Lerp(transform.position, toPos,(startTime+(Time.deltaTime/startTime))-startTime);
-            yield return null;
+
+            float Distance = Vector3.Distance(transform.position, mobs[i].transform.position);
+
+            if (Distance < distanceTmp)
+            {
+                target = mobs[i].gameObject;
+
+                distanceTmp = Distance;
+                ShowTarget();
+            }
         }
-        playerStatus = CharacterStatus.IDLE;  
     }
+
     IEnumerator MoveCoroutine(float distance,float startTime)
     {
         Vector3 toPos = new Vector3(transform.position.x, transform.position.y+distance, transform.position.z);
@@ -93,16 +89,16 @@ public class PlayerManager : MovingObject
         {
             startTime -= Time.deltaTime;
             transform.position = Vector3.Lerp(transform.position, toPos,(startTime+(Time.deltaTime/startTime))-startTime);
-            Debug.Log(toPos);
             yield return null;
         }
         playerStatus = CharacterStatus.IDLE;
     }
-    void OnTriggerEnter2D(Collider2D col)
+
+    private void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.tag == "Item")
+        if (col.collider.CompareTag("Item"))
         {
-            col.gameObject.GetComponent<Item>().GetItem();
+            col.gameObject.GetComponent<Item>().GetItem(this);
         }
     }
 }

@@ -16,6 +16,10 @@ public class GameSceneUI : MonoBehaviour
     private void Awake()
     {
         GameManager.instance.StartScene();
+    }
+
+    private void Start()
+    {
         setting.MusicOn(SoundManager.instance.bgmIsOn);
         setting.SoundOn(SoundManager.instance.soundIsOn);
     }

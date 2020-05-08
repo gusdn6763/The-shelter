@@ -4,18 +4,39 @@ using UnityEngine;
 
 public class ItemManager : MonoBehaviour
 {
-    public static ItemManager instance = null;
+    public static ItemManager instance;
     private ItemDatabase itemScript;
 
     private GameObject itemDatabase;
     public GameObject droppedEffect;
 
     private Transform itemParent;
-
-    public void Nothing()
+    void Awake()
     {
-        return ;
-    }    
+        itemParent = transform.GetChild(0);
+
+        itemDatabase = GameObject.Find("ItemDatabase");
+        if (instance != null)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(this);
+        }
+
+        Transform[] childList = itemParent.GetComponentsInChildren<Transform>(true);
+        if (childList != null)
+        {
+            for (int i = 0; i < childList.Length; i++)
+            {
+                if (childList[i] != transform)
+                    Destroy(childList[i].gameObject);
+            }
+        }
+    }
+
     public void GenerateItem(Vector3 position, int id) // 1개 생성
     {
         GameObject tmp;
@@ -71,11 +92,7 @@ public class ItemManager : MonoBehaviour
         float temp_angle = Random.Range(0f, 2f) * Mathf.PI;
         Vector2 temp_position = new Vector2(position.x + temp_radius * Mathf.Cos(temp_angle),
         position.y + temp_radius * Mathf.Sin(temp_angle));
-        Vector3 mapPosition = MapManager.instance.startPoint[GameManager.instance.nowStage];
-        int mapRow = MapManager.instance.maps[GameManager.instance.nowStage].mapInfo.mapRow;
-        int mapCol = MapManager.instance.maps[GameManager.instance.nowStage].mapInfo.mapColumns;
-        Mathf.Clamp(temp_position.x, mapPosition.x + 0.5f, mapPosition.x + mapRow - 2f + 0.5f); // 0.5는 벽 절반 사이즈, 2f는 양쪽 벽
-        Mathf.Clamp(temp_position.y, mapPosition.y - 0.5f, mapPosition.y + -0.5f + (mapCol - 1)); // 0.5는 벽 절반 사이즈, mapCol - 1은 ExitTile을 제외한 거리
+
         GameObject tmp;
         GameObject item = ItemDatabase.instance.itemList.Find(x => x.GetComponent<Item>().itemId == id);
         while (item != null && count > 0)
@@ -87,10 +104,7 @@ public class ItemManager : MonoBehaviour
             temp_angle = Random.Range(0f, 2f) * Mathf.PI;
             temp_position = new Vector2(position.x + temp_radius * Mathf.Cos(temp_angle),
         position.y + temp_radius * Mathf.Sin(temp_angle));
-            mapRow = MapManager.instance.maps[GameManager.instance.nowStage].mapInfo.mapRow;
-            mapCol = MapManager.instance.maps[GameManager.instance.nowStage].mapInfo.mapColumns;
-            Mathf.Clamp(temp_position.x, mapPosition.x + 0.5f, mapPosition.x + mapRow - 2f + 0.5f);
-            Mathf.Clamp(temp_position.y, mapPosition.y - 5, mapPosition.y + mapCol - 5);
+
             tmp.transform.SetParent(itemParent);
             count--;
             //Debug.Log(temp_radius);
@@ -116,20 +130,4 @@ public class ItemManager : MonoBehaviour
         }
     }
 
-    void Awake()
-    {
-        DontDestroyOnLoad(this);
-        itemParent = transform.GetChild(0);
-
-        itemDatabase = GameObject.Find("ItemDatabase");
-        if (instance != null)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            instance = this;
-            DontDestroyOnLoad(this);
-        }
-    }
 }

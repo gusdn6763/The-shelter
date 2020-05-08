@@ -8,7 +8,7 @@ public class LoadingSceneManager : MonoBehaviour
 {
     public string nextScene;
 
-    [SerializeField] Image progressBar;
+    public Image progressBar;
 
     private void Start()
     {

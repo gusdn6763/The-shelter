@@ -3,20 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Setting : MonoBehaviour
+public class Setting : ViewManager
 {
-    Animator animator;
-
-
     public Toggle musicOn;
     public Toggle soundOn;
     public Slider musicVolume;
     public Slider soundVolume;
-
-    void Awake()
-    {
-        animator = GetComponent<Animator>();
-    }
 
     private void OnEnable()
     {
@@ -49,20 +41,5 @@ public class Setting : MonoBehaviour
     public void PlaySEVolume(float value)
     {
         SoundManager.instance.PlaySEVolume(value);
-    }
-    public void Open()
-    {
-        gameObject.SetActive(true);
-        animator.SetTrigger("Open");
-    }
-
-    public void Close()
-    {
-        animator.SetTrigger("Close");
-    }
-
-    public void CloseAnimation()
-    {
-        gameObject.SetActive(false);
     }
 }

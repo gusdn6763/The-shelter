@@ -13,9 +13,6 @@ public class Mob : MovingObject
     }
     protected EnemyUI enemyUI;
 
-    public Action<Mob> Count;       //방에서 죽으면 몹의 갯수를 빼줄 딜리게이트
-
-
     [Header("View Config")]
     [Range(0f, 360f)]
     [SerializeField] private float obstViewAngle = 0f; // 시야 범위 값, 장애물 회피 여부
@@ -238,14 +235,15 @@ public class Mob : MovingObject
     }
     public override void Die()
     {
+        enemyStatus = CharacterStatus.DIE;
+        agent.Stop();
         ItemManager.instance.GenerateItem(this.gameObject.transform.position, 0.6f, UnityEngine.Random.Range(1, 4), 1, 1f);
         //ItemManager.instance.Nothing();
         base.Die();
-        enemyStatus = CharacterStatus.DIE;
     }
     public void Dead()              //애니메이션에서 실행
     {
-        //Count(this);
+        GameManager.instance.player.mobs.Remove(this);
         enemyUI.DestoryUI();
         Destroy(this.gameObject);
     }

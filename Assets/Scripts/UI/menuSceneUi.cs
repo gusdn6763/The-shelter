@@ -10,7 +10,7 @@ public class menuSceneUi : MonoBehaviour
 
     public Setting setting;
 
-    private void Awake()
+    private void Start()
     {
         GameManager.instance.MenuScene();
         setting.MusicOn(SoundManager.instance.bgmIsOn);

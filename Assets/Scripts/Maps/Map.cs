@@ -74,10 +74,6 @@ public class Map : MonoBehaviour
 
     public bool[,] spawnCheck;
     public int stageNum;
-    public int MobsCount
-    {
-        get { return mobsParentObject.childCount; }
-    }
 
     void Awake()
     {
@@ -99,6 +95,7 @@ public class Map : MonoBehaviour
         CreateColl();
         CreateMap();
         CreateMob();
+        EnhanceMob();
         CreateObject();
         if (stageNum == 0)
             MapManager.instance.StartStage(0);
@@ -153,7 +150,7 @@ public class Map : MonoBehaviour
                     tmp = Instantiate(mapInfo.exit[Random.Range(0, mapInfo.exit.Length)]);
                     tmp.transform.SetParent(exitParentObject);
                     tmp.transform.localPosition = new Vector3(i, j, 0f);
-                    tmp.GetComponent<ExitTile>().exitNum = stageNum;
+                    tmp.GetComponent<ExitTile>().GetInfo(stageNum);
                 }
                 else if (mapInfo.mapTileArray[i, j] == MapInfo.e_mapTileType.WALL)
                 {
@@ -194,12 +191,13 @@ public class Map : MonoBehaviour
                 Mob mobTmp = Instantiate(mobInfo[i].mob);
                 mobTmp.transform.SetParent(mobsParentObject);
                 mobTmp.transform.localPosition = new Vector3(l, k);
-                mobs.Add(mobTmp);
                 spawnCheck[l, k] = true;
                 mobTmp.gameObject.SetActive(false);
 
                 mobTmp.target = GameManager.instance.player.gameObject;
                 mobTmp.agent.map = GetComponent<PolyNav2D>();
+
+                mobs.Add(mobTmp.GetComponent<Mob>());
             }
         }
     }
@@ -229,5 +227,11 @@ public class Map : MonoBehaviour
 
     public void EnhanceMob()
     { 
+        for(int i = 0;i<mobs.Count;i++)
+        {
+            mobs[i].currentHp
+            mobs[i].currentHp += GameManager.instance.currentLevel * 10;
+            mobs[i].Armor = 
+        }
     }
 }

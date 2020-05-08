@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1781886594842125908}
   - component: {fileID: 1781886594842125907}
   - component: {fileID: 6637328689944398026}
+  - component: {fileID: 1200065130946721571}
   m_Layer: 0
   m_Name: Item_Armor_0
   m_TagString: Item
@@ -91,7 +92,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.000000014901161, y: 0}
@@ -116,3 +117,24 @@ MonoBehaviour:
   itemImage: {fileID: 21300000, guid: 0d50c6b202f4ac8478149e1b5c897845, type: 3}
   itemDes: "\uBC29\uC5B4\uB97C 1 \uC62C\uB824\uC900\uB2E4."
   armor_amout: 1
+--- !u!50 &1200065130946721571
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1781886594842125905}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

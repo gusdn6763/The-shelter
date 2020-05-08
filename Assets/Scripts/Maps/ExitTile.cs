@@ -5,18 +5,28 @@ using UnityEngine.SceneManagement;
 
 public class ExitTile : MonoBehaviour
 {
+    public Collider2D collider2d;
     public int exitNum;
+
+    private void Awake()
+    {
+        collider2d = GetComponent<Collider2D>();
+    }
+    public void GetInfo(int num)
+    {
+        exitNum = num;
+    }
 
     void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.tag == "Player")
         {
             int stage = GameManager.instance.nowStage;
-            if (MapManager.instance.maps.Length > stage + 1)
+            if (MapManager.instance.maps[stage].mobs.Count == 0)
             {
-                if (MapManager.instance.maps[stage].MobsCount == 0)
+                if (MapManager.instance.maps.Length > stage + 1)
                 {
-                    this.gameObject.GetComponent<Collider2D>().isTrigger = true;
+                    collider2d.isTrigger = true;
                     if (stage == exitNum) // 앞으로 전진
                     {
                         GameManager.instance.nowStage++;
@@ -25,44 +35,26 @@ public class ExitTile : MonoBehaviour
                     }
                     else // 뒤로 후진
                     {
-                        //MapManager.instance.MoveStage(exitNum);
                         GameManager.instance.nowStage--;
                         GameManager.instance.player.Move(-2.0f, 2.0f);
                         Invoke("InvokeCollsionEnter2DBack", 2.0f);
                     }
-                    // 플레이어 이동
-                    // 몹 비활성화
-                    // 몹 활성화
-                    // 카메라 이동
                 }
-                else
+                else if (MapManager.instance.maps.Length == stage + 1) // 마지막 스테이지일 시
                 {
-                    Debug.Log("ss");
-                }
-            } else if (MapManager.instance.maps.Length == stage + 1) // 마지막 스테이지일 시
-            {
-                if (MapManager.instance.maps[stage].MobsCount == 0)
-               {
                     this.gameObject.GetComponent<Collider2D>().isTrigger = true;
                     if (stage == exitNum) // 게임 종료 메세지 and 메뉴로
                     {
-                        DatabaseManager.instance.currentPlayerClearStage++;
                         GameManager.instance.nowStage = 0;
-                        SceneManager.LoadScene("StartScreen");
-                        //게임종료
-                        // 메뉴로
+                        GameManager.instance.ClearStage();
                     }
                     else // 뒤로 후진
                     {
                         //MapManager.instance.MoveStage(exitNum);
                         GameManager.instance.nowStage--;
-                        GameManager.instance.player.MoveBack(2.0f, 2.0f);
+                        GameManager.instance.player.Move(-2.0f, 2.0f);
                         Invoke("InvokeCollsionEnter2DBack", 2.0f);
                     }
-                    // 플레이어 이동
-                    // 몹 비활성화
-                    // 몹 활성화
-                    // 카메라 이동
                 }
             }
         }
@@ -71,11 +63,11 @@ public class ExitTile : MonoBehaviour
     void InvokeCollsionEnter2DFront()
     {
         MapManager.instance.StartStage(exitNum + 1);
-        this.gameObject.GetComponent<Collider2D>().isTrigger = false;
+        collider2d.isTrigger = false;
     }
     void InvokeCollsionEnter2DBack()
     {
         MapManager.instance.StartStage(exitNum);
-        this.gameObject.GetComponent<Collider2D>().isTrigger = false;   
+        collider2d.isTrigger = false;   
     }
 }
