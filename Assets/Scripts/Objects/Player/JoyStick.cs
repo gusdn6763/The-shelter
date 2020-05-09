@@ -71,6 +71,6 @@ public class JoyStick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
 
     public void JoystickIsActive(bool isOn)
     {
-        this.gameObject.SetActive(isOn);
+        gameObject.SetActive(isOn);
     }
 }

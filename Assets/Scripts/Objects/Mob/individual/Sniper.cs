@@ -7,14 +7,11 @@ public class Sniper : Mob
     private SniperRenderer sniperRenderer;
 
     private bool waitBeforeShoot = true;
-    private float waitTimeTmp;
-    public float waitTime;
 
     public override void Start()
     {
         sniperRenderer = GetComponentInChildren<SniperRenderer>();
         base.Start();
-        waitTimeTmp = waitTime;
         startMob();
     }
     public override IEnumerator StartStatus()
@@ -50,16 +47,14 @@ public class Sniper : Mob
                 case CharacterStatus.NONE:
                     break;
                 case CharacterStatus.IDLE:
-                    waitTimeTmp = waitTimeTmp - Time.deltaTime;
                     sniperRenderer.ShowLaser();
-                    if (waitTimeTmp <= 0)       
-                    {
-                        waitBeforeShoot = false;
-                        waitTimeTmp = waitTime;
-                    }
                     animator.SetBool("Move", false);
                     ShowTarget();
-                    break;
+                    if (Time.time >= fireCtrl.nextFire)
+                    {
+                        waitBeforeShoot = false;
+                    }
+                        break;
                 case CharacterStatus.AVODING:
                     sniperRenderer.DisableLaser();
                     if (!recoil)
@@ -82,7 +77,7 @@ public class Sniper : Mob
                             sniperRenderer.DisableLaser();
                             waitBeforeShoot = true;
                             StartCoroutine(WeaponRecoil(AvodingTimeMin, AvodingTimeMax));
-                            fireCtrl.nextFire = Time.time + fireCtrl.fireRate + Random.Range(0.0f, 0.3f); //다음 발사 시간 계산
+                            fireCtrl.nextFire = Time.time + fireCtrl.fireRate + Random.Range(0.2f, 0.5f); //다음 발사 시간 계산
                         }
                     }
                     break;

@@ -45,7 +45,7 @@ public class ExitTile : MonoBehaviour
                     this.gameObject.GetComponent<Collider2D>().isTrigger = true;
                     if (stage == exitNum) // 게임 종료 메세지 and 메뉴로
                     {
-                        GameManager.instance.nowStage = 0;
+                        Debug.Log("123");
                         GameManager.instance.ClearStage();
                     }
                     else // 뒤로 후진

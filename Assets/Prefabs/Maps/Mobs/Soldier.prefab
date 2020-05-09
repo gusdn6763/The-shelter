@@ -92,8 +92,8 @@ GameObject:
   - component: {fileID: 449326859083558414}
   - component: {fileID: 449326859083558415}
   - component: {fileID: 449326859083558400}
-  - component: {fileID: 449326859083558402}
   - component: {fileID: 449326859083558403}
+  - component: {fileID: 449326859083558402}
   - component: {fileID: 449326859083558401}
   - component: {fileID: 3634406768025109604}
   m_Layer: 0
@@ -223,6 +223,38 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &449326859083558403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 449326859083558404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef16d95499f38984787cd9c722f15485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  HP: 20
+  currentHp: 20
+  Armor: 0
+  Speed: 5
+  obstViewAngle: 60
+  m_viewTargetMask:
+    serializedVersion: 2
+    m_Bits: 256
+  m_viewObstacleMask:
+    serializedVersion: 2
+    m_Bits: 512
+  weaponDistance: 6
+  AvodingRotate: 45
+  AvodingTimeMin: 1.2
+  AvodingTimeMax: 1.8
+  isDie: 0
+  start: 0
+  itemDropPercent: 30
+  enemyStatus: 0
 --- !u!114 &449326859083558402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,44 +272,14 @@ MonoBehaviour:
   maxBullet: 5
   remainingBullet: 5
   nextFire: 0
-  reloadTime: 1
+  reloadTime: 2
   isReload: 0
   isFire: 0
-  fireRate: 0
-  add_Damage: 0
+  fireRate: 1
+  add_Damage: 15
+  bulletDistance: 5
+  bulletSpeed: 5
   passObstacles: 0
---- !u!114 &449326859083558403
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 449326859083558404}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef16d95499f38984787cd9c722f15485, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  HP: 20
-  currentHp: 20
-  Armor: 0
-  currentArmor: 0
-  Speed: 5
-  obstViewAngle: 45
-  m_viewTargetMask:
-    serializedVersion: 2
-    m_Bits: 256
-  m_viewObstacleMask:
-    serializedVersion: 2
-    m_Bits: 512
-  weaponDistance: 3
-  AvodingRotate: 45
-  AvodingTimeMin: 1.2
-  AvodingTimeMax: 1.7
-  isDie: 0
-  start: 0
-  enemyStatus: 0
 --- !u!114 &449326859083558401
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -24,15 +24,16 @@ public class GameManager : MonoBehaviour
 
     public GameObject firstPopupView;
     public GameObject victoryView;
+    public GameObject failedView;
 
-    public Data data;
+    [HideInInspector]public Data data;
 
     [HideInInspector]public string currenBgm;
     public string menuBgm;
     public string gameBgm;
     public string win;
 
-    [HideInInspector]public int PlayerClearStage = 1;         //플레이어가 클리어한 스테이지
+    public int PlayerClearStage = 1;         //플레이어가 클리어한 스테이지
     public int currentLevel;                                    //플레이어가 선택한 스테이지
     public int nowStage; // 현재 플레이어가 있는 위치.
 
@@ -49,16 +50,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        CallLoad(false);
-    }
-
     public void MenuScene()
     {
         player.gameObject.SetActive(false);
         currenBgm = menuBgm;
         SoundManager.instance.PlayBgm(currenBgm);
+        PlayerReset();
+        CallLoad(true);
+    }
+
+    public void  PlayerReset()
+    {
+        player.HP = 100f;
+        player.currentHp = 100f;
+        player.Armor = 0;
+        player.GetComponent<FireCtrl>().remainingBullet = 10;
+        player.transform.position = new Vector3(0, -4f, 0);
     }
 
     public void StartScene()
@@ -77,7 +84,7 @@ public class GameManager : MonoBehaviour
             Instantiate(firstPopupView);
             PlayerPrefs.SetInt("FirstView", 0);
         }
-        MapManager.instance.CreateStage();
+        MapManager.instance.CreateStage(currentLevel);
     }
 
     public void ClearStage()
@@ -91,7 +98,16 @@ public class GameManager : MonoBehaviour
         VictoryView victoryViewPanel = Instantiate(victoryView).GetComponent<VictoryView>();
         victoryViewPanel.GetInfo(player.currentMoney,3,PlayerClearStage - 1);
         SoundManager.instance.PlaySE(win);
+        player.currentMoney += currentLevel * 10;
         CallSave(true);
+    }
+
+    public void FailedStage()
+    {
+        Instantiate(failedView);
+        Time.timeScale = 0f;
+        PlayerReset();
+        CallLoad(true);
     }
 
     public void CallSave(bool stageClear)
@@ -100,10 +116,11 @@ public class GameManager : MonoBehaviour
         data.soundOn = SoundManager.instance.soundIsOn;
         data.bgmVolume = SoundManager.instance.audioSourceBgm.volume;
         data.soundVolume = SoundManager.instance.audioSourceEffects[0].volume;
-        data.playerMoney = player.currentMoney;
+
         if (stageClear)
         {
             data.playerClearStage = PlayerClearStage;
+            data.playerMoney = player.currentMoney;
         }
 
         Debug.Log("기초 데이터 성공");
@@ -140,15 +157,27 @@ public class GameManager : MonoBehaviour
             if (stageClear)
             {
                 PlayerClearStage = data.playerClearStage;
+                player.currentMoney = data.playerMoney;
             }
-            PlayerClearStage = data.playerClearStage;
             Debug.Log("불러오기성공");
-            Debug.Log(SoundManager.instance.audioSourceBgm.volume);
         }
         else
         {
             Debug.Log("저장된 세이브 파일이 없습니다");
         }
         file.Close();
+    }
+
+    public void ResetInfo()
+    {
+        SoundManager.instance.bgmIsOn = true;
+        SoundManager.instance.soundIsOn = true;
+        SoundManager.instance.audioSourceBgm.volume = 1f;
+        SoundManager.instance.audioSourceEffects[0].volume = 1f;
+        PlayerPrefs.SetInt("FirstView", 1);
+        PlayerClearStage = 1;
+        player.currentMoney = 0;
+        PlayerReset();
+        CallSave(true);
     }
 }

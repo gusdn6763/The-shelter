@@ -17,6 +17,8 @@ public class FireCtrl : MonoBehaviour
     [Header("BulletConfig")]
     public float fireRate = 0.3f;               //총알 발사 간격
     public float add_Damage;                    //총알의 추가 데미지    
+    public float bulletDistance;
+    public float bulletSpeed;
     public bool passObstacles;
 
     private void Start()
@@ -29,7 +31,7 @@ public class FireCtrl : MonoBehaviour
         if (!isReload)
         {
             --remainingBullet;      //총알 수를 하나 감소
-            weapon.Fire(playerOrEnemyBulletCheck, trans, add_Damage, passObstacles);
+            weapon.Fire(playerOrEnemyBulletCheck, trans, add_Damage, bulletDistance, bulletSpeed, passObstacles);
             SoundManager.instance.PlaySE("Shoot");
             if (!playerOrEnemyBulletCheck)
                 GetComponent<EnemyUI>().ReduceReloadBar(remainingBullet);
@@ -48,6 +50,10 @@ public class FireCtrl : MonoBehaviour
         //audio.PlayOneShot(reloadSfx, 1.0f);
         //재장전 시간만큼 대기하는 동안 제어권 양보
         yield return new WaitForSeconds (reloadTime);
+        if (playerOrEnemyBulletCheck)
+        {
+            SoundManager.instance.PlaySE("Reload");
+        }
         remainingBullet = maxBullet;
         isReload = false;
         if (!playerOrEnemyBulletCheck && GetComponent<Mob>().enemyStatus != Mob.CharacterStatus.DIE)

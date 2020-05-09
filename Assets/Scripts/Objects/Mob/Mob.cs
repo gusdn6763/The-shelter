@@ -41,7 +41,9 @@ public class Mob : MovingObject
 
     public bool isDie = false;
     public bool start = false;
-
+    [Header("ItemDrop")]
+    [Range(0f, 100f)]
+    public float itemDropPercent;
     public enum CharacterStatus
     {
         NONE,
@@ -121,7 +123,6 @@ public class Mob : MovingObject
     }
     public void startMob()
     {
-        start = true;
         ShowTarget();
         StartCoroutine(StartStatus());
         StartCoroutine(StartAction());
@@ -237,8 +238,11 @@ public class Mob : MovingObject
     {
         enemyStatus = CharacterStatus.DIE;
         agent.Stop();
-        ItemManager.instance.GenerateItem(this.gameObject.transform.position, 0.6f, UnityEngine.Random.Range(1, 4), 1, 1f);
-        //ItemManager.instance.Nothing();
+        float percent = UnityEngine.Random.Range(0, 101);
+        if (itemDropPercent >= percent)
+        {
+            ItemManager.instance.GenerateItem(this.gameObject.transform.position, 0.6f, UnityEngine.Random.Range(1, 4), 1, 1f);
+        }
         base.Die();
     }
     public void Dead()              //애니메이션에서 실행

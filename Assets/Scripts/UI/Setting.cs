@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Setting : ViewManager
 {
+    public Toggle resetToggle;
     public Toggle musicOn;
     public Toggle soundOn;
     public Slider musicVolume;

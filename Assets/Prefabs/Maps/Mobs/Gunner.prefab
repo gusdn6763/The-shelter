@@ -160,9 +160,8 @@ MonoBehaviour:
   HP: 100
   currentHp: 100
   Armor: 0
-  currentArmor: 0
   Speed: 5
-  obstViewAngle: 60
+  obstViewAngle: 75
   m_viewTargetMask:
     serializedVersion: 2
     m_Bits: 256
@@ -171,10 +170,11 @@ MonoBehaviour:
     m_Bits: 512
   weaponDistance: 4
   AvodingRotate: 60
-  AvodingTimeMin: 0.8
-  AvodingTimeMax: 1.4
+  AvodingTimeMin: 1.5
+  AvodingTimeMax: 2.2
   isDie: 0
   start: 0
+  itemDropPercent: 40
   enemyStatus: 0
 --- !u!114 &3472594064298888513
 MonoBehaviour:
@@ -193,11 +193,13 @@ MonoBehaviour:
   maxBullet: 5
   remainingBullet: 5
   nextFire: 0
-  reloadTime: 3
+  reloadTime: 4
   isReload: 0
   isFire: 0
-  fireRate: 0
-  add_Damage: 0
+  fireRate: 0.1
+  add_Damage: 5
+  bulletDistance: 4
+  bulletSpeed: 4
   passObstacles: 0
 --- !u!114 &3472594064298888527
 MonoBehaviour:

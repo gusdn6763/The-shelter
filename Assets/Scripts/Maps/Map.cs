@@ -172,7 +172,7 @@ public class Map : MonoBehaviour
     {
         for (int i = 0; i < mobInfo.Length; i++)
         {
-            int mobCountTmp = Random.Range(1, mobInfo[i].mobMaxCount);
+            int mobCountTmp = Random.Range(1, mobInfo[i].mobMaxCount + GameManager.instance.currentLevel/3);
 
             if (MapManager.instance.maps.Length < mobInfo[i].mobSpawnStage)
                 continue;
@@ -182,7 +182,7 @@ public class Map : MonoBehaviour
                 int l = Random.Range(1, mapInfo.mapRow - 1);
                 int k = Random.Range(mapInfo.mapColumns - MapManager.instance.col + mobInfo[i].mobSpawnPos - 1, mapInfo.mapColumns - 2);
 
-                if (spawnCheck[l, k] == true)
+                if (spawnCheck[l, k] == true || spawnCheck[l, k -1] == true)
                 {
                     j--;
                     continue;
@@ -226,12 +226,13 @@ public class Map : MonoBehaviour
     }
 
     public void EnhanceMob()
-    { 
-        for(int i = 0;i<mobs.Count;i++)
+    {
+        for (int i = 0; i < mobs.Count; i++)
         {
-            mobs[i].currentHp
             mobs[i].currentHp += GameManager.instance.currentLevel * 10;
-            mobs[i].Armor = 
+            mobs[i].HP += GameManager.instance.currentLevel * 10;
+            mobs[i].currentHp += GameManager.instance.currentLevel * 10;
+            mobs[i].Speed += GameManager.instance.currentLevel * 0.1f;
         }
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerManager : MovingObject
 {
+    public static PlayerManager instance;
+
     public List<Mob> mobs = new List<Mob>();
 
     public int currentMoney;
@@ -21,29 +23,37 @@ public class PlayerManager : MovingObject
     public override void Awake()
     {
         base.Awake();
-        DontDestroyOnLoad(this);
+        if (instance != null)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(this);
+        }
     }
 
     public void Update()
     {
-        switch (playerStatus)
+        if (playerStatus != CharacterStatus.NONE)
         {
-            case CharacterStatus.NONE:
-                break;
-            case CharacterStatus.IDLE:
-                if (mobs.Count != 0)
-                {
-                    playerStatus = CharacterStatus.ATTACK;
-                }
-                animator.SetBool("Move", false);
-                break;
-            case CharacterStatus.MOVE:
-                transform.Translate((Vector3.down * (Speed * 0.1f)) * Time.deltaTime);
-                animator.SetBool("Move", true);
-                break;
-            case CharacterStatus.ATTACK:
-                FindTarget();
-                fireCtrl.isFire = true;
+            switch (playerStatus)
+            {
+                case CharacterStatus.IDLE:
+                    if (mobs.Count != 0)
+                    {
+                        playerStatus = CharacterStatus.ATTACK;
+                    }
+                    animator.SetBool("Move", false);
+                    break;
+                case CharacterStatus.MOVE:
+                    transform.Translate((Vector3.down * (Speed * 0.1f)) * Time.deltaTime);
+                    animator.SetBool("Move", true);
+                    break;
+                case CharacterStatus.ATTACK:
+                    FindTarget();
+                    fireCtrl.isFire = true;
                     if (!fireCtrl.isReload && fireCtrl.isFire)
                     {
                         if (Time.time >= fireCtrl.nextFire)        //현재 시간이 다음 발사 시간보다 큰지를 확인
@@ -52,12 +62,15 @@ public class PlayerManager : MovingObject
                             fireCtrl.nextFire = Time.time + fireCtrl.fireRate + Random.Range(0.0f, 0.3f); //다음 발사 시간 계산
                         }
                     }
-                break;
-            case CharacterStatus.DIE:
-                break;
+                    break;
+                case CharacterStatus.DIE:
+                    animator.SetTrigger("Die");
+                    playerStatus = CharacterStatus.NONE;
+                    break;
+            }
         }
     }
-    //나중에 처음 시작할때 자동이로 움직여주는 함수
+
     public void Move(float distance,float startTime)        
     {
         StartCoroutine(MoveCoroutine(distance, startTime));
@@ -100,5 +113,18 @@ public class PlayerManager : MovingObject
         {
             col.gameObject.GetComponent<Item>().GetItem(this);
         }
+    }
+
+    public override void Die()
+    {
+        base.Die();
+        playerStatus = CharacterStatus.DIE;
+    }
+
+    public void Dead()
+    {
+        GameManager.instance.FailedStage();
+        StopAllCoroutines();
+        dmgCheck.enabled = true;
     }
 }

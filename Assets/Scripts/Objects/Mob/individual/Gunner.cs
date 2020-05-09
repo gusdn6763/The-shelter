@@ -90,7 +90,7 @@ public class Gunner : Mob
                         {
                             animator.SetTrigger("Attack");
                             StartCoroutine(WeaponRecoil(AvodingTimeMin, AvodingTimeMax));
-                            fireCtrl.nextFire = Time.time + fireCtrl.fireRate + Random.Range(0.0f, 0.3f); //다음 발사 시간 계산
+                            fireCtrl.nextFire = Time.time + fireCtrl.fireRate + Random.Range(0.2f, 0.5f); //다음 발사 시간 계산
                         }
                     }
                     break;

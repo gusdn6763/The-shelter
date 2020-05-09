@@ -7,6 +7,7 @@ public class MapManager : MonoBehaviour
     public static MapManager instance;
 
     [HideInInspector]public Map[] maps;
+    public GameObject shleter;
     public Map map;
 
     [HideInInspector]public Vector3[] startPoint; // 각 맵의 시작 위치
@@ -26,15 +27,16 @@ public class MapManager : MonoBehaviour
         {
             instance = this;
         }
-        maps = new Map[maps_count];
-        startPoint = new Vector3[maps_count];
     }
 
-    public void CreateStage()
+    public void CreateStage(int currentLevel)
     {
         float columns = 0;
 
         map.mapInfo.mapRow = row;
+        maps_count = currentLevel / 2 + 1;
+        maps = new Map[maps_count];
+        startPoint = new Vector3[maps_count];
         for (int i = 0; i < maps_count; i++)
         {
             map.mapInfo.mapColumns = Random.Range(col, col + map_random_add);
@@ -46,6 +48,12 @@ public class MapManager : MonoBehaviour
             columns += map.mapInfo.mapColumns;
             startPoint[i] = tmp.transform.localPosition;
             maps[i] = tmp;
+
+            if (i + 1 == maps_count)
+            {
+                GameObject theShleter = Instantiate(shleter, transform);
+                theShleter.transform.position = new Vector3(0, columns - 4.5f, 0);
+            }
         }
     }
 

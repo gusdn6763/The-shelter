@@ -900,8 +900,14 @@ PrefabInstance:
     - target: {fileID: 6174879543418056897, guid: 02f1b9cd2de9e774a9d67626aa173ac8,
         type: 3}
       propertyPath: maps_count
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6174879543418056897, guid: 02f1b9cd2de9e774a9d67626aa173ac8,
+        type: 3}
+      propertyPath: shleter
+      value: 
+      objectReference: {fileID: 6209284560504786386, guid: 5534806443b94864f9ea0689b5ea90dd,
+        type: 3}
     - target: {fileID: 6174879543418056910, guid: 02f1b9cd2de9e774a9d67626aa173ac8,
         type: 3}
       propertyPath: m_Name
@@ -2770,6 +2776,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47d07783c565fdb489431447cba31b6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resetToggle: {fileID: 0}
   musicOn: {fileID: 7626318355213287570}
   soundOn: {fileID: 8448575900549582303}
   musicVolume: {fileID: 1332137096464848147}

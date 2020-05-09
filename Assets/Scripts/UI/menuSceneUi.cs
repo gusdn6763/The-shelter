@@ -37,7 +37,15 @@ public class menuSceneUi : MonoBehaviour
     public void SettingCloseButton()
     {
         setting.Close();
-        GameManager.instance.CallSave(false);
+        if (setting.resetToggle.isOn == true)
+        {
+            GameManager.instance.ResetInfo();
+            SceneManager.LoadScene("StartScene");
+        }
+        else
+        {
+            GameManager.instance.CallSave(false);
+        }
     }
 
     public void Quit()

@@ -65,7 +65,7 @@ public class BulletCtrl : MonoBehaviour
         {
             if (Col.gameObject.CompareTag("Player"))
             {
-                //Col.GetComponent<MovingObject>().Damaged(damage);
+                Col.GetComponent<MovingObject>().Damaged(damage);
                 gameObject.SetActive(false);
             }
         }

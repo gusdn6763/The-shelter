@@ -378,7 +378,6 @@ MonoBehaviour:
   HP: 100
   currentHp: 100
   Armor: 0
-  currentArmor: 0
   Speed: 5
   obstViewAngle: 90
   m_viewTargetMask:
@@ -389,12 +388,12 @@ MonoBehaviour:
     m_Bits: 512
   weaponDistance: 20
   AvodingRotate: 90
-  AvodingTimeMin: 1.5
-  AvodingTimeMax: 2.1
+  AvodingTimeMin: 0.3
+  AvodingTimeMax: 0.7
   isDie: 0
   start: 0
+  itemDropPercent: 0
   enemyStatus: 0
-  waitTime: 1
 --- !u!114 &7264090032472027690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -412,11 +411,13 @@ MonoBehaviour:
   maxBullet: 1
   remainingBullet: 1
   nextFire: 0
-  reloadTime: 3
+  reloadTime: 2
   isReload: 0
   isFire: 0
-  fireRate: 2
-  add_Damage: 5
+  fireRate: 5
+  add_Damage: 30
+  bulletDistance: 20
+  bulletSpeed: 10
   passObstacles: 1
 --- !u!114 &7264090032472027688
 MonoBehaviour:
