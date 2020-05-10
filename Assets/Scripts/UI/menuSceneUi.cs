@@ -12,6 +12,7 @@ public class menuSceneUi : MonoBehaviour
 
     private void Start()
     {
+
         GameManager.instance.MenuScene();
         setting.MusicOn(SoundManager.instance.bgmIsOn);
         setting.SoundOn(SoundManager.instance.soundIsOn);

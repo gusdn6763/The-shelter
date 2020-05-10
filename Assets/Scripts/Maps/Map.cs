@@ -95,7 +95,7 @@ public class Map : MonoBehaviour
         CreateColl();
         CreateMap();
         CreateMob();
-        EnhanceMob();
+        //EnhanceMob();
         CreateObject();
         if (stageNum == 0)
             MapManager.instance.StartStage(0);
@@ -225,6 +225,7 @@ public class Map : MonoBehaviour
         }
     }
 
+/*
     public void EnhanceMob()
     {
         for (int i = 0; i < mobs.Count; i++)
@@ -235,4 +236,5 @@ public class Map : MonoBehaviour
             mobs[i].Speed += GameManager.instance.currentLevel * 0.1f;
         }
     }
+    */
 }
