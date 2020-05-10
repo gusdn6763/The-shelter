@@ -69,7 +69,7 @@ public class Mob : MovingObject
     {
         if (start)
         {
-            target = GameObject.FindGameObjectWithTag("Player");
+            target = GameManager.instance.player.gameObject;
             currentRayPos.origin = transform.position;
             currentRayPos.direction = -transform.up;
             playerRay.origin = target.transform.position;
@@ -91,7 +91,7 @@ public class Mob : MovingObject
 
             Vector2 originPos = transform.position;
             Collider2D[] hitedTargets = Physics2D.OverlapCircleAll(originPos, weaponDistance, m_viewTargetMask);
-
+            hitEtcObject = Physics2D.Raycast(originPos, currentRayPos.direction, 1, m_viewObstacleMask);
             foreach (Collider2D hitedTarget in hitedTargets)
             {
                 Vector2 targetPos = hitedTarget.transform.position;
@@ -217,6 +217,19 @@ public class Mob : MovingObject
             if (AvodingRotate > 0)
                 AvodingRotate = -AvodingRotate;
         }
+        transform.Rotate(0, 0, UnityEngine.Random.Range(AvodingRotate, AvodingRotate));
+
+        if (hitEtcObject)
+        {
+            while(!hitEtcObject)
+            {
+                transform.Rotate(0, 0, UnityEngine.Random.Range(AvodingRotate, AvodingRotate));
+                if (chooseMovePos == 0)
+                    AvodingRotate--;
+                else
+                    AvodingRotate++;
+            }
+        }
         avoding = true;
         transform.Rotate(0, 0, UnityEngine.Random.Range(AvodingRotate - 10, AvodingRotate + 10));
         yield return new WaitUntil(() => fireCtrl.isReload == false);
@@ -235,6 +248,7 @@ public class Mob : MovingObject
     }
     public override void Die()
     {
+        GameManager.instance.player.mobs.Remove(this);
         enemyStatus = CharacterStatus.DIE;
         agent.Stop();
         float percent = UnityEngine.Random.Range(0, 101);
@@ -246,7 +260,6 @@ public class Mob : MovingObject
     }
     public void Dead()              //애니메이션에서 실행
     {
-        GameManager.instance.player.mobs.Remove(this);
         enemyUI.DestoryUI();
         Destroy(this.gameObject);
     }

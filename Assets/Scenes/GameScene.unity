@@ -835,86 +835,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 609114257}
   m_CullTransparentMesh: 0
---- !u!1001 &620295809
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 6174879543418056896, guid: 02f1b9cd2de9e774a9d67626aa173ac8,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6174879543418056896, guid: 02f1b9cd2de9e774a9d67626aa173ac8,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6174879543418056896, guid: 02f1b9cd2de9e774a9d67626aa173ac8,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6174879543418056896, guid: 02f1b9cd2de9e774a9d67626aa173ac8,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6174879543418056896, guid: 02f1b9cd2de9e774a9d67626aa173ac8,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6174879543418056896, guid: 02f1b9cd2de9e774a9d67626aa173ac8,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6174879543418056896, guid: 02f1b9cd2de9e774a9d67626aa173ac8,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6174879543418056896, guid: 02f1b9cd2de9e774a9d67626aa173ac8,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 6174879543418056896, guid: 02f1b9cd2de9e774a9d67626aa173ac8,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6174879543418056896, guid: 02f1b9cd2de9e774a9d67626aa173ac8,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6174879543418056896, guid: 02f1b9cd2de9e774a9d67626aa173ac8,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6174879543418056897, guid: 02f1b9cd2de9e774a9d67626aa173ac8,
-        type: 3}
-      propertyPath: maps_count
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6174879543418056897, guid: 02f1b9cd2de9e774a9d67626aa173ac8,
-        type: 3}
-      propertyPath: shleter
-      value: 
-      objectReference: {fileID: 6209284560504786386, guid: 5534806443b94864f9ea0689b5ea90dd,
-        type: 3}
-    - target: {fileID: 6174879543418056910, guid: 02f1b9cd2de9e774a9d67626aa173ac8,
-        type: 3}
-      propertyPath: m_Name
-      value: MapManager
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 02f1b9cd2de9e774a9d67626aa173ac8, type: 3}
 --- !u!1 &629971018
 GameObject:
   m_ObjectHideFlags: 0
@@ -1477,7 +1397,7 @@ PrefabInstance:
     - target: {fileID: 6871140908458289658, guid: 2be583aae2a662e4587bcd2a01c87f3e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6871140908458289658, guid: 2be583aae2a662e4587bcd2a01c87f3e,
         type: 3}
@@ -2776,7 +2696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47d07783c565fdb489431447cba31b6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resetToggle: {fileID: 0}
+  resetToggle: {fileID: 3766473017138820762}
   musicOn: {fileID: 7626318355213287570}
   soundOn: {fileID: 8448575900549582303}
   musicVolume: {fileID: 1332137096464848147}
@@ -3476,12 +3396,12 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7796752173020571687}
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 105069596973777434}
+        m_MethodName: Test
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -4083,9 +4003,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7796752173020571687}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1295289906}
+        m_MethodName: SettingCloseButton
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

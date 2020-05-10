@@ -172,7 +172,7 @@ public class Map : MonoBehaviour
     {
         for (int i = 0; i < mobInfo.Length; i++)
         {
-            int mobCountTmp = Random.Range(1, mobInfo[i].mobMaxCount + GameManager.instance.currentLevel/3);
+            int mobCountTmp = Random.Range(1, mobInfo[i].mobMaxCount + GameManager.instance.currentLevel/3 + 1);
 
             if (MapManager.instance.maps.Length < mobInfo[i].mobSpawnStage)
                 continue;

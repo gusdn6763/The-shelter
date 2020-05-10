@@ -54,6 +54,14 @@ public class menuSceneUi : MonoBehaviour
         Application.Quit();
     }
 
+    void OnApplicationQuit()
+    {
+        Application.Quit();
+#if !UNITY_EDITOR
+        System.Diagnostics.Process.GetCurrentProcess().Kill();
+#endif
+    }
+
     public void ImprovementStage(int stageCount)
     {
         GameManager.instance.currentLevel = stageCount;

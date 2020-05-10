@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
 
     public void MenuScene()
     {
+        MapManager.instance.DeleteMap();
         player.gameObject.SetActive(false);
         currenBgm = menuBgm;
         SoundManager.instance.PlayBgm(currenBgm);
@@ -127,25 +128,25 @@ public class GameManager : MonoBehaviour
         Debug.Log("기초 데이터 성공");
 
         BinaryFormatter bf = new BinaryFormatter();                             //파일 변환
-        FileStream file = File.Create(Application.dataPath + "/SaveFile.dat");  //파일 입출력
+        FileStream file = File.Create(Application.persistentDataPath + "/SaveFile.dat");  //파일 입출력
 
         bf.Serialize(file, data);
         file.Close();
 
-        Debug.Log(Application.dataPath + "의 위치에 저장했습니다.");
+        Debug.Log(Application.persistentDataPath + "의 위치에 저장했습니다.");
     }
 
     public void CallLoad(bool stageClear)
     {
         BinaryFormatter bf = new BinaryFormatter();
 
-        if (!(File.Exists(Application.dataPath + "/SaveFile.dat")))
+        if (!(File.Exists(Application.persistentDataPath + "/SaveFile.dat")))
         {
             Debug.Log("없음");
             return;
         }
 
-        FileStream file = File.Open(Application.dataPath + "/SaveFile.dat", FileMode.Open);
+        FileStream file = File.Open(Application.persistentDataPath + "/SaveFile.dat", FileMode.Open);
 
         if (file != null && file.Length > 0)
         {
@@ -180,5 +181,12 @@ public class GameManager : MonoBehaviour
         player.currentMoney = 0;
         PlayerReset();
         CallSave(true);
+    }
+    void OnApplicationQuit()
+    {
+        Application.Quit();
+#if !UNITY_EDITOR
+        System.Diagnostics.Process.GetCurrentProcess().Kill();
+#endif
     }
 }

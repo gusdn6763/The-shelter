@@ -26,22 +26,25 @@ public class MapManager : MonoBehaviour
         else
         {
             instance = this;
+            DontDestroyOnLoad(this);
         }
     }
 
     public void CreateStage(int currentLevel)
     {
+        DeleteMap();
         float columns = 0;
 
         map.mapInfo.mapRow = row;
         maps_count = currentLevel / 2 + 1;
+        map_random_add = currentLevel / 2;
         maps = new Map[maps_count];
         startPoint = new Vector3[maps_count];
         for (int i = 0; i < maps_count; i++)
         {
             map.mapInfo.mapColumns = Random.Range(col, col + map_random_add);
-            Map tmp = Instantiate(map, new Vector3(-0.5f * map.mapInfo.mapRow, (float)(columns), 0),Quaternion.identity);
-            tmp.transform.position = new Vector3(-0.5f * map.mapInfo.mapRow, (float)(columns), 0);
+            Map tmp = Instantiate(map, new Vector3(-0.5f * map.mapInfo.mapRow, columns, 0),Quaternion.identity);
+            tmp.transform.position = new Vector3(-0.5f * map.mapInfo.mapRow, columns, 0);
             tmp.transform.SetParent(this.transform);
             tmp.stageNum = i;
 
@@ -63,6 +66,19 @@ public class MapManager : MonoBehaviour
         {
             maps[stageNum].mobs[i].gameObject.SetActive(true);
             GameManager.instance.player.mobs = maps[stageNum].mobs;
+        }
+    }
+
+    public void DeleteMap()
+    {
+        Transform[] childList = GetComponentsInChildren<Transform>(true);
+        if (childList != null)
+        {
+            for (int i = 0; i < childList.Length; i++)
+            {
+                if (childList[i] != transform)
+                    Destroy(childList[i].gameObject);
+            }
         }
     }
 }

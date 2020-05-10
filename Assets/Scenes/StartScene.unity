@@ -724,6 +724,80 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 292696519}
   m_CullTransparentMesh: 0
+--- !u!1001 &295663151
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6174879543418056896, guid: 02f1b9cd2de9e774a9d67626aa173ac8,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6174879543418056896, guid: 02f1b9cd2de9e774a9d67626aa173ac8,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6174879543418056896, guid: 02f1b9cd2de9e774a9d67626aa173ac8,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6174879543418056896, guid: 02f1b9cd2de9e774a9d67626aa173ac8,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6174879543418056896, guid: 02f1b9cd2de9e774a9d67626aa173ac8,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6174879543418056896, guid: 02f1b9cd2de9e774a9d67626aa173ac8,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6174879543418056896, guid: 02f1b9cd2de9e774a9d67626aa173ac8,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6174879543418056896, guid: 02f1b9cd2de9e774a9d67626aa173ac8,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6174879543418056896, guid: 02f1b9cd2de9e774a9d67626aa173ac8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6174879543418056896, guid: 02f1b9cd2de9e774a9d67626aa173ac8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6174879543418056896, guid: 02f1b9cd2de9e774a9d67626aa173ac8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6174879543418056897, guid: 02f1b9cd2de9e774a9d67626aa173ac8,
+        type: 3}
+      propertyPath: map_random_add
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6174879543418056910, guid: 02f1b9cd2de9e774a9d67626aa173ac8,
+        type: 3}
+      propertyPath: m_Name
+      value: MapManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 02f1b9cd2de9e774a9d67626aa173ac8, type: 3}
 --- !u!1 &312330419
 GameObject:
   m_ObjectHideFlags: 0
@@ -1504,7 +1578,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 400166570}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 492310737}
+        m_MethodName: Quit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &400166570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2015,7 +2100,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   button: {fileID: 2133266044}
   chooseStage: {fileID: 2136821492}
+  toggle: {fileID: 767501935}
   setting: {fileID: 1092008109}
+  MoveScene: StartScene
 --- !u!1 &525472019
 GameObject:
   m_ObjectHideFlags: 0
@@ -5843,7 +5930,7 @@ PrefabInstance:
     - target: {fileID: 4949315141797375965, guid: d73a91347c0a03b46b957fd31b8a6219,
         type: 3}
       propertyPath: currentLevel
-      value: 16
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4949315141797375965, guid: d73a91347c0a03b46b957fd31b8a6219,
         type: 3}

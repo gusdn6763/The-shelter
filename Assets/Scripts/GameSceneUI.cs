@@ -47,4 +47,20 @@ public class GameSceneUI : MonoBehaviour
         Time.timeScale = 1f;
         joystick.JoystickIsActive(true);
     }
+
+    public void SettingCloseButton()
+    {
+        setting.gameObject.SetActive(false);
+        if (setting.resetToggle.isOn == true)
+        {
+            Time.timeScale = 1f;
+            GameManager.instance.ResetInfo();
+            SceneManager.LoadScene("StartScene");
+        }
+        else
+        {
+            Time.timeScale = 0f;
+            GameManager.instance.CallSave(false);
+        }
+    }
 }

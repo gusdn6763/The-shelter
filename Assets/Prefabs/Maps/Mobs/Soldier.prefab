@@ -277,7 +277,7 @@ MonoBehaviour:
   isFire: 0
   fireRate: 1
   add_Damage: 10
-  bulletDistance: 5
+  bulletDistance: 6
   bulletSpeed: 5
   passObstacles: 0
 --- !u!114 &449326859083558401

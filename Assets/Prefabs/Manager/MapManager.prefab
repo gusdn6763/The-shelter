@@ -44,9 +44,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maps: []
+  shleter: {fileID: 6209284560504786386, guid: 5534806443b94864f9ea0689b5ea90dd, type: 3}
   map: {fileID: 7561387596866840332, guid: edabc424c7e86294f98789db9cf8e970, type: 3}
   startPoint: []
   col: 11
   row: 7
-  maps_count: 5
+  maps_count: 1
   map_random_add: 5

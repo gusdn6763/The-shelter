@@ -26,7 +26,7 @@ public class LoadingSceneManager : MonoBehaviour
         yield return null;
 
         AsyncOperation op = SceneManager.LoadSceneAsync(nextScene);
-
+        MapManager.instance.DeleteMap();
         op.allowSceneActivation = false;
 
         float timer = 0.0f;
