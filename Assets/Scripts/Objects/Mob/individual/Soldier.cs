@@ -43,7 +43,7 @@ public class Soldier : Mob
             {
                 if (CollEtcObject())
                 {
-                    enemyStatus = CharacterStatus.FAR_TRACE;
+                    enemyStatus = CharacterStatus.TRACE;
                 }
                 else
                 {
@@ -78,10 +78,6 @@ public class Soldier : Mob
                     }
                     break;
                 case CharacterStatus.TRACE:
-                    animator.SetBool("Move", true);
-                    agent.SetDestination(target.transform.position);
-                    break;
-                case CharacterStatus.FAR_TRACE:
                     animator.SetBool("Move", true);
                     agent.SetDestination(target.transform.position);
                     break;

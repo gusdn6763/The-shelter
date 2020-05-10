@@ -375,8 +375,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  HP: 100
-  currentHp: 100
+  HP: 50
+  currentHp: 50
   Armor: 0
   Speed: 5
   obstViewAngle: 90
@@ -410,12 +410,12 @@ MonoBehaviour:
   playerOrEnemyBulletCheck: 0
   maxBullet: 1
   remainingBullet: 1
-  nextFire: 0
+  nextFire: 3
   reloadTime: 2
   isReload: 0
   isFire: 0
-  fireRate: 5
-  add_Damage: 30
+  fireRate: 4
+  add_Damage: 25
   bulletDistance: 20
   bulletSpeed: 10
   passObstacles: 1

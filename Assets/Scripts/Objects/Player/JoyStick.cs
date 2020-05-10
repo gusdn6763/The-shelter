@@ -28,6 +28,14 @@ public class JoyStick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
         Init();
     }
 
+    private void Update()
+    {
+        if(player.playerStatus == PlayerManager.CharacterStatus.DIE)
+        {
+            JoystickIsActive(false);
+        }
+    }
+
     private void Init()
     {
         joystickActiveRange = joystickActiveRangeObj.GetComponent<RectTransform>();
@@ -45,7 +53,7 @@ public class JoyStick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        player.playerStatus = PlayerManager.CharacterStatus.MOVE;
+            player.playerStatus = PlayerManager.CharacterStatus.MOVE;
     }
 
     public void OnDrag(PointerEventData eventData)

@@ -71,6 +71,11 @@ public class PlayerManager : MovingObject
         }
     }
 
+    private void OnEnable()
+    {
+        fireCtrl.isReload = false;
+    }
+
     public void Move(float distance,float startTime)        
     {
         StartCoroutine(MoveCoroutine(distance, startTime));
@@ -126,5 +131,6 @@ public class PlayerManager : MovingObject
         GameManager.instance.FailedStage();
         StopAllCoroutines();
         dmgCheck.enabled = true;
+        gameObject.SetActive(false);
     }
 }

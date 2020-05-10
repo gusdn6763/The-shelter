@@ -115,6 +115,7 @@ MonoBehaviour:
   itemId: 1
   itemImage: {fileID: 21300000, guid: f86a2f7d46154d9438b2ae10f87f9004, type: 3}
   itemDes: Nothing to explicit this
+  sound: get
   min_money: 2
   max_money: 7
 --- !u!50 &1941778857844957854

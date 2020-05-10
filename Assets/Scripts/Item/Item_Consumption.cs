@@ -12,7 +12,7 @@ public class Item_Consumption : Item
     private float tick = 1; // 지속 회복 시 기준
     public override void GetItem(PlayerManager player)
     {
-        Debug.Log("GetItem Activate");
+        base.GetItem(player);
         duration_temp_time = duration_time;
         player.currentHp += instant_heal;
         if (player.currentHp > player.HP)

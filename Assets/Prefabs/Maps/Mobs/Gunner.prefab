@@ -157,8 +157,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  HP: 100
-  currentHp: 100
+  HP: 80
+  currentHp: 80
   Armor: 0
   Speed: 5
   obstViewAngle: 75

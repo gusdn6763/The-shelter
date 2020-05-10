@@ -111,12 +111,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Consumtion
-  player: {fileID: 0}
   itemType: 4
   itemId: 2
   itemImage: {fileID: 21300000, guid: ff8b25fc7696201418d7300c9933678b, type: 3}
   itemDes: Heal 10
-  instant_heal: 10
+  sound: get
+  instant_heal: 15
   duration_time: 0
   duration_heal: 0
 --- !u!50 &72900623284866593

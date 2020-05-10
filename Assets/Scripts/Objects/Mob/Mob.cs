@@ -50,7 +50,6 @@ public class Mob : MovingObject
         IDLE,
         MOVE,
         TRACE,
-        FAR_TRACE,
         AVODING,
         ATTACK,
         DIE

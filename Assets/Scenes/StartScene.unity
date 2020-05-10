@@ -5551,9 +5551,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 550340921948114444, guid: 2e8051723ef25584daf1d3fe3e08faa2,
         type: 3}
+      propertyPath: effectSounds.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 550340921948114444, guid: 2e8051723ef25584daf1d3fe3e08faa2,
+        type: 3}
       propertyPath: playSoundName.Array.data[1]
       value: Shoot
       objectReference: {fileID: 0}
+    - target: {fileID: 550340921948114444, guid: 2e8051723ef25584daf1d3fe3e08faa2,
+        type: 3}
+      propertyPath: effectSounds.Array.data[3].name
+      value: get
+      objectReference: {fileID: 0}
+    - target: {fileID: 550340921948114444, guid: 2e8051723ef25584daf1d3fe3e08faa2,
+        type: 3}
+      propertyPath: effectSounds.Array.data[3].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: d3503cf80b85b9f418539a6e9f3af4e4, type: 3}
     - target: {fileID: 550340921948114445, guid: 2e8051723ef25584daf1d3fe3e08faa2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5623,6 +5638,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1000318654179684846, guid: d9835b387d09a17439967ad3a5a920b4,
+        type: 3}
+      propertyPath: add_Damage
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 6122237490930242321, guid: d9835b387d09a17439967ad3a5a920b4,
         type: 3}
       propertyPath: HP
@@ -5632,6 +5652,11 @@ PrefabInstance:
         type: 3}
       propertyPath: currentHp
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6122237490930242321, guid: d9835b387d09a17439967ad3a5a920b4,
+        type: 3}
+      propertyPath: Speed
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6122237490930242323, guid: d9835b387d09a17439967ad3a5a920b4,
         type: 3}
@@ -5786,7 +5811,7 @@ PrefabInstance:
         type: 3}
       propertyPath: firstPopupView
       value: 
-      objectReference: {fileID: 2443835424833199854, guid: 76f49d1d74dfd0644a9c28e230e8a66c,
+      objectReference: {fileID: 3367297789898615383, guid: 76f49d1d74dfd0644a9c28e230e8a66c,
         type: 3}
     - target: {fileID: 4949315141797375965, guid: d73a91347c0a03b46b957fd31b8a6219,
         type: 3}
@@ -5819,6 +5844,11 @@ PrefabInstance:
         type: 3}
       propertyPath: currentLevel
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 4949315141797375965, guid: d73a91347c0a03b46b957fd31b8a6219,
+        type: 3}
+      propertyPath: defeat
+      value: Get
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d73a91347c0a03b46b957fd31b8a6219, type: 3}

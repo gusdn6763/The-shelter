@@ -16,9 +16,11 @@ public class Item : MonoBehaviour
     public int itemId; // 아이템 id
     public Sprite itemImage; // 아이템 이미지
     public string itemDes; // 아이템 설명
+    public string sound;
 
     public virtual void GetItem(PlayerManager player)
     {
+        SoundManager.instance.PlaySE(sound);
         Debug.Log("Virtual Activate");
     }
 }

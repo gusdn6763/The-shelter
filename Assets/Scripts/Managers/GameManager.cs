@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
         player.currentHp = 100f;
         player.Armor = 0;
         player.GetComponent<FireCtrl>().remainingBullet = 10;
-        player.transform.position = new Vector3(0, -4f, 0);
+        //player.transform.position = new Vector3(0, -4f, 0);
     }
 
     public void StartScene()
@@ -77,6 +77,7 @@ public class GameManager : MonoBehaviour
 
         currenBgm = gameBgm;
         SoundManager.instance.PlayBgm(currenBgm);
+        nowStage = 0;
 
         if (PlayerPrefs.GetInt("FirstView", 1) == 1)
         {

@@ -236,8 +236,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  HP: 20
-  currentHp: 20
+  HP: 100
+  currentHp: 100
   Armor: 0
   Speed: 5
   obstViewAngle: 60
@@ -276,7 +276,7 @@ MonoBehaviour:
   isReload: 0
   isFire: 0
   fireRate: 1
-  add_Damage: 15
+  add_Damage: 10
   bulletDistance: 5
   bulletSpeed: 5
   passObstacles: 0
