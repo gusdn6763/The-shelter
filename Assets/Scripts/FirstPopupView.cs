@@ -4,29 +4,41 @@ using UnityEngine;
 
 public class FirstPopupView : MonoBehaviour
 {
-    public GameObject firstView;
-    public GameObject secondView;
+    public GameObject[] popupView;
 
-    public bool firstOrSecond = true;
+    public int numPopupView = 0;
 
     private void Awake()
     {
-        secondView.SetActive(false);
+        SetActivePopup(0);
     }
-    public void ClickView()
+
+    private void SetActivePopup(int num)
     {
-        firstOrSecond = !firstOrSecond;
-        if(!firstOrSecond)
+        if (num < popupView.Length - 1 && num != 0)
         {
-            firstView.SetActive(true);
-            secondView.SetActive(false);
-        }
-        else
+            popupView[num - 1].SetActive(false);
+            popupView[num].SetActive(true);
+            popupView[num + 1].SetActive(false);
+        } else if (num == 0)
         {
-            firstView.SetActive(false);
-            secondView.SetActive(true);
+            popupView[0].SetActive(true);
+            popupView[1].SetActive(false);
+        } else if (num == popupView.Length - 1)
+        {
+            popupView[num].SetActive(true);
+            popupView[num - 1].SetActive(false);
         }
     }
+    public void ClickNextView()
+    {
+        SetActivePopup(++numPopupView);
+    }
+    public void ClickBeforeView()
+    {
+        SetActivePopup(--numPopupView);
+    }
+
     public void onClickCancle()
     {
         Time.timeScale = 1f;
