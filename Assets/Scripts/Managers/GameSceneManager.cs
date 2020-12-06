@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class GameSceneUI : MonoBehaviour
+public class GameSceneManager : MonoBehaviour
 {
     public GameObject pausePanel;
     public JoyStick joystick;
 
-    public Setting setting;
+    public SettingView setting;
 
     public string MoveScene;
 
@@ -23,6 +23,7 @@ public class GameSceneUI : MonoBehaviour
         setting.MusicOn(SoundManager.instance.bgmIsOn);
         setting.SoundOn(SoundManager.instance.soundIsOn);
     }
+
     public void OnClickPause()
     {
         pausePanel.SetActive(true);

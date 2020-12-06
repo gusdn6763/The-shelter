@@ -56,8 +56,7 @@ MonoBehaviour:
   audioSourceEffects:
   - {fileID: 0}
   audioSourceBgm: {fileID: 550340921948114434}
-  playSoundName:
-  - Shoot
+  playSoundName: []
   effectSounds:
   - name: Shoot
     clip: {fileID: 8300000, guid: e2662e342abed7e4aa64136fbc9f0a74, type: 3}
@@ -65,6 +64,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: a60f746aa639f6848bbe30316dea96ce, type: 3}
   - name: Win
     clip: {fileID: 8300000, guid: a2f573646b37d844db948eebcc160a41, type: 3}
+  - name: get
+    clip: {fileID: 8300000, guid: d3503cf80b85b9f418539a6e9f3af4e4, type: 3}
   bgmSounds:
   - name: MainMenuBgm
     clip: {fileID: 8300000, guid: 44931e6165dfd1c4386f996e98005962, type: 3}

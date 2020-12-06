@@ -30,13 +30,13 @@ public class ExitTile : MonoBehaviour
                     if (stage == exitNum) // 앞으로 전진
                     {
                         GameManager.instance.nowStage++;
-                        GameManager.instance.player.Move(2.0f, 2.0f);
+                        PlayerManager.instance.Move(2.0f, 2.0f);
                         Invoke("InvokeCollsionEnter2DFront", 2.0f);
                     }
                     else // 뒤로 후진
                     {
                         GameManager.instance.nowStage--;
-                        GameManager.instance.player.Move(-2.0f, 2.0f);
+                        PlayerManager.instance.Move(-2.0f, 2.0f);
                         Invoke("InvokeCollsionEnter2DBack", 2.0f);
                     }
                 }

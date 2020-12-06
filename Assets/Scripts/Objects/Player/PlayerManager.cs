@@ -81,6 +81,15 @@ public class PlayerManager : MovingObject
         StartCoroutine(MoveCoroutine(distance, startTime));
     }
 
+    public void ReserPlayer()
+    {
+        HP = 100f;
+        currentHp = 100f;
+        Armor = 0;
+        GetComponent<FireCtrl>().remainingBullet = 10;
+        //player.transform.position = new Vector3(0, -4f, 0);
+    }
+
     public void FindTarget()
     {
         float distanceTmp = 64;
@@ -98,6 +107,14 @@ public class PlayerManager : MovingObject
                 ShowTarget();
             }
         }
+    }
+
+    public void ResetInfo()
+    {
+        HP = 100f;
+        currentHp = 100f;
+        Armor = 0;
+        GetComponent<FireCtrl>().remainingBullet = 10;
     }
 
     IEnumerator MoveCoroutine(float distance,float startTime)

@@ -29,13 +29,10 @@ public class GameManager : MonoBehaviour
     [HideInInspector]public Data data;
 
     [HideInInspector]public string currenBgm;
-    public string menuBgm;
-    public string gameBgm;
-    public string win;
 
     public int PlayerClearStage = 1;         //플레이어가 클리어한 스테이지
-    public int currentLevel;                                    //플레이어가 선택한 스테이지
-    public int nowStage; // 현재 플레이어가 있는 위치.
+    public int currentLevel;                 //플레이어가 선택한 스테이지
+    public int nowStage;                     // 현재 플레이어가 있는 위치.
 
     private void Awake()
     {
@@ -50,25 +47,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //메인메뉴로 이동시 시작하는 함수
     public void MenuScene()
     {
         MapManager.instance.DeleteMap();
         player.gameObject.SetActive(false);
-        currenBgm = menuBgm;
+        currenBgm = Constant.mainMenuBgm;
         SoundManager.instance.PlayBgm(currenBgm);
-        PlayerReset();
+        player.ReserPlayer();
         CallLoad(true);
     }
 
-    public void  PlayerReset()
-    {
-        player.HP = 100f;
-        player.currentHp = 100f;
-        player.Armor = 0;
-        player.GetComponent<FireCtrl>().remainingBullet = 10;
-        //player.transform.position = new Vector3(0, -4f, 0);
-    }
 
+    /// <summary>
+    /// 게임 시작시 실행
+    /// </summary>
     public void StartScene()
     {
         Vector3 startPos = new Vector3(0f, -4f, 0f);
@@ -76,10 +69,11 @@ public class GameManager : MonoBehaviour
         player.gameObject.SetActive(true);
         player.transform.position = startPos;
 
-        currenBgm = gameBgm;
+        currenBgm = Constant.startBgm;
         SoundManager.instance.PlayBgm(currenBgm);
         nowStage = 0;
 
+        //첫 시작이면 설명창을 띄우는지에 대한 여부
         if (PlayerPrefs.GetInt("FirstView", 1) == 1)
         {
             Time.timeScale = 0f;
@@ -99,7 +93,7 @@ public class GameManager : MonoBehaviour
 
         VictoryView victoryViewPanel = Instantiate(victoryView).GetComponent<VictoryView>();
         victoryViewPanel.GetInfo(player.currentMoney,3,PlayerClearStage - 1);
-        SoundManager.instance.PlaySE(win);
+        SoundManager.instance.PlaySE(Constant.win);
         player.currentMoney += currentLevel * 10;
         CallSave(true);
     }
@@ -108,7 +102,7 @@ public class GameManager : MonoBehaviour
     {
         Instantiate(failedView);
         Time.timeScale = 0f;
-        PlayerReset();
+        player.ReserPlayer();
         CallLoad(true);
     }
 
@@ -179,7 +173,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("FirstView", 1);
         PlayerClearStage = 1;
         player.currentMoney = 0;
-        PlayerReset();
+        player.ReserPlayer();
         CallSave(true);
     }
     void OnApplicationQuit()

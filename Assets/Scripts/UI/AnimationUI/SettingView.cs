@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Setting : ViewManager
+public class SettingView : ViewManager
 {
     public Toggle resetToggle;
     public Toggle musicOn;

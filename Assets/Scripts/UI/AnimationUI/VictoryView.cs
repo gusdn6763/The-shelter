@@ -4,15 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class VictoryView : MonoBehaviour
+public class VictoryView : ViewManager
 {
     public Text goldText;
     public GameObject[] stars;
 
-    private void Awake()
+    private void Start()
     {
         SoundManager.instance.StopBgm();
     }
+
     public void GetInfo(int gold, int starCount = 0, int clearStage = 1)
     {
         goldText.text = gold.ToString() + " + " + clearStage * 10;

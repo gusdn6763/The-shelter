@@ -128,6 +128,8 @@ public class Map : MonoBehaviour
             }
         }
     }
+
+    //맵의 콜라이더 생성
     public void CreateColl()
     {
         boxCollider2D.size = new Vector2(mapInfo.mapRow, mapInfo.mapColumns);

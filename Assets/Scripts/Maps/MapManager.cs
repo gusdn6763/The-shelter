@@ -30,6 +30,7 @@ public class MapManager : MonoBehaviour
         }
     }
 
+    //MapManager가 Map을 실행함으로써 Map.cs 함수 실행
     public void CreateStage(int currentLevel)
     {
         DeleteMap();
@@ -65,10 +66,11 @@ public class MapManager : MonoBehaviour
         for (int i = 0; i < maps[stageNum].mobs.Count; i++) // 
         {
             maps[stageNum].mobs[i].gameObject.SetActive(true);
-            GameManager.instance.player.mobs = maps[stageNum].mobs;
+            PlayerManager.instance.mobs = maps[stageNum].mobs;
         }
     }
 
+    //맵 삭제
     public void DeleteMap()
     {
         Transform[] childList = GetComponentsInChildren<Transform>(true);

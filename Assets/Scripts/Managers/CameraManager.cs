@@ -17,7 +17,7 @@ public class CameraManager : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         mapManager = FindObjectOfType<MapManager>();
         trans = GetComponent<Transform>();
-        target = GameManager.instance.player.gameObject;
+        target = PlayerManager.instance.gameObject;
     }
 
     void Update()
