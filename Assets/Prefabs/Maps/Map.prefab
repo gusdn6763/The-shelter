@@ -52,6 +52,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -63,6 +64,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -133,14 +135,14 @@ MonoBehaviour:
     exit:
     - {fileID: 7808986034994180053, guid: cd12e1a2dc0f8f1439388ea7519adc3c, type: 3}
     mapRow: 7
-    mapColumns: 10
+    mapColumns: 11
   mobInfo:
   - mob: {fileID: 3472594064298888512, guid: d79f1663b4f95af4aa9fe689c3660201, type: 3}
-    mobSpawnPos: 3
+    mobSpawnPos: 5
     mobSpawnStage: 0
     mobMaxCount: 1
   - mob: {fileID: 449326859083558403, guid: b6d8f946a98902a4ab1a7181329f258b, type: 3}
-    mobSpawnPos: 5
+    mobSpawnPos: 8
     mobSpawnStage: 0
     mobMaxCount: 1
   - mob: {fileID: 7264090032472027691, guid: 054a8935afefc294bac26499d436d97f, type: 3}

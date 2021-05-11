@@ -14,6 +14,10 @@ public class Soldier : Mob
     {
         while (!isDie)
         {
+            if (Time.timeScale != 1f)
+            {
+                fireCtrl.nextFire = Time.time + waitTime;
+            }
             if (enemyStatus == CharacterStatus.DIE) yield break;
 
             if (fireCtrl.isReload)

@@ -10,6 +10,7 @@ public class Sniper : Mob
 
     public override void Start()
     {
+
         sniperRenderer = GetComponentInChildren<SniperRenderer>();
         base.Start();
         startMob();
@@ -18,6 +19,10 @@ public class Sniper : Mob
     {
         while (!isDie)
         {
+            if(Time.timeScale != 1f)
+            {
+                fireCtrl.nextFire = Time.time + waitTime;
+            }
             if (enemyStatus == CharacterStatus.DIE) yield break;
 
             if (fireCtrl.isReload)

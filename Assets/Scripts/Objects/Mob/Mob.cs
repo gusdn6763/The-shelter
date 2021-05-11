@@ -38,6 +38,7 @@ public class Mob : MovingObject
     public float AvodingTimeMax;
     protected bool avoding = false;
     protected bool recoil = false;
+    protected float waitTime;
 
     public bool isDie = false;
     public bool start = false;
@@ -65,6 +66,7 @@ public class Mob : MovingObject
         base.Start();
         target = GameManager.instance.player.gameObject;
         m_horizontalViewHalfAngle = obstViewAngle * 0.5f;
+        waitTime = fireCtrl.nextFire * 0.5f;
         startMob();
 
     }

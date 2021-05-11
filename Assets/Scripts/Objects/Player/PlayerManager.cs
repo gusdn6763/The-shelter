@@ -52,6 +52,10 @@ public class PlayerManager : MovingObject
                     animator.SetBool("Move", true);
                     break;
                 case CharacterStatus.ATTACK:
+                    if (mobs.Count == 0)
+                    {
+                        playerStatus = CharacterStatus.IDLE;
+                    }
                     FindTarget();
                     fireCtrl.isFire = true;
                     if (!fireCtrl.isReload && fireCtrl.isFire)
