@@ -174,7 +174,7 @@ MonoBehaviour:
   AvodingTimeMax: 2.2
   isDie: 0
   start: 0
-  itemDropPercent: 40
+  itemDropPercent: 100
   enemyStatus: 0
 --- !u!114 &3472594064298888513
 MonoBehaviour:

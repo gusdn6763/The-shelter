@@ -44,6 +44,8 @@ public class Mob : MovingObject
     [Header("ItemDrop")]
     [Range(0f, 100f)]
     public float itemDropPercent;
+
+    Vector3 lookDir;
     public enum CharacterStatus
     {
         NONE,
@@ -64,6 +66,7 @@ public class Mob : MovingObject
         target = GameManager.instance.player.gameObject;
         m_horizontalViewHalfAngle = obstViewAngle * 0.5f;
         startMob();
+
     }
     protected void OnDrawGizmos()
     {
@@ -73,7 +76,6 @@ public class Mob : MovingObject
             currentRayPos.origin = transform.position;
             currentRayPos.direction = -transform.up;
             playerRay.origin = target.transform.position;
-            playerRay.direction = target.transform.position;
             
             Debug.DrawLine(currentRayPos.origin, playerRay.origin, Color.black);
 
@@ -83,7 +85,7 @@ public class Mob : MovingObject
 
             Vector3 horizontalLeftDir = AngleToDirZ(-m_horizontalViewHalfAngle + m_viewRotateZ);
             Vector3 horizontalRightDir = AngleToDirZ(m_horizontalViewHalfAngle + m_viewRotateZ);
-            Vector3 lookDir = AngleToDirZ(m_viewRotateZ);
+            lookDir = AngleToDirZ(m_viewRotateZ);
 
             Debug.DrawRay(currentRayPos.origin, horizontalLeftDir * weaponDistance, Color.cyan);
             Debug.DrawRay(currentRayPos.origin, lookDir * weaponDistance, Color.green);
@@ -91,7 +93,7 @@ public class Mob : MovingObject
 
             Vector2 originPos = transform.position;
             Collider2D[] hitedTargets = Physics2D.OverlapCircleAll(originPos, weaponDistance, m_viewTargetMask);
-            hitEtcObject = Physics2D.Raycast(originPos, currentRayPos.direction, 1, m_viewObstacleMask);
+            //Debug.DrawRay(transform.position, -transform.up * 2f * 110, Color.white);
             foreach (Collider2D hitedTarget in hitedTargets)
             {
                 Vector2 targetPos = hitedTarget.transform.position;
@@ -219,17 +221,24 @@ public class Mob : MovingObject
         }
         transform.Rotate(0, 0, UnityEngine.Random.Range(AvodingRotate, AvodingRotate));
 
-        if (hitEtcObject)
-        {
-            while(!hitEtcObject)
-            {
-                transform.Rotate(0, 0, UnityEngine.Random.Range(AvodingRotate, AvodingRotate));
-                if (chooseMovePos == 0)
-                    AvodingRotate--;
-                else
-                    AvodingRotate++;
-            }
-        }
+        ////왜 안되니이이이이이
+        //RaycastHit2D rayHitedTarget = Physics2D.Raycast(transform.position, -transform.up * 2f, weaponDistance, m_viewTargetMask);
+
+        //if (rayHitedTarget)
+        //{
+        //    print(rayHitedTarget.transform.gameObject.name);
+        //    while (!rayHitedTarget)
+        //    {
+        //        lookDir = AngleToDirZ(m_viewRotateZ);
+        //        rayHitedTarget = Physics2D.Raycast(transform.position, lookDir, weaponDistance, m_viewTargetMask);
+        //        transform.Rotate(0, 0, UnityEngine.Random.Range(AvodingRotate, AvodingRotate));
+        //        if (chooseMovePos == 0)
+        //            AvodingRotate--;
+        //        else
+        //            AvodingRotate++;
+        //        yield return null;
+        //    }
+        //}
         avoding = true;
         transform.Rotate(0, 0, UnityEngine.Random.Range(AvodingRotate - 10, AvodingRotate + 10));
         yield return new WaitUntil(() => fireCtrl.isReload == false);

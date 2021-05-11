@@ -11,7 +11,6 @@ public class SniperRenderer : MonoBehaviour
         lineRenderer = GetComponent<LineRenderer>();
         target = GameManager.instance.player.transform;
 
-        lineRenderer.SetColors(Color.red, Color.red);
         lineRenderer.SetWidth(0.05f, 0.05f);
     }
 
